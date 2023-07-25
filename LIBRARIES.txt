@@ -1,0 +1,6 @@
+BACKEND:
+
+## 25th July, 2023 - Bhavik
+1. express: npm i express
+2. mongoose: npm i mongoose 
+3. dotenv: npm i dotenv
