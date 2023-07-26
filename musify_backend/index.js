@@ -31,3 +31,9 @@ app.listen(port, () => {
     console.log(`Node Server is listening at http://localhost:${port}`);
 });
 
+// ---------------- Spotify Auth ------------------
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const REDIRECT_URI = process.env.REDIRECT_URI;
+console.log(process.env.CLIENT_ID);
+
