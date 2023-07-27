@@ -4,3 +4,8 @@ BACKEND:
 1. express: npm i express
 2. mongoose: npm i mongoose 
 3. dotenv: npm i dotenv
+
+## 27th July, 2023 - Bhavik
+4. passport: npm i passport passport-jwt
+5. bcrypt: npm i bcrypt                         # password hashing
+6. jsonwebtoken: npm i jsonwebtoken
