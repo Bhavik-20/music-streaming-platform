@@ -4,3 +4,6 @@ BACKEND:
 1. express: npm i express
 2. mongoose: npm i mongoose 
 3. dotenv: npm i dotenv
+
+## 26th July, 2023 - Anusha
+1. axios: npm i axios
