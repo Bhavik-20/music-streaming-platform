@@ -1,4 +1,4 @@
-BACKEND:
+--------------------- BACKEND ---------------------
 
 ## 25th July, 2023 - Bhavik
 1. express: npm i express
@@ -9,3 +9,9 @@ BACKEND:
 4. passport: npm i passport passport-jwt
 5. bcrypt: npm i bcrypt                         # password hashing
 6. jsonwebtoken: npm i jsonwebtoken
+
+--------------------- FRONTEND ---------------------
+# 28th July, 2023 - Bhavik
+1. tailwindcss: npm install -D tailwindcss
+2. craco: npm install @craco/craco
+3. react-router-dom : npm i react-router-dom

@@ -1,0 +1,2 @@
+# 28th July, 2023 - Bhavik
+UserModel: firstName, lastName, email, password, username, likedSongs, subscribedArtists -> All are type String
