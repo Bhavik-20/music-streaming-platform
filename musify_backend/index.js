@@ -1,3 +1,6 @@
+// -----------------CORS--------------------------------
+const cors = require("cors");
+
 // ------------------ MongoDB Database ------------------
 
 const mongoose = require('mongoose'); 
@@ -19,6 +22,8 @@ mongoose.connect("mongodb+srv://"+ process.env.MONGO_USER + ":" + process.env.MO
 
 const express = require('express');
 const app = express();
+//cors allowed
+app.use(cors())
 const port = 8000;
 
 // Default server entry point

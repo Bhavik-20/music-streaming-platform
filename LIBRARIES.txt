@@ -7,3 +7,8 @@ BACKEND:
 
 ## 26th July, 2023 - Anusha
 1. axios: npm i axios
+
+
+FRONTED:
+## 31st July, 2023 - Anusha
+1. bootstrap: npm i bootstrap
