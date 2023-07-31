@@ -6,12 +6,22 @@
 3. dotenv: npm i dotenv
 
 ## 27th July, 2023 - Bhavik
-4. passport: npm i passport passport-jwt
-5. bcrypt: npm i bcrypt                         # password hashing
-6. jsonwebtoken: npm i jsonwebtoken
+1. passport: npm i passport passport-jwt
+2. bcrypt: npm i bcrypt                         # password hashing
+3. jsonwebtoken: npm i jsonwebtoken
+
+## 30th July, 2023 - Bhavik
+1. cors: npm i cors
+2. react-cookie: npm i react-cookie
 
 --------------------- FRONTEND ---------------------
 # 28th July, 2023 - Bhavik
 1. tailwindcss: npm install -D tailwindcss
 2. craco: npm install @craco/craco
 3. react-router-dom : npm i react-router-dom
+
+#30th July, 2023 - Bhavik
+1. npm uninstall postcss
+2. npm install postcss@8
+3. npx tailwindcss@2 -i ./src/index.css -o ./src/output.css -x-x-x-x Not needed
+4. npm install --save-dev @iconify/react

@@ -15,7 +15,8 @@ const UserSchema = mangoose.Schema({
     },
     password: {
         type: String,
-        required:true
+        required:true,
+        private: true
     },
     username: {
         type: String,

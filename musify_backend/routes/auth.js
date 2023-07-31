@@ -11,7 +11,7 @@ router.post('/register', async (req, res) => {
 
     const user = await UserModel.findOne({email: email});
     if(user) {
-        return res.status(403).json({message: "User already exists"});
+        return res.status(403).json({err: "User already exists"});
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -31,12 +31,12 @@ router.post('/login', async (req, res) => {
 
     const user = await UserModel.findOne({ email: email });
     if(!user) {
-        return res.status(403).json({message: "User does not exist"});
+        return res.status(403).json({err: "User does not exist"});
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if(!isPasswordValid) {
-        return res.status(403).json({message: "Invalid credentials"});
+        return res.status(403).json({err: "Invalid credentials"});
     }
 
     const token = await getToken(email, user);
