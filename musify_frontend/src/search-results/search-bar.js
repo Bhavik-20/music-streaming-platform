@@ -106,7 +106,7 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
           <Button onClick={search}>Search</Button>
         </InputGroup>
       </Container>
-      <Container>
+      <Container style={{marginTop: "10px"}}>
         <h2>Tracks</h2>
         <Row className="mx-2 row row-cols-6">
           {tracks.length > 0 ? (
@@ -154,7 +154,7 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
           )}
         </Row>
       </Container>
-      <Container>
+      <Container style={{marginTop: "10px"}}>
         <h2>Albums</h2>
         <Row className="mx-2 row row-cols-6">
           {albumsSearch.map((album, i) => {
@@ -173,7 +173,7 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
           })}
         </Row>
       </Container>
-      <Container>
+      <Container style={{marginTop: "10px"}}>
         <h2>Playlists</h2>
         <Row className="mx-2 row row-cols-6">
           {playlists.map((playlist, i) => {
