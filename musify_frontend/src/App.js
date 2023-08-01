@@ -24,6 +24,7 @@ const CLIENT_SECRET = '5f290d251a5648e5bea5050a200f5114'
 
 //v2 -- no backend use for API
 function App() {
+  var spotifyApi = new SpotifyWebApi(); 
   const [accessToken, setAccessToken] = useState("");
   useEffect(() => {
     var authParameters = {
@@ -35,10 +36,10 @@ function App() {
     }
     fetch('https://accounts.spotify.com/api/token', authParameters)
 .then(result => result.json())
-.then(data => setAccessToken(data.access_token))
+.then(data => {setAccessToken(data.access_token); spotifyApi.setAccessToken(data.access_token)})
   },[])
     return (<>
-      <SearchComponent accessToken={accessToken}/>
+      <SearchComponent accessToken={accessToken} spotifyApi={spotifyApi}/>
       </>)
      
 }

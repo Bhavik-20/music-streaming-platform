@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "./search-bar";
 
-const SearchComponent = ({accessToken}) => {
+const SearchComponent = ({accessToken, spotifyApi}) => {
 
 
 
@@ -11,7 +11,7 @@ const SearchComponent = ({accessToken}) => {
                 Navbar
             </div>
             <div className="col">
-            <SearchBar accessToken={accessToken}/>
+            <SearchBar accessToken={accessToken} spotifyApi={spotifyApi}/>
     
             </div>
      
