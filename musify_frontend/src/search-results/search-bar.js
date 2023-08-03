@@ -18,7 +18,6 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
   const [tracks, setTracks] = useState([]);
   const [playlists, setPlaylists] = useState([]);
 
-
   async function search() {
     var searchParameters = {
       method: "GET",
@@ -79,14 +78,14 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
       }
     );
     var playlists = await spotifyApi.searchPlaylists(searchInput).then(
-        function (data) {
-          setPlaylists(data.playlists.items);
-          console.log(playlists);
-        },
-        function (err) {
-          console.error(err);
-        }
-      );
+      function (data) {
+        setPlaylists(data.playlists.items);
+        console.log(playlists);
+      },
+      function (err) {
+        console.error(err);
+      }
+    );
   }
 
   return (
@@ -106,7 +105,7 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
           <Button onClick={search}>Search</Button>
         </InputGroup>
       </Container>
-      <Container style={{marginTop: "10px"}}>
+      <Container style={{ marginTop: "10px" }}>
         <h2>Tracks</h2>
         <Row className="mx-2 row row-cols-6">
           {tracks.length > 0 ? (
@@ -138,42 +137,38 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
                   >
                     {track.name}{" "}
                   </Card.Title>
+                         {/* link to go to album details page */}
+                         <a href="#" class="stretched-link"></a>
                 </Card.Body>
               </Card>
-              //   <div className="row">
-              //     <div className="col-2">
-              //         <img height="50px" width="50px" src={track.album.images[0]?.url}/>
-              //     </div>
-              //     <div className="col-10">
-              //         {track.name}
-              //     </div>
-              //  </div>
             ))
           ) : (
             <p>No tracks found.</p>
           )}
         </Row>
       </Container>
-      <Container style={{marginTop: "10px"}}>
+      <Container style={{ marginTop: "10px" }}>
         <h2>Albums</h2>
         <Row className="mx-2 row row-cols-6">
           {albumsSearch.map((album, i) => {
             return (
-              <Card
-                style={{
-                  margin: "5px",
-                }}
-              >
-                <Card.Img src={album.images[0].url} />
-                <Card.Body>
-                  <Card.Title>{album.name} </Card.Title>
-                </Card.Body>
-              </Card>
+                <Card
+                  style={{
+                    margin: "5px",
+                  }}
+                >
+                  <Card.Img src={album.images[0].url} />
+                  <Card.Body>
+                    <Card.Title>{album.name} </Card.Title>
+                    {/* link to go to album details page */}
+                    <a href="#" class="stretched-link"></a>
+                  </Card.Body>
+                </Card>
             );
           })}
         </Row>
       </Container>
-      <Container style={{marginTop: "10px"}}>
+      <Container style={{ marginTop: "10px" }}>
         <h2>Playlists</h2>
         <Row className="mx-2 row row-cols-6">
           {playlists.map((playlist, i) => {
@@ -186,6 +181,8 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
                 <Card.Img src={playlist.images[0].url} />
                 <Card.Body>
                   <Card.Title>{playlist.name} </Card.Title>
+                         {/* link to go to album details page */}
+                         <a href="#" class="stretched-link"></a>
                 </Card.Body>
               </Card>
             );

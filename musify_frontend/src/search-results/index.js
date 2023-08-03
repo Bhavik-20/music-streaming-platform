@@ -2,6 +2,7 @@ import React from "react";
 import SearchBar from "./search-bar";
 import { FaChevronLeft } from "react-icons/fa";
 import { BsPersonCircle} from 'react-icons/bs'
+import AlbumDetails from "./album-details";
 
 const SearchComponent = ({ accessToken, spotifyApi }) => {
   return (
@@ -16,6 +17,7 @@ const SearchComponent = ({ accessToken, spotifyApi }) => {
           </div>
           <div className="col">
             <SearchBar accessToken={accessToken} spotifyApi={spotifyApi} />
+            {/* <AlbumDetails albumID="4aawyAB9vmqN3uQ7FjRGTy" spotifyApi={spotifyApi}/> */}
           </div>
           <div className="col-1">
             <BsPersonCircle style={{
