@@ -86,6 +86,35 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
         console.error(err);
       }
     );
+    
+  }
+
+  async function play(playback_uri) {
+    var playbackParameters = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+      body: JSON.stringify({
+        context_uri: playback_uri,
+        offset: { position: 5 },
+        position_ms: 0,
+      }),
+    };
+  
+    try {
+      const response = await fetch(
+        "https://api.spotify.com/v1/me/player/play/",
+        playbackParameters
+      );
+  
+      if (!response.ok) {
+        throw new Error("Failed to play the song.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -138,7 +167,7 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
                     {track.name}{" "}
                   </Card.Title>
                          {/* link to go to album details page */}
-                         <a href="#" class="stretched-link"></a>
+                         <a onClick={() => play(track.uri)} className="stretched-link"></a>
                 </Card.Body>
               </Card>
             ))
