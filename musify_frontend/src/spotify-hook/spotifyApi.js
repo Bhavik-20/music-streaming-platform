@@ -43,4 +43,23 @@ export const searchTracks = async (searchQuery) => {
     }
   };
 
+
+  export const fetchAlbumDetails = async (albumID) => {
+    try {
+      const data = await spotifyApi.getAlbum(albumID);
+      return data;
+
+    } catch (error) {
+      console.error("Error fetching album details:", error);
+    }
+  };
+  export const fetchAlbumTracks = async (albumID) => {
+      try {
+        const data = await spotifyApi.getAlbumTracks(albumID);
+        return data.items;
+      } catch (error) {
+        console.error("Error fetching album tracks:", error);
+      }
+    };
+
 export default spotifyApi;
