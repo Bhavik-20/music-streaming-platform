@@ -1,23 +1,45 @@
-import logo from './logo.svg';
+// src/App.js
+import React, { useEffect, useState } from 'react';
+import { getTokenFromUrl, initializeSpotifyApi, loginUrl } from './spotify-hook/spotifyApi';
+import { searchTracks, playTrack } from '././spotify-hook/spotifyApi';
+import SearchTracks from '././search-tracks/search-tracks';
+import TrackList from './search-tracks/track-list';
 import './App.css';
 
 function App() {
+  const [token, setToken] = useState(null);
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    const hash = getTokenFromUrl();
+    window.location.hash = '';
+    const accessToken = hash.access_token;
+
+    if (accessToken) {
+      setToken(accessToken);
+      initializeSpotifyApi(accessToken);
+    }
+  }, []);
+
+  const handleLogin = () => {
+    window.location = loginUrl;
+  };
+
+  const handleSearchResults = (results) => {
+    setSearchResults(results);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {token ? (
+        <div>
+          <h1>Welcome to Spotify API Service</h1>
+          <SearchTracks onSearchResults={handleSearchResults} />
+          <TrackList tracks={searchResults} />
+        </div>
+      ) : (
+        <button onClick={handleLogin}>Login with Spotify</button>
+      )}
     </div>
   );
 }
