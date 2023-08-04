@@ -4,27 +4,42 @@ import LoginComponent from './routes/Login';
 import SignupComponent from './routes/Signup';
 import HomeComponent from './routes/Home';
 import {useCookies} from "react-cookie";
+import EditProfileComponent from './routes/edit-profile/index.js';
+import ProfileComponent from './routes/Profile';
+import ArtistProfileComponent from './routes/ArtistProfile';
+import {configureStore} from '@reduxjs/toolkit';
+import editProfileReducer from './reducers/edit-profile-reducer';
+import { Provider } from 'react-redux';
+
+
+const store = configureStore(
+  {reducer: {editProfile: editProfileReducer}});
 
 function App() {
   const [cookie] = useCookies(["token"]);
   return (
-    <div className="w-screen h-screen font-poppins">
-      <BrowserRouter>
-        {cookie.token ? (
-        <Routes>
-          <Route path="/" element={<HomeComponent />} />
-          <Route path="/home" element={<HomeComponent />} />
-          <Route path="*" element={<Navigate to="/home" />} />
-        </Routes>
-        ) : (
-        <Routes>
-          <Route path="/login" element={<LoginComponent />} />
-          <Route path="/signup" element={<SignupComponent />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-        )}
-      </BrowserRouter>
-    </div>
+    <Provider store={store}>
+      <div className="w-screen h-screen font-poppins">
+        <BrowserRouter>
+          {cookie.token ? (
+          <Routes>
+            <Route path="/" element={<HomeComponent />} />
+            <Route path="/home" element={<HomeComponent />} />
+            <Route path="*" element={<Navigate to="/home" />} />
+            <Route path="/edit-profile" element={<EditProfileComponent/>} />
+            <Route path="/profile/pid" element={<ProfileComponent/>} />
+            <Route path="/artist-profile/pid" element={<ArtistProfileComponent/>} />
+          </Routes>
+          ) : (
+          <Routes>
+            <Route path="/login" element={<LoginComponent />} />
+            <Route path="/signup" element={<SignupComponent />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+          )}
+        </BrowserRouter>
+      </div>
+    </Provider>
   );
 }
 

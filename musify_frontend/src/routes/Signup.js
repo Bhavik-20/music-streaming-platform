@@ -48,12 +48,12 @@ const SignupComponent = () => {
 
 
     return (
-        <div className="w-full h-full flex flex-col items-center">
-            <div className="p-5 border-b border-solid border-gray-300 w-full flex justify-center">
+        <div className="w-full h-full flex flex-col items-center text-white">
+            <div className="p-5 w-full flex justify-center">
                 <Icon icon="fxemoji:musicalnote" width="100"/>
                 <span className="text-green-300 text-5xl">Musify</span>
             </div>   
-            <div className="inputRegion w-1/3 py-10 flex items-center justify-center flex-col">
+            <div className="inputRegion w-3/5 py-10 flex items-center justify-center flex-col">
                 {/*  I will have my 2 inputs(email and password) and I will have my sign up instead button*/}
                 <div className="font-bold mb-4 text-2xl">
                     Sign up for free to start listening.
@@ -101,7 +101,7 @@ const SignupComponent = () => {
                         setValue={setLastName}
                     />
                 </div>
-                <div className=" w-full flex items-center justify-center     my-8">
+                <div className=" w-full flex items-center justify-center my-8">
                     <button className="bg-green-400 font-semibold p-3 px-10 rounded-full" onClick={(e) => {
                             e.preventDefault();
                             signUp();

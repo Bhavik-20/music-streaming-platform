@@ -36,8 +36,8 @@ const LoginComponent = () => {
     };
 
     return (
-        <div className="w-full h-full flex flex-col items-center">
-            <div className="p-5 border-b border-solid border-gray-300 w-full flex justify-center">
+        <div className="w-full h-full flex flex-col items-center text-white">
+            <div className="p-5 w-full flex justify-center">
                 <Icon icon="fxemoji:musicalnote" width="100"/>
                 <span className="text-green-300 text-5xl">Musify</span>
             </div>        

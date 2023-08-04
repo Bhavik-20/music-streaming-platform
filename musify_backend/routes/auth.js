@@ -6,7 +6,6 @@ const {getToken} = require('../utils/helpers');
 
 // Route to register a user
 router.post('/register', async (req, res) => {
-    // 
     const {email, password, firstName, lastName, username} = req.body;
 
     const user = await UserModel.findOne({email: email});

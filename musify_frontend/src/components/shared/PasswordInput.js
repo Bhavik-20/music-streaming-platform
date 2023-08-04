@@ -1,13 +1,13 @@
 const TextInput = ({label, placeholder, value, setValue}) => {
     return (
-        <div className="textInputDiv flex flex-col space-y-2 w-full">
+        <div className="textInputDiv flex flex-col space-y-2 w-full text-white">
             <label for={label} className="font-semibold">
                 {label}
             </label>
             <input
                 type="password"
                 placeholder={placeholder}
-                className="p-3 border border-gray-400 border-solid rounded placeholder-gray-500"
+                className="p-3 border border-gray-400 border-solid rounded bg-dark"
                 id={label}
                 value={value}
                 onChange={(e) => {

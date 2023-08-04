@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.css';
+
 const TextInput = ({
     label,
     placeholder,
@@ -7,14 +9,14 @@ const TextInput = ({
     labelClassName,
 }) => {
     return (
-        <div className={`textInputDiv flex flex-col space-y-2 w-full ${className}`}>
-            <label for={label} className={`font-semibold ${labelClassName}`}>
+        <div className={`textInputDiv d-flex flex-column w-100 ${className}`}>
+            <label for={label} className={`font-weight-bold text-white ${labelClassName}`}>
                 {label}
             </label>
             <input
                 type="text"
                 placeholder={placeholder}
-                className="p-3 border border-gray-400 border-solid rounded placeholder-gray-500"
+                className="p-3 border border-black border-solid rounded bg-dark text-white"
                 id={label}
                 value={value}
                 onChange={(e) => {

@@ -52,6 +52,7 @@ app.use(cors());
 
 const port = 8000;
 const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profile');
 
 // Default server entry point
 app.get('/', (req, res) => {
@@ -59,6 +60,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/profile", profileRoutes);
 
 // Start server and listen on port 8000
 app.listen(port, () => {
