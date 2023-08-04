@@ -61,5 +61,34 @@ export const searchTracks = async (searchQuery) => {
         console.error("Error fetching album tracks:", error);
       }
     };
+    export const searchArtists = async (searchQuery) => {
+        try {
+          const response = await spotifyApi.searchArtists(searchQuery);
+          return response.artists.items;
+        } catch (error) {
+          console.error('Error searching for artists:', error);
+          return [];
+        }
+      };
+      
+      export const searchAlbums = async (searchQuery) => {
+        try {
+          const response = await spotifyApi.searchAlbums(searchQuery);
+          return response.albums.items;
+        } catch (error) {
+          console.error('Error searching for albums:', error);
+          return [];
+        }
+      };
+      
+      export const searchPlaylists = async (searchQuery) => {
+        try {
+          const response = await spotifyApi.searchPlaylists(searchQuery);
+          return response.playlists.items;
+        } catch (error) {
+          console.error('Error searching for playlists:', error);
+          return [];
+        }
+      };
 
 export default spotifyApi;

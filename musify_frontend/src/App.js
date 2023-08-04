@@ -6,6 +6,7 @@ import TrackList from './search-tracks/track-list';
 import './App.css';
 import AlbumDetails from './search-results/album-details';
 import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'; // Import the required components from react-router-dom
+import SearchComponent from './search-results';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -57,7 +58,7 @@ function App() {
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<SearchResultsPage onSearchResults={handleSearchResults} searchResults={searchResults} />} />
+          <Route path="/search" element={<SearchComponent />} />
           <Route path="/album/:albumID" element={<AlbumDetailsPage />} />
         </Routes>
       </div>
