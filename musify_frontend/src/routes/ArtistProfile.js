@@ -26,7 +26,7 @@ const ArtistProfileComponent = () => {
                         </div>
                         <span className="artist-title text-green-300 font-bold bg-transparent">Taylor Swift</span>
 
-                        <p className="text-sm font-weight-bold mb-4"> 1625793097 monthly listeners </p>
+                        <p className="text-sm font-weight-bold"> 1625793097 monthly listeners </p>
                         {/* change follow to unfollow if following */}
                         </div>
                     </div>

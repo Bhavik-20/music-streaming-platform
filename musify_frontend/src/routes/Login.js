@@ -41,7 +41,7 @@ const LoginComponent = () => {
                 <Icon icon="fxemoji:musicalnote" width="100"/>
                 <span className="text-green-300 text-5xl">Musify</span>
             </div>        
-            <div className="w-1/3 py-10 flex items-center justify-center flex-col">
+            <div className="col-xl-5 col-md-6 col-sm-10 col-10 py-10 flex items-center justify-center flex-col">
                  <div className="font-bold mb-4">
                     To continue, log in to Musify.
                 </div>

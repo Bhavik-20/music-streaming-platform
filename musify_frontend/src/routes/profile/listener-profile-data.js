@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from 'react-router-dom';
+import { Icon } from '@iconify/react';
 
 const ListenerProfileDataComponent = (user) => {
     const navigate = useNavigate();
@@ -16,11 +17,14 @@ const ListenerProfileDataComponent = (user) => {
                 <div className="col-9">
                     <div className="profile-info text-white d-flex align-items-end">
                         <div>
-                        <p className="text-white font-weight-bold"> Profile</p>
+                        <div className="row"> 
+                            <span className="col-1"><Icon icon="fxemoji:musicalnote" width="100"/></span>
+                            <p className="col-11 text-white font-weight-bold"> Verified Artist</p>
+                        </div>
 
                         <span className="text-green-300 font-bold text-6xl bg-transparent">{user.user.firstName}</span>
 
-                        <p className="text-sm font-weight-bold mb-4"> 1 Public Playlist . 1 Follower . 4 Following </p>
+                        <p className="text-sm font-weight-bold"> 1 Public Playlist . 1 Follower . 4 Following </p>
                         {/* change follow to unfollow if following */}
                         </div>
                     </div>

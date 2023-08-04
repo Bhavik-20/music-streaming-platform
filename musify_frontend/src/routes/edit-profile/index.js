@@ -31,7 +31,7 @@ const EditProfileComponent = () => {
                 <Icon icon="fxemoji:musicalnote" width="100" />
                 <span className="text-green-300 text-5xl">Musify</span>
             </div>
-            <div className="w-3/5 mt-4 p-5 flex flex-col border rounded-xl border-solid border-gray-300 ">
+            <div className="col-xl-7 col-md-8 col-sm-10 col-10 mt-4 p-5 flex flex-col border rounded-xl border-solid border-gray-300 ">
                 <div className="text-green-300 font-bold text-5xl grid grid-cols-11">
                     <button onClick={() => navigate('/home')}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="100" viewBox="0 0 320 512"><path fill="currentColor" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></svg>

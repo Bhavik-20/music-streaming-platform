@@ -53,7 +53,7 @@ const SignupComponent = () => {
                 <Icon icon="fxemoji:musicalnote" width="100"/>
                 <span className="text-green-300 text-5xl">Musify</span>
             </div>   
-            <div className="inputRegion w-3/5 py-10 flex items-center justify-center flex-col">
+            <div className="inputRegion col-xl-5 col-md-6 col-sm-10 col-10 py-10 flex items-center justify-center flex-col">
                 {/*  I will have my 2 inputs(email and password) and I will have my sign up instead button*/}
                 <div className="font-bold mb-4 text-2xl">
                     Sign up for free to start listening.
