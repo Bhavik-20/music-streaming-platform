@@ -17,10 +17,7 @@ const ListenerProfileDataComponent = (user) => {
                 <div className="col-9">
                     <div className="profile-info text-white d-flex align-items-end">
                         <div>
-                        <div className="row"> 
-                            <span className="col-1"><Icon icon="fxemoji:musicalnote" width="100"/></span>
-                            <p className="col-11 text-white font-weight-bold"> Verified Artist</p>
-                        </div>
+                        <p className="text-white font-weight-bold"> Listener</p>
 
                         <span className="text-green-300 font-bold text-6xl bg-transparent">{user.user.firstName}</span>
 

@@ -18,11 +18,11 @@ const ListenerProfileComponent = () => {
         <div className="w-100 h-100 d-flex flex-column align-items-center">
             <ListenerProfileDataComponent user={profile}/>
 
-            <div className="w-3/5 justify-content-left">
+            <div className="col-md-8 col-sm-10 col-10 justify-content-left">
                 <button className="text-white m-4 border border-solid rounded-3xl px-4 py-2">Follow</button>
             </div>
 
-            <div className="w-3/5 p-5 border rounded-xl border-solid border-gray-300 text-white ">
+            <div className="col-md-8 col-sm-10 col-10 p-5 border rounded-xl border-solid border-gray-300 text-white ">
                 <span className="text-2xl font-bold mb-5">Public Playlists</span>
                 <div className="row">
                 <div className="col-2 border-solid border-gray-300">
@@ -52,7 +52,7 @@ const ListenerProfileComponent = () => {
                 </div>
             </div>
 
-            <div className="w-3/5 mt-4 p-5 border rounded-xl border-solid border-gray-300 text-white ">
+            <div className="col-md-8 col-sm-10 col-10 mt-4 p-5 border rounded-xl border-solid border-gray-300 text-white ">
                 <span className="text-2xl font-bold mb-5">Followers</span>
                 <div className="row">
                 <div className="col-2 border-solid border-gray-300">
@@ -82,7 +82,7 @@ const ListenerProfileComponent = () => {
                 </div>
             </div>
 
-            <div className="w-3/5 mt-4 p-5 border rounded-xl border-solid border-gray-300 text-white ">
+            <div className="col-md-8 col-sm-10 col-10 mt-4 p-5 border rounded-xl border-solid border-gray-300 text-white ">
                 <span className="text-2xl font-bold mb-5">Following</span>
                 <div className="row">
                 <div className="col-2 border-solid border-gray-300">
