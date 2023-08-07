@@ -1,29 +1,26 @@
 
-const TextInput = ({
+const ReadOnlyInput = ({
     label,
     placeholder,
     className,
     value,
-    setValue,
-    labelClassName
+    labelClassName,
 }) => {
     return (
-        <div className={`input-group d-flex flex-column w-100 ${className}`}>
+        <div className={`textInputDiv d-flex flex-column w-100 ${className}`}>
             <label for={label} className={`font-weight-bold text-white ${labelClassName}`}>
                 {label}
             </label>
             <input
                 type="text"
                 placeholder={placeholder}
-                className="p-3 border border-gray-400 border-solid rounded bg-dark text-white"
+                className="p-3 border border-black border-solid rounded bg-dark text-white"
                 id={label}
                 value={value}
-                onChange={(e) => {
-                    setValue(e.target.value);
-                }}
+                readOnly
             />
         </div>
     );
 };
 
-export default TextInput;
+export default ReadOnlyInput;

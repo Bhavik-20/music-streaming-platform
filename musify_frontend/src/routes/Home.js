@@ -2,7 +2,7 @@ import {useCookies} from "react-cookie";
 import {useNavigate} from "react-router-dom";
 
 const HomeComponent = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const [cookies, setCookie, removeCookie] = useCookies(["token"]);
     const navigate = useNavigate();
 
     const logout = async () => {

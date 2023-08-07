@@ -16,12 +16,4 @@
 
 --------------------- FRONTEND ---------------------
 # 28th July, 2023 - Bhavik
-1. tailwindcss: npm install -D tailwindcss
-2. craco: npm install @craco/craco
 3. react-router-dom : npm i react-router-dom
-
-#30th July, 2023 - Bhavik
-1. npm uninstall postcss
-2. npm install postcss@8
-3. npx tailwindcss@2 -i ./src/index.css -o ./src/output.css -x-x-x-x Not needed
-4. npm install --save-dev @iconify/react

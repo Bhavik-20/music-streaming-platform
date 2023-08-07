@@ -1,4 +1,3 @@
-import {Icon} from "@iconify/react";
 import TextInput from "../components/shared/TextInput";
 import PasswordInput from "../components/shared/PasswordInput";
 import {Link, useNavigate} from "react-router-dom";
@@ -50,7 +49,7 @@ const SignupComponent = () => {
     return (
         <div className="w-full h-full flex flex-col items-center text-white">
             <div className="p-5 w-full flex justify-center">
-                <Icon icon="fxemoji:musicalnote" width="100"/>
+                <i className="bi bi-person"></i>
                 <span className="text-green-300 text-5xl">Musify</span>
             </div>   
             <div className="inputRegion col-xl-5 col-md-6 col-sm-10 col-10 py-10 flex items-center justify-center flex-col">

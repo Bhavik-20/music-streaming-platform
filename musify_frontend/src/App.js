@@ -1,19 +1,19 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import "./output.css";
 import LoginComponent from './routes/Login';
 import SignupComponent from './routes/Signup';
 import HomeComponent from './routes/Home';
 import {useCookies} from "react-cookie";
 import EditProfileComponent from './routes/edit-profile/index.js';
-import ProfileComponent from './routes/Profile';
+import ListenerProfileComponent from './routes/profile/index.js';
 import ArtistProfileComponent from './routes/ArtistProfile';
 import {configureStore} from '@reduxjs/toolkit';
 import editProfileReducer from './reducers/edit-profile-reducer';
 import { Provider } from 'react-redux';
+import profileReducer from './reducers/profile-reducer';
 
 
 const store = configureStore(
-  {reducer: {editProfile: editProfileReducer}});
+  {reducer: {editProfile: editProfileReducer, profile: profileReducer}});
 
 function App() {
   const [cookie] = useCookies(["token"]);
@@ -27,7 +27,7 @@ function App() {
             <Route path="/home" element={<HomeComponent />} />
             <Route path="*" element={<Navigate to="/home" />} />
             <Route path="/edit-profile" element={<EditProfileComponent/>} />
-            <Route path="/profile/pid" element={<ProfileComponent/>} />
+            <Route path="/profile/pid" element={<ListenerProfileComponent/>} />
             <Route path="/artist-profile/pid" element={<ArtistProfileComponent/>} />
           </Routes>
           ) : (

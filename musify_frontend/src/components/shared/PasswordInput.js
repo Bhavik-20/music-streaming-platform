@@ -1,4 +1,4 @@
-const TextInput = ({label, placeholder, value, setValue}) => {
+const PasswordInput = ({label, placeholder, value, setValue}) => {
     return (
         <div className="textInputDiv flex flex-col space-y-2 w-full text-white">
             <label for={label} className="font-semibold">
@@ -18,4 +18,4 @@ const TextInput = ({label, placeholder, value, setValue}) => {
     );
 };
 
-export default TextInput;
+export default PasswordInput;

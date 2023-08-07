@@ -1,5 +1,3 @@
-import { Icon } from "@iconify/react";
-import 'bootstrap/dist/css/bootstrap.css';
 import TextInput from "../components/shared/TextInput";
 import DropDown from "../components/shared/Dropdown";
 import { Link, useNavigate } from "react-router-dom";

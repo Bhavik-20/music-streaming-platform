@@ -1,14 +1,14 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import { useDispatch, useEffect, useSelector } from "react";
-import {ListenerProfileDataComponent} from "./listener-profile-data";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { getProfileThunk } from "../../services/profile-thunks";
 import { useCookies } from "react-cookie";
-
+import ListenerProfileDataComponent from "./listener-profile-data";
 
 const ListenerProfileComponent = () => {
     const [cookies, setCookie] = useCookies(["token"]);
-    const { profile } = useSelector((state) => state.editProfile);
-
+    const { profile } = useSelector((state) => state.profile);
+    console.log("Profile: ", profile);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getProfileThunk(cookies.token));

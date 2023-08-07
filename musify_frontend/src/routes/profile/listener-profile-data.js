@@ -1,9 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@iconify/react';
 
-const ListenerProfileDataComponent = (user) => {
+const ListenerProfileDataComponent = (profile) => {
     const navigate = useNavigate();
+    const nameInitials = profile.user.firstName.charAt(0) + profile.user.lastName.charAt(0);
     return (
         <div className="p-5 w-100 d-flex justify-content-center row nav-bar border-b border-solid">
                 <button className="col-1 text-white" onClick={() => navigate('/home')}>
@@ -11,7 +10,7 @@ const ListenerProfileDataComponent = (user) => {
                 </button>
                 <div className="col-2">
                     <div className="profile-icon rounded-circle d-flex justify-content-center align-items-center"> 
-                        <span className= "font-bold bg-transparent"> MN</span>
+                        <span className= "font-bold bg-transparent"> {nameInitials}</span>
                     </div>
                 </div>
                 <div className="col-9">
@@ -19,7 +18,7 @@ const ListenerProfileDataComponent = (user) => {
                         <div>
                         <p className="text-white font-weight-bold"> Listener</p>
 
-                        <span className="text-green-300 font-bold text-6xl bg-transparent">{user.user.firstName}</span>
+                        <span className="text-green-300 font-bold text-6xl bg-transparent">{profile.user.firstName}</span>
 
                         <p className="text-sm font-weight-bold"> 1 Public Playlist . 1 Follower . 4 Following </p>
                         {/* change follow to unfollow if following */}
