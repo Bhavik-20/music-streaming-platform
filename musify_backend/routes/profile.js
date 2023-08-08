@@ -21,10 +21,10 @@ router.put('/update-profile', async (req, res) => {
         const newUser = await UserModel.findOneAndUpdate({email: email}, newUserData);
 
         const userToReturn = newUser.toJSON(); 
-        return res.status(200).json(userToReturn);
+        res.status(200).json(userToReturn);
         
     } else {
-        return res.status(403).json({err: "User does not exist"});
+        res.status(403).json({err: "User does not exist"});
     }
 });
 
@@ -37,13 +37,13 @@ router.post('/getProfile', async (req, res) => {
     // console.log("Getting Profile called 2");
 
     const user = await UserModel.findOne({_id: user_id});
-    // console.log("Getting Profile called 3");
+    console.log("Getting Profile called 3: ", user);
 
     if(!user) {
         console.log("backend error");
-        return res.status(403).json({err: "User does not exist"});
+        res.status(403).json({err: "User does not exist"});
     }
-    return res.status(200).json(user);
+    res.status(200).json(user);
 });
 
 module.exports = router;

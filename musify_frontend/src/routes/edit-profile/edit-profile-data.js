@@ -1,9 +1,9 @@
-import TextInput from "../../components/shared/TextInput";
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { updateProfileThunk } from '../../services/profile-thunks';
 import ReadOnlyInput from '../../components/shared/ReadOnlyInput';
+import TextInput from "../../components/shared/TextInput";
 import Button from "../../components/shared/Button";
 
 const EditProfileDataComponent = (profileData) => {
@@ -29,7 +29,6 @@ const EditProfileDataComponent = (profileData) => {
             // console.log("Error updating profile: ", error);
             alert("Error updating profile");
         }
-
     };
 
     return (
