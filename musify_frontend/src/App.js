@@ -1,14 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { getTokenFromUrl, initializeSpotifyApi, loginUrl } from './spotify-hook/spotifyApi';
-import { searchTracks, playTrack } from '././spotify-hook/spotifyApi';
-import SearchTracks from '././search-tracks/search-tracks';
-import TrackList from './search-tracks/track-list';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import LoginComponent from './routes/Login';
+import SignupComponent from './routes/Signup';
+import HomeComponent from './routes/Home';
+import {useCookies} from "react-cookie";
+import EditProfileComponent from './routes/user/edit-profile/index.js';
+import ListenerProfileComponent from './routes/user/profile/index.js';
+import ArtistProfileComponent from './routes/artist/ArtistProfile';
+import {configureStore} from '@reduxjs/toolkit';
+import editProfileReducer from './reducers/edit-profile-reducer';
+import { Provider } from 'react-redux';
+import profileReducer from './reducers/profile-reducer';
 import AlbumDetails from './search-results/album-details';
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'; // Import the required components from react-router-dom
 import SearchComponent from './search-results';
 
+const store = configureStore(
+  {reducer: {editProfile: editProfileReducer, profile: profileReducer}});
+
 function App() {
+  const [cookie] = useCookies(["token"]);
   const [token, setToken] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
 
@@ -41,43 +50,31 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="App">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/search">Search Tracks</Link>
-            </li>
-            <li>
-              <Link to="/album/4aawyAB9vmqN3uQ7FjRGTy">Pitbull album</Link>
-            </li>
-          </ul>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<SearchComponent />} />
-          <Route path="/album/:albumID" element={<AlbumDetailsPage />} />
-        </Routes>
+    <Provider store={store}>
+      <div className="w-screen h-screen font-poppins">
+        <BrowserRouter>
+          {cookie.token ? (
+          <Routes>
+            <Route path="/" element={<HomeComponent />} />
+            <Route path="/home" element={<HomeComponent />} />
+            <Route path="*" element={<Navigate to="/home" />} />
+            <Route path="/edit-profile" element={<EditProfileComponent/>} />
+            <Route path="/profile/pid" element={<ListenerProfileComponent/>} />
+            <Route path="/artist-profile/pid" element={<ArtistProfileComponent/>} />
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<SearchComponent />} />
+            <Route path="/album/:albumID" element={<AlbumDetailsPage />} />
+          </Routes>
+          ) : (
+          <Routes>
+            <Route path="/login" element={<LoginComponent />} />
+            <Route path="/signup" element={<SignupComponent />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+          )}
+        </BrowserRouter>
       </div>
-    </Router>
-  );
-}
-
-// Separate components for each page
-function Home() {
-  return <h2>Home page</h2>;
-}
-
-function SearchResultsPage({ onSearchResults, searchResults }) {
-  return (
-    <>
-      <h2>Search Tracks</h2>
-      <SearchTracks onSearchResults={onSearchResults} />
-      <TrackList tracks={searchResults} />
-    </>
+    </Provider>
   );
 }
 
