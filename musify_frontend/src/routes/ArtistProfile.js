@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { editProfilePOSTRequest, makeUserDataPOSTRequest } from "../utils/serverHelpers";
+import Button from "../components/shared/Button";
 
 const ArtistProfileComponent = () => {
     const navigate = useNavigate(); 
@@ -11,7 +12,7 @@ const ArtistProfileComponent = () => {
 
         <div className="w-100 h-100 d-flex flex-column align-items-center">
             <div className="p-5 w-100 d-flex justify-content-center row nav-bar border-b border-solid artist-banner">
-                <button className="col-1 text-white" onClick={() => navigate('/home')}>
+                <button className="col-1 text-white back-btn" onClick={() => navigate('/home')}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="auto" viewBox="0 0 320 512"><path fill="currentColor" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></svg>
                 </button>
                 
@@ -30,94 +31,94 @@ const ArtistProfileComponent = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-3/5 justify-content-left">
-                <button className="text-white m-4 border border-solid rounded-3xl px-4 py-2">Follow</button>
+            <div className="col-md-8 col-sm-10 col-10 mx-auto justify-content-left">
+                <Button text="Follow" className="bg-transparent text-white border rounded px-4 py-2 mt-3 mb-3" onClick={(e) => { }} />
             </div>
-            <div className="w-3/5 p-5 border rounded-xl border-solid border-gray-300 text-white ">
-                <span className="text-2xl font-bold mb-5">Public Playlists</span>
+            <div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
+            <h2 className="col-10">Public Playlist</h2>
                 <div className="row">
-                <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                <div className="col-2 border-solid rounded">
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
-                    <p>Taylor Swift</p>
-                </div>
-                </div>
-            </div>
-
-            <div className="w-3/5 mt-4 p-5 border rounded-xl border-solid border-gray-300 text-white ">
-                <span className="text-2xl font-bold mb-5">Followers</span>
-                <div className="row">
-                <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
-                    <p>Taylor Swift</p>
-                </div>
-                <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
-                    <p>Taylor Swift</p>
-                </div>
-                <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
-                    <p>Taylor Swift</p>
-                </div>
-                <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
-                    <p>Taylor Swift</p>
-                </div>
-                <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
-                    <p>Taylor Swift</p>
-                </div>
-                <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 </div>
             </div>
 
-            <div className="w-3/5 mt-4 p-5 border rounded-xl border-solid border-gray-300 text-white ">
-                <span className="text-2xl font-bold mb-5">Following</span>
+            <div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
+            <h2 className="col-10">Top Albums</h2>
                 <div className="row">
-                <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                <div className="col-2 border-solid rounded">
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 <div className="col-2 border-solid border-gray-300">
-                    <div className="h-20 bg-white"></div>
+                    <div className="h-50 bg-dark"></div>
+                    <p>Taylor Swift</p>
+                </div>
+                </div>
+            </div>
+
+            <div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-5">
+            <h2 className="col-10">Followers</h2>
+                <div className="row">
+                <div className="col-2 border-solid rounded">
+                    <div className="h-50 bg-dark"></div>
+                    <p>Taylor Swift</p>
+                </div>
+                <div className="col-2 border-solid border-gray-300">
+                    <div className="h-50 bg-dark"></div>
+                    <p>Taylor Swift</p>
+                </div>
+                <div className="col-2 border-solid border-gray-300">
+                    <div className="h-50 bg-dark"></div>
+                    <p>Taylor Swift</p>
+                </div>
+                <div className="col-2 border-solid border-gray-300">
+                    <div className="h-50 bg-dark"></div>
+                    <p>Taylor Swift</p>
+                </div>
+                <div className="col-2 border-solid border-gray-300">
+                    <div className="h-50 bg-dark"></div>
+                    <p>Taylor Swift</p>
+                </div>
+                <div className="col-2 border-solid border-gray-300">
+                    <div className="h-50 bg-dark"></div>
                     <p>Taylor Swift</p>
                 </div>
                 </div>

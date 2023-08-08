@@ -16,11 +16,11 @@ const ListenerProfileDataComponent = (profile) => {
                 <div className="col-9">
                     <div className="profile-info text-white d-flex align-items-end">
                         <div>
-                        <p className="text-white font-weight-bold"> Listener</p>
+                        <p className="text-sm"> Listener</p>
 
-                        <span className="text-green-300 font-bold text-6xl bg-transparent">{profile.user.firstName}</span>
+                        <h1 className="green-color bg-transparent listener-title">{profile.user.firstName}</h1>
 
-                        <p className="text-sm font-weight-bold"> 1 Public Playlist . 1 Follower . 4 Following </p>
+                        <p className="text-sm"> 1 Public Playlist . 1 Follower . 4 Following </p>
                         {/* change follow to unfollow if following */}
                         </div>
                     </div>
