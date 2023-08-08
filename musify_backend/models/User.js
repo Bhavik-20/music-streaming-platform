@@ -22,6 +22,10 @@ const UserSchema = mangoose.Schema({
         type: String,
         required:false
     },
+    role: {
+        type: String,
+        required: true,
+    },
     likedSongs: {
         type: String,
         default: "",

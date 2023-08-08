@@ -1,7 +1,6 @@
 
 const ReadOnlyInput = ({
     label,
-    placeholder,
     className,
     value,
     labelClassName,
@@ -13,7 +12,6 @@ const ReadOnlyInput = ({
             </label>
             <input
                 type="text"
-                placeholder={placeholder}
                 className="p-3 border border-solid rounded bg-transparent text-white"
                 id={label}
                 value={value}

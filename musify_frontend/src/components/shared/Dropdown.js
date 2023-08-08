@@ -9,6 +9,7 @@ const DropDown = ({
 }) => {
 
     const handleSelectChange = (e) => {
+        console.log(e.target.value);
         setValue(e.target.value);
       };
 
@@ -19,7 +20,7 @@ const DropDown = ({
             </label>
             <select
                 id="gender"
-                className="p-3 border border-gray-400 border-solid rounded bg-black"
+                className="p-3 border text-white border-gray-400 border-solid rounded bg-black"
                 value={value}
                 onChange={handleSelectChange}
             >
