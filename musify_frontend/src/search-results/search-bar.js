@@ -9,6 +9,8 @@ import {
 } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import {searchAlbums, searchArtists, searchTracks, searchPlaylists, playTrack} from "../spotify-hook/spotifyApi";
+import { Link } from "react-router-dom";
+
 
 const SearchBar = ({ accessToken, spotifyApi }) => {
   const [searchInput, setSearchInput] = useState("");
@@ -109,8 +111,7 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
                   <Card.Body>
                     <Card.Title>{album.name} </Card.Title>
                     {/* link to go to album details page */}
-                    <a href="#" class="stretched-link"></a>
-                  </Card.Body>
+                    <Link to={`/album/${album.id}`} className="stretched-link"></Link>                  </Card.Body>
                 </Card>
             );
           })}
