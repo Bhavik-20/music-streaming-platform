@@ -9,13 +9,13 @@ const TextInput = ({
 }) => {
     return (
         <div className={`input-group d-flex flex-column w-100 ${className}`}>
-            <label for={label} className={`font-weight-bold text-white ${labelClassName}`}>
-                {label}
+            <label for={label} className={`text-white ${labelClassName}`}>
+                <p>{label}</p>
             </label>
             <input
                 type="text"
                 placeholder={placeholder}
-                className="p-3 border border-gray-400 border-solid rounded bg-dark text-white"
+                className="p-3 border border-solid rounded text-white bg-transparent"
                 id={label}
                 value={value}
                 onChange={(e) => {

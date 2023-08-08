@@ -4,6 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 import {useCookies} from "react-cookie";
 import {makeUnauthenticatedPOSTRequest} from "../utils/serverHelpers";
+import Button from "../components/shared/Button";
 
 const LoginComponent = () => {
     const [email, setEmail] = useState("");
@@ -35,14 +36,14 @@ const LoginComponent = () => {
     };
 
     return (
-        <div className="bg-dark  text-white" >
-            <div className="p-5 w-full flex justify-center">
-                <i className="text-primary bi bi-person"></i>
-                <span className="text-green-300 text-5xl">Musify</span>
+        <div className="text-white" >
+            <div className="p-5 w-100 d-flex justify-content-center">
+                <i class="musify-icon bi bi-music-note-beamed"></i>
+                <h1 className="musify">Musify</h1>
             </div>        
-            <div className="col-xl-5 col-md-6 col-sm-10 col-10 py-10 flex items-center justify-center flex-col">
-                 <div className="font-bold mb-4">
-                    To continue, log in to Musify.
+            <div className="col-xl-5 col-md-6 col-sm-10 col-10 mx-auto py-10">
+                 <div className="font-bold mb-4 d-flex justify-content-center">
+                    <p>To continue, log in to Musify.</p>
                 </div>
                 <TextInput
                     label="Email address"
@@ -51,26 +52,29 @@ const LoginComponent = () => {
                     value={email}
                     setValue={setEmail}
                 />
+                <br></br>
                 <PasswordInput 
                     label="Password" 
                     placeholder="Password" 
                     value={password} 
                     setValue={setPassword} 
                 />
-                <div className=" w-full flex items-center justify-end my-8">
-                    <button className="bg-green-400 font-semibold p-3 px-10 rounded-full" onClick={(e) => {
+                <br></br>
+                <div className="border-bottom border-solid pb-3 mb-3 d-flex justify-content-center">
+                    {/* <button className="bg-green-400 font-semibold p-3 px-10 rounded-full" onClick={(e) => {
                             e.preventDefault();
                             login();
                         }}>
                         LOG IN
-                    </button>
+                    </button> */}
+                    <Button text="LOG IN" className="green-btn" onClick={(e) => {
+                            e.preventDefault();
+                            login();
+                        }
+                    } />
                 </div>
-                <div className="w-full border border-solid border-gray-300"></div>
-                <div className="my-6 font-semibold text-lg">
-                    Don't have an account?
-                </div>
-                <div className="border border-gray-500 text-gray-500 w-full flex items-center justify-center py-4 rounded-full font-bold">
-                    <Link to="/signup">SIGN UP FOR SPOTIFY</Link>
+                <div className="my-6 text-lg d-flex justify-content-center">
+                    <p>Don't have an account?</p> <p className="ps-2"><Link to="/signup"> Sign Up for Musify Here</Link></p>
                 </div>
             </div>
         </div>

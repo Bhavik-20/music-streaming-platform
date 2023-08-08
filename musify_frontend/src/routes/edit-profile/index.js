@@ -35,13 +35,13 @@ const EditProfileComponent = () => {
 
 	return (
 		<div className="w-full h-full flex flex-col items-center nav-bar">
-			<div className="p-5 w-full flex justify-center">
-				<i className="bi bi-person"></i>
-				<span className="text-green-300 text-5xl">Musify</span>
-			</div>
-			<div className="col-xl-7 col-md-8 col-sm-10 col-10 mt-4 p-5 flex flex-col border rounded-xl border-solid border-gray-300 ">
-				<div className="text-green-300 font-bold text-5xl grid grid-cols-11">
-					<button onClick={() => navigate("/home")}>
+			<div className="p-5 w-100 d-flex justify-content-center">
+                <i class="musify-icon bi bi-music-note-beamed"></i>
+                <h1 className="musify">Musify</h1>
+            </div>  
+			<div className="col-xl-5 col-md-6 col-sm-10 col-10 mx-auto center-bordered-block">
+				<div className="w-100 font-bold mb-4 d-flex justify-content-center">
+					<button className="back-btn col-1" onClick={() => navigate("/home")}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="20"
@@ -53,7 +53,7 @@ const EditProfileComponent = () => {
 							/>
 						</svg>
 					</button>
-					<h1 className="p-4 col-span-10">Edit Profile</h1>
+					<h1 className="p-4 col-10 green-color d-flex justify-content-center">Edit Profile</h1>
 				</div>
 
 				<EditProfileDataComponent user={editProfile} />

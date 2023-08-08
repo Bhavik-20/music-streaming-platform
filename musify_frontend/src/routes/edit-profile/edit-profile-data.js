@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { updateProfileThunk } from '../../services/profile-thunks';
 import ReadOnlyInput from '../../components/shared/ReadOnlyInput';
+import Button from "../../components/shared/Button";
 
 const EditProfileDataComponent = (profileData) => {
     // console.log("From EditProfileDataComponent: ", profileData.user);
@@ -16,9 +17,9 @@ const EditProfileDataComponent = (profileData) => {
     const dispatch = useDispatch();
     const SaveProfileChanges = async () => {
         try {
-            const response = await dispatch(updateProfileThunk({username, email, firstName, lastName}));
+            const response = await dispatch(updateProfileThunk({ username, email, firstName, lastName }));
             // console.log("response: ", response);
-            if(response.error) {
+            if (response.error) {
                 alert("This Username already exists");
             } else {
                 alert("Profile updated successfully");
@@ -28,7 +29,7 @@ const EditProfileDataComponent = (profileData) => {
             // console.log("Error updating profile: ", error);
             alert("Error updating profile");
         }
-        
+
     };
 
     return (
@@ -40,14 +41,14 @@ const EditProfileDataComponent = (profileData) => {
                 value={username}
                 setValue={setUsername}
             />
-
+            <br></br>
             <ReadOnlyInput
                 label="Email address"
                 placeholder="eg: janedoe@email.com"
                 className="my-6"
                 value={email}
             />
-
+            <br></br>
             <div className="grid grid-cols-2 gap-4">
                 <TextInput
                     label="First Name"
@@ -56,7 +57,7 @@ const EditProfileDataComponent = (profileData) => {
                     value={firstName}
                     setValue={setFirstName}
                 />
-
+                <br></br>
                 <TextInput
                     label="Last Name"
                     placeholder="eg: Doe"
@@ -65,7 +66,7 @@ const EditProfileDataComponent = (profileData) => {
                     setValue={setLastName}
                 />
             </div>
-
+            <br></br>
             {/* <DropDown
                         label="Role"
                         className="my-6"
@@ -74,15 +75,20 @@ const EditProfileDataComponent = (profileData) => {
                         // setValue={setRole}
                     /> */}
 
-            <button
+            {/* <button
                 className="bg-green-400 font-semibold p-3 px-10 rounded-full"
                 onClick={(e) => {
                     e.preventDefault();
                     SaveProfileChanges();
                 }}>
                 Save Changes
-            </button>
-
+            </button> */}
+            <div className="mb-3 d-flex justify-content-center">
+            <Button text="Save Changes" className="green-btn" onClick={(e) => {
+                e.preventDefault();
+                SaveProfileChanges();
+            }} />
+            </div>
         </div>
     );
 };

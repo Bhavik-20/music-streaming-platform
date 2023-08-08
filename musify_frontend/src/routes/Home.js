@@ -13,7 +13,7 @@ const HomeComponent = () => {
     
     return (
         <div>
-            <h1>Home - Signed In</h1>
+            <h1 className="text-white">Home - Signed In</h1>
             <button 
             className="bg-green-400 font-semibold p-3 px-10 rounded-full" 
             onClick={(e) => {

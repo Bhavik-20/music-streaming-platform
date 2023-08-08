@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+// import Button from "../../components/shared/Button";
 import { getProfileThunk } from "../../services/profile-thunks";
 import { useCookies } from "react-cookie";
 import ListenerProfileDataComponent from "./listener-profile-data";
@@ -20,6 +20,7 @@ const ListenerProfileComponent = () => {
 
             <div className="col-md-8 col-sm-10 col-10 justify-content-left">
                 <button className="text-white m-4 border border-solid rounded-3xl px-4 py-2">Follow</button>
+                {/* <Button text="Follow" className="bg-transparent text-white border rounded" onClick={(e) => { }} /> */}
             </div>
 
             <div className="col-md-8 col-sm-10 col-10 p-5 border rounded-xl border-solid border-gray-300 text-white ">
