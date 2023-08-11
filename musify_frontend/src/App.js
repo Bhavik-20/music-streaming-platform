@@ -10,12 +10,13 @@ import {configureStore} from '@reduxjs/toolkit';
 import editProfileReducer from './reducers/edit-profile-reducer';
 import { Provider } from 'react-redux';
 import profileReducer from './reducers/profile-reducer';
-import AdminHomeComponent from './routes/admin/admin-home';
+import Admin from './routes/admin';
 import adminReducer from './reducers/admin-reducer';
-
+import SearchUsers from './routes/SearchUsers';
+import SearchUsersReducer from './reducers/user-search-reducer';
 
 const store = configureStore(
-  {reducer: {editProfile: editProfileReducer, profile: profileReducer, admin: adminReducer}});
+  {reducer: {editProfile: editProfileReducer, profile: profileReducer, admin: adminReducer, userSearch: SearchUsersReducer}});
 
 function App() {
   const [cookie] = useCookies(["token"]);
@@ -25,19 +26,21 @@ function App() {
         <BrowserRouter>
           {cookie.token ? (
           <Routes>
+            <Route path="/admin/*" element={<Admin/>} />
             <Route path="/" element={<HomeComponent />} />
             <Route path="/home" element={<HomeComponent />} />
-            <Route path="*" element={<Navigate to="/home" />} />
             <Route path="/edit-profile" element={<EditProfileComponent/>} />
             <Route path="/profile/pid" element={<ListenerProfileComponent/>} />
             <Route path="/artist-profile/pid" element={<ArtistProfileComponent/>} />
+            <Route path="/search-users" element={<SearchUsers/>} />
+            <Route path="*" element={<Navigate to="/home" />} />
           </Routes>
           ) : (
           <Routes>
+            <Route path="/admin/*" element={<Admin/>} />
             <Route path="/login" element={<LoginComponent />} />
             <Route path="/signup" element={<SignupComponent />} />
             <Route path="*" element={<Navigate to="/login" />} />
-            <Route path="/admin" element={<AdminHomeComponent/>} />
           </Routes>
           )}
         </BrowserRouter>

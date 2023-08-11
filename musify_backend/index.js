@@ -54,11 +54,13 @@ const port = 8000;
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
 const adminRoutes = require('./routes/admin');
+const userInfoRoutes = require('./routes/user-info');
 
 
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
 app.use("/admin", adminRoutes);
+app.use("/user-info", userInfoRoutes);
 
 // Start server and listen on port 8000
 app.listen(port, () => {

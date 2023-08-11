@@ -21,6 +21,7 @@ router.put('/update-profile', async (req, res) => {
         const newUser = await UserModel.findOneAndUpdate({email: email}, newUserData);
 
         const userToReturn = newUser.toJSON(); 
+        delete userToReturn.password; 
         res.status(200).json(userToReturn);
         
     } else {
@@ -43,6 +44,7 @@ router.post('/getProfile', async (req, res) => {
         console.log("backend error");
         res.status(403).json({err: "User does not exist"});
     }
+    delete user.password; 
     res.status(200).json(user);
 });
 

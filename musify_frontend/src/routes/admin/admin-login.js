@@ -1,15 +1,15 @@
-import TextInput from "../components/shared/TextInput";
-import PasswordInput from "../components/shared/PasswordInput";
+import TextInput from "../../components/shared/TextInput";
+import PasswordInput from "../../components/shared/PasswordInput";
 import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 import {useCookies} from "react-cookie";
-import {makeUnauthenticatedPOSTRequest} from "../utils/serverHelpers";
-import Button from "../components/shared/Button";
+import {makeUnauthenticatedPOSTRequest} from "../../utils/serverHelpers";
+import Button from "../../components/shared/Button";
 
-const LoginComponent = () => {
+const AdminLoginComponent = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [cookies, setCookie] = useCookies(["token"]);
+    const [cookies, setCookie] = useCookies(["adminToken"]);
     const navigate = useNavigate();
 
     const login = async () => {
@@ -19,17 +19,17 @@ const LoginComponent = () => {
             return;
         }
         const response = await makeUnauthenticatedPOSTRequest(
-            "/auth/login",
+            "/admin/login",
             data
         );
-        // console.log("Login: ", response, response.err);
         if (response && !response.err) {
             const token = response.token;
             const date = new Date();
             date.setDate(date.getDate() + 30);
-            setCookie("token", token, {path: "/", expires: date});
+            setCookie("adminToken", token, {path: "/", expires: date});
             alert("Success");
-            navigate("/home");
+            console.log("ADMIN LOGIN SUCCESS");
+            navigate("/admin/home");
         } else {
             alert("Error: " + response.err);
         }
@@ -43,7 +43,7 @@ const LoginComponent = () => {
             </div>        
             <div className="col-xl-5 col-md-6 col-sm-10 col-10 mx-auto py-10">
                  <div className="font-bold mb-4 d-flex justify-content-center">
-                    <p>To continue, log in to Musify.</p>
+                    <p>To continue, log in to Musify Admin Account.</p>
                 </div>
                 <TextInput
                     label="Email address"
@@ -68,16 +68,12 @@ const LoginComponent = () => {
                     } />
                 </div>
                 <div className="my-6 text-lg d-flex justify-content-center">
-                    <p>Don't have an account?</p> <p className="ps-2"><Link to="/signup"> Sign Up for Musify Here</Link></p>
-                </div>
-                <br/>
-                <br/>
-                <div className="my-6 text-lg d-flex justify-content-center">
-                    <p>Admin?</p> <p className="ps-2"><Link to="/admin"> Click Here for Admin login</Link></p>
+                    <p>Not an Admin?</p> <p className="ps-2"><Link to="/login"> Click Here for User login</Link></p>
                 </div>
             </div>
         </div>
     );
-}
+};
 
-export default LoginComponent;
+
+export default AdminLoginComponent;
