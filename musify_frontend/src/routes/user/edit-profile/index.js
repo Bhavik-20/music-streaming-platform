@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	getProfileThunk,
 	updateProfileThunk,
-} from "../../services/profile-thunks";
-import ReadOnlyInput from '../../components/shared/ReadOnlyInput';
-import TextInput from "../../components/shared/TextInput";
-import Button from "../../components/shared/Button";
+} from "../../../services/profile-thunks";
+import ReadOnlyInput from '../../../components/shared/ReadOnlyInput';
+import TextInput from "../../../components/shared/TextInput";
+import Button from "../../../components/shared/Button";
 
 const EditProfileComponent = () => {
 	const [cookies, setCookie] = useCookies(["token"]);
@@ -18,11 +18,6 @@ const EditProfileComponent = () => {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
-	const roleOptions = [
-		{ value: "artist", label: "Artist" },
-		{ value: "listener", label: "Listener" },
-	];
 
 	const SaveProfileChanges = async () => {
 		try {
@@ -108,7 +103,6 @@ const EditProfileComponent = () => {
 					<br></br>
 					<ReadOnlyInput
 						label="Email address"
-						placeholder="eg: janedoe@email.com"
 						className="my-6"
 						value={profile.email}
 					/>
@@ -131,14 +125,12 @@ const EditProfileComponent = () => {
 						/>
 					</div>
 					<br></br>
-					{/* <DropDown
-                        label="Role"
-                        className="my-6"
-                        options={roleOptions}
-                        // value={editProfile.role}
-                        // setValue={setRole}
-                    /> */}
-
+					<ReadOnlyInput
+						label="Role"
+						className="my-6"
+						value={profile.role}
+					/>
+					<br></br>
 					<div className="mb-3 d-flex justify-content-center">
 						<Button
 							text="Save Changes"

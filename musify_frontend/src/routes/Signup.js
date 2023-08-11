@@ -5,6 +5,7 @@ import {useState} from "react";
 import {makeUnauthenticatedPOSTRequest} from "../utils/serverHelpers";
 import {useCookies} from "react-cookie";
 import Button from "../components/shared/Button";
+import DropDown from "../components/shared/Dropdown";
 
 const SignupComponent = () => {
     const [email, setEmail] = useState("");
@@ -13,11 +14,18 @@ const SignupComponent = () => {
     const [password, setPassword] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [role, setRole] = useState("");
+
     const [cookie, setCookie] = useCookies(["token"]); 
     const navigate = useNavigate();
 
+    const roleOptions = [
+		{ value: "artist", label: "Artist" },
+		{ value: "listener", label: "Listener" },
+	];
+
     const signUp = async () => {
-        if (!email || !password || !username || !firstName || !lastName) {
+        if (!email || !password || !username || !firstName || !lastName || !role) {
             alert("Please fill in all fields");
             return;
         }
@@ -29,7 +37,7 @@ const SignupComponent = () => {
             return;
         }
 
-        const data = {email, password, username, firstName, lastName};
+        const data = {email, password, username, firstName, lastName, role};
         const response = await makeUnauthenticatedPOSTRequest(
             "/auth/register",
             data
@@ -89,6 +97,14 @@ const SignupComponent = () => {
                     setValue={setPassword}
                 />
                 <br></br>
+                <DropDown
+                    label="Role"
+                    className="my-6"
+                    options={roleOptions}
+                    value={role}
+                    setValue={setRole}
+                />
+                <br></br>
                 <div className="w-full flex justify-between items-center space-x-8">
                     <TextInput
                         label="First Name"
@@ -108,12 +124,6 @@ const SignupComponent = () => {
                 </div>
                 <br></br>
                 <div className="border-bottom border-solid pb-3 mb-3 d-flex justify-content-center">
-                    {/* <button className="bg-green-400 font-semibold p-3 px-10 rounded-full" onClick={(e) => {
-                            e.preventDefault();
-                            signUp();
-                        }}>
-                        Sign Up
-                    </button> */}
                     <Button className="green-btn" text="Sign Up" onClick={
                         (e) => {
                             e.preventDefault();
@@ -124,9 +134,7 @@ const SignupComponent = () => {
                 <div className="mt-6 mb-10 text-lg d-flex justify-content-center">
                     <p>Already have an account?</p> <p className="ps-2"><Link to="/login">Log In Instead</Link></p>
                 </div>
-                {/* <div className="border border-gray-500 text-gray-500 w-full flex items-center justify-center py-4 rounded-full font-bold">
-                    <Link to="/login">LOG IN INSTEAD</Link>
-                </div> */}
+                
             </div>
         </div>
     );
