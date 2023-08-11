@@ -53,14 +53,12 @@ app.use(cors());
 const port = 8000;
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
+const adminRoutes = require('./routes/admin');
 
-// Default server entry point
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
 
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
+app.use("/admin", adminRoutes);
 
 // Start server and listen on port 8000
 app.listen(port, () => {

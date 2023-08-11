@@ -10,10 +10,12 @@ import {configureStore} from '@reduxjs/toolkit';
 import editProfileReducer from './reducers/edit-profile-reducer';
 import { Provider } from 'react-redux';
 import profileReducer from './reducers/profile-reducer';
+import AdminHomeComponent from './routes/admin/admin-home';
+import adminReducer from './reducers/admin-reducer';
 
 
 const store = configureStore(
-  {reducer: {editProfile: editProfileReducer, profile: profileReducer}});
+  {reducer: {editProfile: editProfileReducer, profile: profileReducer, admin: adminReducer}});
 
 function App() {
   const [cookie] = useCookies(["token"]);
@@ -35,6 +37,7 @@ function App() {
             <Route path="/login" element={<LoginComponent />} />
             <Route path="/signup" element={<SignupComponent />} />
             <Route path="*" element={<Navigate to="/login" />} />
+            <Route path="/admin" element={<AdminHomeComponent/>} />
           </Routes>
           )}
         </BrowserRouter>

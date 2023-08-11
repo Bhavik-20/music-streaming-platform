@@ -93,3 +93,32 @@ p {
 .green-color {
     color: #58D68D;
 }
+
+.admin-stamp {
+    color: gray;
+    border: none;
+    font-size: 1.5vw;
+    padding: 5px 10px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.list-item {
+    height: 6vw;
+    padding: 1vw;
+}
+
+.profile-pic {
+    height: 4vw;
+    width: 4vw;
+    border-radius: 50%;
+    background-color: aquamarine;
+}
+
+.user-profile-info {
+    font-size: 14px;
+}
+
+.req-btn {
+    width: 5vw;
+    font-size: 1vw;
+}

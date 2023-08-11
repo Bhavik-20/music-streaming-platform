@@ -72,7 +72,7 @@ const EditProfileComponent = () => {
 	}, []);
 
 	return (
-		<div className="w-full h-full flex flex-col items-center nav-bar">
+		<div className="w-100 h-100 flex flex-col items-center nav-bar">
 			<div className="p-5 w-100 d-flex justify-content-center">
 				<i class="musify-icon bi bi-music-note-beamed"></i>
 				<h1 className="musify">Musify</h1>
