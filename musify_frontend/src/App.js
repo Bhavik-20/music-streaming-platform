@@ -7,9 +7,6 @@ import { initializeSpotifyApi } from './spotify-hook/spotifyApi';
 import AlbumDetails from './search-results/album-details';
 import PlaylistDetails from './search-results/playlist-details';
 import TrackDetails from './search-results/song-details';
-const CLIENT_ID = 'c4cdfc316afc45aebeffea58959ac714';
-const CLIENT_SECRET = '5f290d251a5648e5bea5050a200f5114'
-
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginComponent from './routes/Login';
 import SignupComponent from './routes/Signup';
@@ -27,13 +24,15 @@ import adminReducer from './reducers/admin-reducer';
 import SearchUsers from './routes/SearchUsers';
 import SearchUsersReducer from './reducers/user-search-reducer';
 
-const store = configureStore(
-  {reducer: {editProfile: editProfileReducer, profile: profileReducer, admin: adminReducer, userSearch: SearchUsersReducer}});
-
-
 //v2 -- no backend use for API
 function App() {
+  const store = configureStore(
+  {reducer: {editProfile: editProfileReducer, profile: profileReducer, admin: adminReducer, userSearch: SearchUsersReducer}});
+  
+  const CLIENT_ID = 'c4cdfc316afc45aebeffea58959ac714';
+  const CLIENT_SECRET = '5f290d251a5648e5bea5050a200f5114'
   const [accessToken, setAccessToken] = useState("");
+  
   useEffect(() => {
     var authParameters = {
       method: 'POST',
@@ -66,6 +65,8 @@ function App() {
             <Route path="/artist-profile" element={<ArtistProfileComponent/>} />
             <Route path="/search-users" element={<SearchUsers/>} />
             <Route path="*" element={<Navigate to="/home" />} />
+            <Route path="/search" element={<SearchComponent />} />
+            <Route path="/album/:id" element={<AlbumDetails />} />
           </Routes>
           ) : (
           <Routes>
