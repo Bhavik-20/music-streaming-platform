@@ -36,7 +36,7 @@ const HomeComponent = () => {
             className="bg-green-400 font-semibold p-3 px-10 rounded-full" 
             onClick={(e) => {
                 e.preventDefault();
-                navigate("/profile/pid");
+                navigate("/profile");
             }}>
             Profile
             </button>  
@@ -45,7 +45,7 @@ const HomeComponent = () => {
             className="bg-green-400 font-semibold p-3 px-10 rounded-full" 
             onClick={(e) => {
                 e.preventDefault();
-                navigate("/artist-profile/pid");
+                navigate("/artist-profile");
             }}>
             Artist Profile
             </button>  

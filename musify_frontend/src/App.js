@@ -30,8 +30,8 @@ function App() {
             <Route path="/" element={<HomeComponent />} />
             <Route path="/home" element={<HomeComponent />} />
             <Route path="/edit-profile" element={<EditProfileComponent/>} />
-            <Route path="/profile/pid" element={<ListenerProfileComponent/>} />
-            <Route path="/artist-profile/pid" element={<ArtistProfileComponent/>} />
+            <Route path="/profile" element={<ListenerProfileComponent/>} />
+            <Route path="/artist-profile" element={<ArtistProfileComponent/>} />
             <Route path="/search-users" element={<SearchUsers/>} />
             <Route path="*" element={<Navigate to="/home" />} />
           </Routes>
