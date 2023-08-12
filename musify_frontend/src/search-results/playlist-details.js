@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   fetchPlaylistDetails,
   fetchPlaylistTracks,
 } from "../spotify-hook/spotifyApi";
 import "./album-details.css";
+import { useParams } from "react-router-dom";
 
-const PlaylistDetails = ({ playlistID }) => {
+const PlaylistDetails = () => {
   const [playlist, setPlaylist] = useState(null);
   const [tracks, setTracks] = useState([]);
+  const {playlistID} = useParams();
 
   const msToMinSec = (durationMs) => {
     const minutes = Math.floor(durationMs / 60000);
@@ -21,6 +24,7 @@ const PlaylistDetails = ({ playlistID }) => {
       setPlaylist(playlistData);
       const playlistTracks = await fetchPlaylistTracks(playlistID);
       setTracks(playlistTracks);
+      console.log(playlistTracks);
     };
     fetchPlaylistData();
   }, [playlistID]);
@@ -52,20 +56,29 @@ const PlaylistDetails = ({ playlistID }) => {
               </tr>
             </thead>
             <tbody>
-              {tracks.map((track, i) => (
+              {tracks.map((item, i) => (
                 <tr key={i} className="clickable-row">
-                  <td>{track.name}</td>
+                  <td>  
+                    <Link to={`/tracks/${item.track.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      {item.track.name}
+                    </Link>
+                    </td>
                   <td>
-                    {track.artists
-                      ? track.artists.length > 1
-                        ? ` ${track.artists
+                  <Link to={`/tracks/${item.track.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    {item.track.artists
+                      ? item.track.artists.length > 1
+                        ? ` ${item.track.artists
                             .map((artist) => artist.name)
                             .join(", ")}`
-                        : `  ${track.artists[0].name}`
+                        : `  ${item.track.artists[0].name}`
                       : "No artist information"}
+                      </Link>
                   </td>
-
-                  <td>{msToMinSec(track.duration_ms)}</td>
+                  <td>
+                  <Link to={`/tracks/${item.track.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    {msToMinSec(item.track.duration_ms)}
+                    </Link>
+                    </td>
                 </tr>
               ))}
             </tbody>

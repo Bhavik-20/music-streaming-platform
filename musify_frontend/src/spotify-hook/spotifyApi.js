@@ -71,12 +71,12 @@ export const fetchPlaylistDetails = async (playlistID) => {
 export const fetchPlaylistTracks = async (playlistID) => {
   try {
     const data = await spotifyApi.getPlaylistTracks(playlistID);
+    console.log(data.items);
     return data.items;
   } catch (error) {
     console.error("Error fetching playlist tracks:", error);
   }
 };
-
 export const fetchArtistAlbums = async (artistID) => {
   try {
     const data = await spotifyApi.getArtistAlbums(artistID);

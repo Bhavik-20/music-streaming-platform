@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { fetchAlbumDetails, fetchAlbumTracks } from "../spotify-hook/spotifyApi";
 import "./album-details.css";
+import { useParams, Link } from "react-router-dom";
 
-const AlbumDetails = ({ albumID }) => {
+const AlbumDetails = () => {
   const [album, setAlbum] = useState(null);
   const [tracks, setTracks] = useState([]);
+  const {albumID} = useParams();
 
   const msToMinSec = (durationMs) => {
     const minutes = Math.floor(durationMs / 60000);
@@ -49,13 +51,23 @@ const AlbumDetails = ({ albumID }) => {
             <tbody>
               {tracks.map((track, i) => (
                 <tr key={i} className="clickable-row">
-                  <td>{track.name}</td>
                   <td>
+                  <Link to={`/tracks/${track.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    {track.name}
+                    </Link>
+                    </td>
+                  <td>
+                  <Link to={`/tracks/${track.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                     {track.artists.length > 1
                       ? ` ${track.artists.map((artist) => artist.name).join(", ")}`
                       : `  ${track.artists[0].name}`}
+                      </Link>
                   </td>
-                  <td>{msToMinSec(track.duration_ms)}</td>
+                  <td>
+                  <Link to={`/tracks/${track.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    {msToMinSec(track.duration_ms)}
+                    </Link>
+                    </td>
                 </tr>
               ))}
             </tbody>

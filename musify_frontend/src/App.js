@@ -66,7 +66,9 @@ function App() {
             <Route path="/search-users" element={<SearchUsers/>} />
             <Route path="*" element={<Navigate to="/home" />} />
             <Route path="/search" element={<SearchComponent />} />
-            <Route path="/album/:id" element={<AlbumDetails />} />
+            <Route path="/albums/:albumID" element={<AlbumDetails/>} />
+            <Route path="/tracks/:trackID" element={<TrackDetails/>} />
+            <Route path="/playlists/:playlistID" element={<PlaylistDetails/>} />
           </Routes>
           ) : (
           <Routes>

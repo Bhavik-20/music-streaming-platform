@@ -7,10 +7,12 @@ import {
     Row,
     Card,
   } from "react-bootstrap";
+import { useParams, Link } from "react-router-dom";
 
-const TrackDetails = ({ trackID }) => {
+const TrackDetails = () => {
   const [track, setTrack] = useState(null);
   const [albums, setAlbums] = useState([]);
+  const {trackID} = useParams();
 
   const msToMinSec = (durationMs) => {
     const minutes = Math.floor(durationMs / 60000);
@@ -23,13 +25,18 @@ const TrackDetails = ({ trackID }) => {
       const trackData = await fetchTrackDetails(trackID);
       setTrack(trackData);
     };
+    
     const fetchAlbums = async () => {
+      if (track && track.artists) {
         const albumsData = await fetchArtistAlbums(track.artists[0].id);
         setAlbums(albumsData);
-      };
+      }
+    };
+  
     fetchTrackData();
     fetchAlbums();
-  }, [trackID]);
+  }, [trackID, track]);
+  
 
   return (
     <div className="centered-container">
@@ -50,6 +57,7 @@ const TrackDetails = ({ trackID }) => {
         <Row className="mx-2 row row-cols-6">
           {albums.map((album, i) => {
             return (
+                <Link to={`/albums/${album.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Card
                   style={{
                     margin: "5px",
@@ -59,10 +67,9 @@ const TrackDetails = ({ trackID }) => {
                   <Card.Img src={album.images[0].url} />
                   <Card.Body>
                     <Card.Title>{album.name} </Card.Title>
-                    {/* link to go to album details page */}
-                    <a href="#" className="stretched-link"></a>
                   </Card.Body>
                 </Card>
+                </Link>
             );
           })}
         </Row>

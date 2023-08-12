@@ -49,6 +49,14 @@ const HomeComponent = () => {
             }}>
             Artist Profile
             </button>  
+            <button 
+            className="bg-green-400 font-semibold p-3 px-10 rounded-full" 
+            onClick={(e) => {
+                e.preventDefault();
+                navigate("/search");
+            }}>
+            Search Content
+            </button> 
         </div>
         
     );

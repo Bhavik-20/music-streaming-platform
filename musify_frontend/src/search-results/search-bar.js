@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 import { useState } from "react";
 import { searchAlbums, searchArtists, searchTracks, searchPlaylists } from "../spotify-hook/spotifyApi";
+import { Link } from "react-router-dom";
 
 
 const SearchBar = () => {
@@ -23,6 +24,7 @@ const SearchBar = () => {
     setArtists(artistResults);
 
     const albumsResults = await searchAlbums(searchInput);
+    console.log(albumsResults);
     setAlbumsSearch(albumsResults);
 
     const tracksResults = await searchTracks(searchInput);
@@ -48,14 +50,15 @@ const SearchBar = () => {
             }}
             onChange={(event) => setSearchInput(event.target.value)}
           />
-          <Button onClick={search}>Search</Button>
+          <Button onClick={search} className="green-btn">Search</Button>
         </InputGroup>
       </Container>
       <Container style={{ marginTop: "10px" }}>
-        <h2>Tracks</h2>
+        <h2 className="section">Tracks</h2>
         <Row className="mx-2 row row-cols-6">
           {tracks.length > 0 ? (
             tracks.map((track, i) => (
+              <Link to={`/tracks/${track.id}`} className="album-link">
               <Card
                 style={{
                   display: "flex",
@@ -84,9 +87,9 @@ const SearchBar = () => {
                     {track.name}{" "}
                   </Card.Title>
                          {/* link to go to album details page */}
-                         <a href="#" className="stretched-link"></a>
                 </Card.Body>
               </Card>
+              </Link>
             ))
           ) : (
             <p>No tracks found.</p>
@@ -94,10 +97,11 @@ const SearchBar = () => {
         </Row>
       </Container>
       <Container style={{ marginTop: "10px" }}>
-        <h2>Albums</h2>
+        <h2 className="section">Albums</h2>
         <Row className="mx-2 row row-cols-6">
           {albumsSearch.map((album, i) => {
             return (
+              <Link to={`/albums/${album.id}`} className="album-link">
                 <Card
                   style={{
                     margin: "5px",
@@ -107,19 +111,19 @@ const SearchBar = () => {
                   <Card.Img src={album.images[0].url} />
                   <Card.Body>
                     <Card.Title>{album.name} </Card.Title>
-                    {/* link to go to album details page */}
-                    <a href="#" className="stretched-link"></a>
                   </Card.Body>
                 </Card>
+                </Link>
             );
           })}
         </Row>
       </Container>
       <Container style={{ marginTop: "10px" }}>
-        <h2>Playlists</h2>
+        <h2 className="section">Playlists</h2>
         <Row className="mx-2 row row-cols-6">
           {playlists.map((playlist, i) => {
             return (
+              <Link to={`/playlists/${playlist.id}`} className="album-link">
               <Card
                 style={{
                   margin: "5px",
@@ -128,10 +132,9 @@ const SearchBar = () => {
                 <Card.Img src={playlist.images[0].url} />
                 <Card.Body>
                   <Card.Title>{playlist.name} </Card.Title>
-                         {/* link to go to album details page */}
-                         <a href="#" className="stretched-link"></a>
                 </Card.Body>
               </Card>
+              </Link>
             );
           })}
         </Row>
