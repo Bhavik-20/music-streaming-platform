@@ -1,9 +1,10 @@
-BACKEND:
+--------------------- BACKEND ---------------------
 
 ## 25th July, 2023 - Bhavik
 1. express: npm i express
 2. mongoose: npm i mongoose 
 3. dotenv: npm i dotenv
+
 
 ## 26th July, 2023 - Anusha
 1. axios: npm i axios
@@ -12,3 +13,17 @@ BACKEND:
 FRONTED:
 ## 31st July, 2023 - Anusha
 1. bootstrap: npm i bootstrap
+
+## 27th July, 2023 - Bhavik
+1. passport: npm i passport passport-jwt
+2. bcrypt: npm i bcrypt                         # password hashing
+3. jsonwebtoken: npm i jsonwebtoken
+
+## 30th July, 2023 - Bhavik
+1. cors: npm i cors
+2. react-cookie: npm i react-cookie
+
+--------------------- FRONTEND ---------------------
+# 28th July, 2023 - Bhavik
+3. react-router-dom : npm i react-router-dom
+
