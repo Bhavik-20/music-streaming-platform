@@ -30,9 +30,9 @@ function App() {
   }, []);  
     return (<>
       {/* <SearchComponent/> */}
-      {/* <AlbumDetails albumID={"4aawyAB9vmqN3uQ7FjRGTy"}/> */}
-      {/* <PlaylistDetails playlistID={"3cEYpjA9oz9GiPac4AsH4n"}/> */}
-      <TrackDetails trackID={"11dFghVXANMlKmJXsNCbNl"}/>
+      <AlbumDetails albumID={"4aawyAB9vmqN3uQ7FjRGTy"}/>
+      <PlaylistDetails playlistID={"3cEYpjA9oz9GiPac4AsH4n"}/>
+      {/* <TrackDetails trackID={"11dFghVXANMlKmJXsNCbNl"}/> */}
       </>)
      
 }
