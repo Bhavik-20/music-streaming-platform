@@ -7,118 +7,35 @@ import {
   Row,
   Card,
 } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import SpotifyWebApi from "spotify-web-api-js";
+import { useState } from "react";
+import { searchAlbums, searchArtists, searchTracks, searchPlaylists } from "../spotify-hook/spotifyApi";
 
-const SearchBar = ({ accessToken, spotifyApi }) => {
+
+const SearchBar = () => {
   const [searchInput, setSearchInput] = useState("");
   const [albumsSearch, setAlbumsSearch] = useState([]);
-  const [albums, setAlbums] = useState([]);
   const [artists, setArtists] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [playlists, setPlaylists] = useState([]);
 
   async function search() {
-    var searchParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-    };
-    var artistID = await fetch(
-      "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
-      searchParameters
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        return data.artists.items[0].id;
-      });
+    const artistResults = await searchArtists(searchInput);
+    setArtists(artistResults);
 
-    var albums = await fetch(
-      "https://api.spotify.com/v1/artists/" +
-        artistID +
-        "/albums" +
-        "?include_groups=album&limit=50",
-      searchParameters
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setAlbums(data.items);
-      });
+    const albumsResults = await searchAlbums(searchInput);
+    setAlbumsSearch(albumsResults);
 
-    //get songs related to search
-    var tracks = await spotifyApi.searchTracks(searchInput).then(
-      function (data) {
-        console.log("Search by" + searchInput, data.tracks.items);
-        setTracks(data.tracks.items);
-      },
-      function (err) {
-        console.error(err);
-      }
-    );
+    const tracksResults = await searchTracks(searchInput);
+    setTracks(tracksResults);
 
-    var artists = await spotifyApi.searchArtists(searchInput).then(
-      function (data) {
-        setArtists(data.artists.items);
-        console.log(artists);
-        console.log("data: " + data);
-      },
-      function (err) {
-        console.error(err);
-      }
-    );
-    var albumsSearch = await spotifyApi.searchAlbums(searchInput).then(
-      function (data) {
-        setAlbumsSearch(data.albums.items);
-        console.log(albumsSearch);
-      },
-      function (err) {
-        console.error(err);
-      }
-    );
-    var playlists = await spotifyApi.searchPlaylists(searchInput).then(
-      function (data) {
-        setPlaylists(data.playlists.items);
-        console.log(playlists);
-      },
-      function (err) {
-        console.error(err);
-      }
-    );
-    
-  }
+    const playlistsResults = await searchPlaylists(searchInput);
+    setPlaylists(playlistsResults);
+  };
 
-  async function play(playback_uri) {
-    var playbackParameters = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-      body: JSON.stringify({
-        context_uri: playback_uri,
-        offset: { position: 5 },
-        position_ms: 0,
-      }),
-    };
-  
-    try {
-      const response = await fetch(
-        "https://api.spotify.com/v1/me/player/play/",
-        playbackParameters
-      );
-  
-      if (!response.ok) {
-        throw new Error("Failed to play the song.");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+
 
   return (
-    <div>
+    <div className="black-bg">
       <Container>
         <InputGroup className="mb-3" size="lg">
           <FormControl
@@ -146,7 +63,7 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
                   height: "70px",
                   paddingLeft: "0px",
                   margin: "5px",
-                }}
+                }} className="grey-bg"
                 key={i}
               >
                 <Card.Img
@@ -167,7 +84,7 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
                     {track.name}{" "}
                   </Card.Title>
                          {/* link to go to album details page */}
-                         <a onClick={() => play(track.uri)} className="stretched-link"></a>
+                         <a href="#" className="stretched-link"></a>
                 </Card.Body>
               </Card>
             ))
@@ -185,12 +102,13 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
                   style={{
                     margin: "5px",
                   }}
+                  className="card"
                 >
                   <Card.Img src={album.images[0].url} />
                   <Card.Body>
                     <Card.Title>{album.name} </Card.Title>
                     {/* link to go to album details page */}
-                    <a href="#" class="stretched-link"></a>
+                    <a href="#" className="stretched-link"></a>
                   </Card.Body>
                 </Card>
             );
@@ -211,7 +129,7 @@ const SearchBar = ({ accessToken, spotifyApi }) => {
                 <Card.Body>
                   <Card.Title>{playlist.name} </Card.Title>
                          {/* link to go to album details page */}
-                         <a href="#" class="stretched-link"></a>
+                         <a href="#" className="stretched-link"></a>
                 </Card.Body>
               </Card>
             );

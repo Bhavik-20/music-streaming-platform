@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { fetchAlbumDetails, fetchAlbumTracks } from "../spotify-hook/spotifyApi";
+import {
+  fetchPlaylistDetails,
+  fetchPlaylistTracks,
+} from "../spotify-hook/spotifyApi";
 import "./album-details.css";
 
-const AlbumDetails = ({ albumID }) => {
-  const [album, setAlbum] = useState(null);
+const PlaylistDetails = ({ playlistID }) => {
+  const [playlist, setPlaylist] = useState(null);
   const [tracks, setTracks] = useState([]);
 
   const msToMinSec = (durationMs) => {
@@ -13,29 +16,31 @@ const AlbumDetails = ({ albumID }) => {
   };
 
   useEffect(() => {
-    const fetchAlbumData = async () => {
-      const albumData = await fetchAlbumDetails(albumID);
-      setAlbum(albumData);
-      const albumTracks = await fetchAlbumTracks(albumID);
-      setTracks(albumTracks);
+    const fetchPlaylistData = async () => {
+      const playlistData = await fetchPlaylistDetails(playlistID);
+      setPlaylist(playlistData);
+      const playlistTracks = await fetchPlaylistTracks(playlistID);
+      setTracks(playlistTracks);
     };
-    fetchAlbumData();
-  }, [albumID]);
+    fetchPlaylistData();
+  }, [playlistID]);
 
   return (
     <div className="centered-container">
-      {album && (
+      {playlist && (
         <>
           <div id="album-info" className="row">
             <div className="album-image col">
-              <img src={album.images[0].url} alt={album.name} width="200" height="200" />
+              <img
+                src={playlist.images[0].url}
+                alt={playlist.name}
+                width="200"
+                height="200"
+              />
             </div>
             <div className="album-details col">
-              <h1>{album.name}</h1>
-              {album.artists.map((artist, i) => (
-                <b key={i}>{artist.name + " "}</b>
-              ))}
-              {album.release_date}
+              <h1>{playlist.name}</h1>
+              <h3>Owner: {playlist.owner.display_name}</h3>
             </div>
           </div>
           <table className="centered-table">
@@ -51,10 +56,15 @@ const AlbumDetails = ({ albumID }) => {
                 <tr key={i} className="clickable-row">
                   <td>{track.name}</td>
                   <td>
-                    {track.artists.length > 1
-                      ? ` ${track.artists.map((artist) => artist.name).join(", ")}`
-                      : `  ${track.artists[0].name}`}
+                    {track.artists
+                      ? track.artists.length > 1
+                        ? ` ${track.artists
+                            .map((artist) => artist.name)
+                            .join(", ")}`
+                        : `  ${track.artists[0].name}`
+                      : "No artist information"}
                   </td>
+
                   <td>{msToMinSec(track.duration_ms)}</td>
                 </tr>
               ))}
@@ -66,4 +76,4 @@ const AlbumDetails = ({ albumID }) => {
   );
 };
 
-export default AlbumDetails;
+export default PlaylistDetails;

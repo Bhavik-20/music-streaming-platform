@@ -1,0 +1,53 @@
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    background-color: black;
+    color: white;
+  }
+  
+  .album-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .album-image {
+    margin-right: 20px;
+  }
+  
+  .album-image img {
+    max-width: 200px;
+    max-height: 200px;
+  }
+  
+  .album-details {
+    text-align: left;
+  }
+  
+  .centered-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .centered-table th,
+  .centered-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .centered-table th {
+    background-color: #f2f2f2;
+    color: black;
+  }
+  
+  .clickable-row:hover {
+    background-color: #f7f7f7;
+    cursor: pointer;
+    color: black;
+  }
+  
