@@ -35,4 +35,26 @@ router.get('/users', async (req, res) => {
     return res.status(200).json(sanitized_user_list);
 });
 
+router.put('/verify-artist', async (req, res) => {
+    const {id} = req.body;
+    const updatedUser = await UserModel.findByIdAndUpdate(id, {role: "artist-verified"});
+    const user_list = await UserModel.find();
+    const sanitized_user_list = user_list.map(user => {
+            const { password, ...userWithoutPassword } = user.toObject();
+            return userWithoutPassword;
+    });
+    return res.status(200).json(sanitized_user_list);
+});
+
+router.put('/ignore-verify-artist', async (req, res) => {
+    const {id} = req.body;
+    const updatedUser = await UserModel.findByIdAndUpdate(id, {role: "artist"});
+    const user_list = await UserModel.find();
+    const sanitized_user_list = user_list.map(user => {
+            const { password, ...userWithoutPassword } = user.toObject();
+            return userWithoutPassword;
+    });
+    return res.status(200).json(sanitized_user_list);
+});
+
 module.exports = router;

@@ -20,7 +20,7 @@ const SignupComponent = () => {
     const navigate = useNavigate();
 
     const roleOptions = [
-		{ value: "artist", label: "Artist" },
+		{ value: "artist-pending", label: "Artist" },
 		{ value: "listener", label: "Listener" },
 	];
 

@@ -8,3 +8,19 @@ export const getUsersListThunk = createAsyncThunk(
       return user;
    }
 );
+
+export const verifyArtistThunk = createAsyncThunk(
+   "admin/verify-artist",
+   async (id) => {
+      const user = await adminService.verifyArtist(id);
+      return user;
+   }
+);
+
+export const ignoreVerificationThunk = createAsyncThunk(
+   "admin/ignore-verification",
+   async (id) => {
+      const user = await adminService.ignoreVerification(id);
+      return user;
+   }
+);
