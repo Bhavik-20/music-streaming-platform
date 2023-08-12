@@ -48,4 +48,19 @@ router.post('/getProfile', async (req, res) => {
     res.status(200).json(user);
 });
 
+
+router.get('/getSearchedProfile/:pid', async (req, res) => {
+    
+    const pid = req.params.pid;
+    console.log("Getting Searched Profile called: ", pid)
+    const user = await UserModel.findOne({_id: pid});
+    console.log("Getting Searched Profile called 2: ", {user});
+    if(!user) {
+        console.log("backend error");
+        res.status(403).json({err: "User does not exist"});
+    }
+    delete user.password; 
+    res.status(200).json(user);
+});
+
 module.exports = router;

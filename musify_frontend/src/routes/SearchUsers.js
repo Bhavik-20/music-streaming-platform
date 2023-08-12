@@ -61,8 +61,14 @@ const SearchUsers = () => {
 
                     {results && results.length > 0 ? (
                         results.map((user, index) => (
-                            <div className="text-white text-center text-2xl">{user.username}</div>
-
+                            <div className="text-white text-center text-2xl">
+                                <button 
+                                className="bg-green-400 font-semibold p-3 px-10 rounded-full" 
+                                onClick={(e) => { e.preventDefault();
+                                    navigate(`/profile/${user._id}`);}}>
+                                    {user.username}
+                                </button>  
+                            </div>
                         ))
                     ): 
                     (

@@ -8,6 +8,14 @@ export const getProfile = async (token) => {
     return response.data;
 };
 
+export const getSearchedProfile = async (pid) => {
+    // console.log("getProfile Service: ", pid);
+    // const body = {pid};
+    console.log("getProfile Service: ", `${PROFILE_API}/getSearchedProfile/${pid}`);
+    const response = await axios.get(`${PROFILE_API}/getSearchedProfile/${pid}`);
+    return response.data;
+};
+
 export const updateProfile = async(profile) => {
     console.log("updateProfile Service: ", profile);
     const body = {profile};

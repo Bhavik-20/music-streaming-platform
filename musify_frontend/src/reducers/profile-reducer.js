@@ -1,14 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getProfileThunk} from '../services/profile-thunks';
+import { getSearchedProfileThunk} from '../services/profile-thunks';
 
 const profileSlice = createSlice({
     name: "profile",
     initialState: {profile:[]},
     extraReducers: {
-        [getProfileThunk.fulfilled]: (state, action) => {
+        [getSearchedProfileThunk.fulfilled]: (state, action) => {
             state.profile = action.payload;
         },
-        [getProfileThunk.rejected]: (state, action) => {
+        [getSearchedProfileThunk.rejected]: (state, action) => {
             state.profile = action.error;
         }
     }

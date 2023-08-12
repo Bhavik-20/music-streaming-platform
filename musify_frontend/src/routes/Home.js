@@ -6,7 +6,7 @@ const HomeComponent = () => {
     const navigate = useNavigate();
 
     const logout = async () => {
-        removeCookie("token");
+        removeCookie("token", {path: "/"});
         alert("Success");
         navigate("/login");
     };
@@ -57,6 +57,14 @@ const HomeComponent = () => {
             }}>
             Search Content
             </button> 
+            <button 
+            className="bg-green-400 font-semibold p-3 px-10 rounded-full" 
+            onClick={(e) => {
+                e.preventDefault();
+                navigate("/search-users");
+            }}>
+            Search Users
+            </button>  
         </div>
         
     );

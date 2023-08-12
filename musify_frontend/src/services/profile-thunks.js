@@ -10,6 +10,15 @@ export const getProfileThunk = createAsyncThunk(
    }
 );
 
+export const getSearchedProfileThunk = createAsyncThunk(
+   "profile/getSearchedProfile",
+   async (pid) => {
+      console.log("getSearchedProfileThunk: ", pid);
+      const user = await profileService.getSearchedProfile(pid);
+      return user;
+   }
+);
+
 export const updateProfileThunk = createAsyncThunk(
    "profile/updateProfile",
    async (profile) => {

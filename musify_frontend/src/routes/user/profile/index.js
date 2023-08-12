@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../components/shared/Button";
-import { getProfileThunk } from "../../../services/profile-thunks";
+import { getSearchedProfileThunk } from "../../../services/profile-thunks";
 import { useCookies } from "react-cookie";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ListenerProfileComponent = () => {
     const [cookies, setCookie] = useCookies(["token"]);
     const { profile } = useSelector((state) => state.profile);
     const [userProfile, setProfile] = useState(profile);
     const [nameInitials, setNameInitials] = useState("");
+    const {pid} = useParams();
+
     console.log("Profile: ", profile);
 
     const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const ListenerProfileComponent = () => {
 
     const loadProfile = async () => {
 		try {
-			const { payload } = await dispatch(getProfileThunk(cookies.token));
+			const { payload } = await dispatch(getSearchedProfileThunk(pid));
 			setProfile(payload);
             setNameInitials(payload.firstName.charAt(0) + payload.lastName.charAt(0));
 			console.log("loadProfile Payload: ", payload);
@@ -38,7 +39,7 @@ const ListenerProfileComponent = () => {
             {/* <ListenerProfileDataComponent user={profile}/> */}
 
             <div className="p-5 w-100 d-flex justify-content-center row nav-bar border-b border-solid">
-                <button className="col-1 back-btn" onClick={() => navigate('/home')}>
+                <button className="col-1 back-btn" onClick={() => navigate('/search-users')}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="auto" viewBox="0 0 320 512"><path fill="currentColor" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></svg>
                 </button>
                 <div className="col-2">
@@ -62,7 +63,9 @@ const ListenerProfileComponent = () => {
 
             <div className="col-md-8 col-sm-10 col-10 justify-content-left">
                 {/* <button className="text-white m-4 border border-solid rounded-3xl px-4 py-2">Follow</button> */}
-                <Button text="Follow" className="bg-transparent text-white border rounded px-4 py-2 mb-3" onClick={(e) => { }} />
+                <Button text="Follow" className="bg-transparent text-white border rounded px-4 py-2 mb-3" onClick={(e) => { 
+                    e.preventDefault();
+                }} />
             </div>
 
             <div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
