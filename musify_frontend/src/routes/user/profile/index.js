@@ -44,7 +44,7 @@ const ListenerProfileComponent = () => {
                 </button>
                 <div className="col-2">
                     <div className="profile-icon rounded-circle d-flex justify-content-center align-items-center"> 
-                        <span className= "font-bold bg-transparent"> {nameInitials}</span>
+                        <span className= "bg-transparent"> {nameInitials}</span>
                     </div>
                 </div>
                 <div className="col-9">

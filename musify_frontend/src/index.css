@@ -102,9 +102,17 @@ p {
     font-family: 'Ubuntu', sans-serif;
 }
 
+.logout {
+    color: gray;
+    border: none;
+    background-color: transparent;
+
+}
+
 .list-item {
-    height: 7vw;
+    height: auto;
     padding: 1vw;
+    cursor: pointer;
 }
 
 .profile-pic {
@@ -112,6 +120,9 @@ p {
     width: 4vw;
     border-radius: 50%;
     background-color: aquamarine;
+    color: black;
+    font-size: 2vw;
+    font-weight: 600;
 }
 
 .user-profile-info {
@@ -119,8 +130,8 @@ p {
 }
 
 .req-btn {
-    width: 5vw;
-    font-size: 1vw;
+    width: auto;
+    font-size: 15px;
 }
 
 .section {
