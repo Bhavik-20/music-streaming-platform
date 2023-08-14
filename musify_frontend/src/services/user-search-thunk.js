@@ -3,8 +3,8 @@ import * as userSearchService from "./user-search-service";
 
 export const getUsersThunk = createAsyncThunk(
    "searchUser/getUsers",
-   async (search) => {
-      const users = await userSearchService.getUsers(search);
+   async ({search, token}) => {
+      const users = await userSearchService.getUsers(search, token);
       return users;
    }
 );

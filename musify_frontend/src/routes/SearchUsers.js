@@ -3,18 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { getUsersThunk } from "../services/user-search-thunk";
 import TextInput from "../components/shared/TextInput";
 import { useDispatch, useSelector } from "react-redux";
+import {useCookies} from "react-cookie";
 
 const SearchUsers = () => {
     const {usersList} = useSelector((state) => state.userSearch);
     const [searchText, setSearchText] = useState("");
     const [results, setResults] = useState(usersList);
-    console.log("SearchUsers: ", usersList, "results: ", results);
+
+    const [cookies] = useCookies(["token"]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const loadUsers = async () => {
         try {
-            const { payload } = await dispatch(getUsersThunk(searchText));
+            const { payload } = await dispatch(getUsersThunk({search: searchText, token: cookies.token}));
             setResults(payload);
         } catch (error) {
             console.log("loadUsers Error: ", error);
@@ -23,7 +25,7 @@ const SearchUsers = () => {
 
     useEffect(() => {
 		loadUsers();
-	}, [results, searchText]);
+	}, []);
 
     return (
         <div className="w-100 h-100 flex flex-col items-center nav-bar">
@@ -60,31 +62,33 @@ const SearchUsers = () => {
                     <br></br>
 
                     {results && results.length > 0 ? (
-                        results.map((user, index) => (
-                            <div>
-                                <div 
-                                className="w-100 px-10 rounded text-white bg-transparent m-1 row list-item" 
-                                onClick={(e) => { e.preventDefault();
-                                    navigate(`/profile/${user._id}`);}}> 
-                                     <div className="col-1 profile-pic d-flex justify-content-center align-items-center"> 
-                                        <span className="bg-transparent">{user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase()}</span>
+                            results.map(
+                                (user, index) => (
+                                    <div>
+                                        <div 
+                                        className="w-100 px-10 rounded text-white bg-transparent m-1 row list-item" 
+                                        onClick={(e) => { e.preventDefault();
+                                            navigate(`/profile/${user._id}`);}}> 
+                                            <div className="col-1 profile-pic d-flex justify-content-center align-items-center"> 
+                                                <span className="bg-transparent">{user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase()}</span>
+                                            </div>
+                                            <div className="col-11 ps-4">
+                                                <span className="d-flex justify-content-left user-profile-info"> 
+                                                    <p className="me-2">{user.firstName} {user.lastName}</p> @{user.username} 
+                                                    {user.role === "artist-verified" ? ( <i className="bi bi-patch-check-fill text-info ms-2 me-2"></i> ) : ( <></> )}
+                                                    - 1 public playlist . 234 Following . 234 Followers</span>
+                                                <span className="user-profile-info">Email: {user.email}</span> <br></br>
+                                                <span className="user-profile-info">Role: {user.role}</span>
+                                            </div>
+                                        </div>  
                                     </div>
-                                    <div className="col-11 ps-4">
-                                        <span className="d-flex justify-content-left user-profile-info"> 
-                                            <p className="me-2">{user.firstName} {user.lastName}</p> @{user.username} 
-                                            {/* {user.role === "artist" ? ( <i className="bi bi-exclamation-circle-fill text-warning ms-2 me-2"></i> ) : ( <></> )} */}
-                                            {user.role === "artist-verified" ? ( <i className="bi bi-patch-check-fill text-info ms-2 me-2"></i> ) : ( <></> )}
-                                            - 1 public playlist . 234 Following . 234 Followers</span>
-                                        <span className="user-profile-info">Email: {user.email}</span> <br></br>
-                                        <span className="user-profile-info">Role: {user.role}</span>
-                                    </div>
-                                </div>  
-                            </div>
-                        ))
-                    ): 
-                    (
-                        <div className="text-white text-center text-2xl">No users found</div>
-                    )}
+                                )
+                            )
+                        ): 
+                        (
+                            <div className="text-white text-center text-2xl">No users found</div>
+                        )
+                    }
                 </div>
                 </div>
         </div>
