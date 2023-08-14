@@ -17,13 +17,14 @@ const ArtistProfileComponent = () => {
                 </button>
                 
                 <div className="col-9 h-50">
-                    <div className="artist-profile-info text-white d-flex align-items-end">
+                    <div className="w-100 artist-profile-info text-white d-flex align-items-end">
                         <div>
                         <div className="row"> 
                         {/* <span className="col-1 verified"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 16 16"><path fill="currentColor" d="M8.38 14.72h-.71L6 13H3.53L3 12.5v-2.42L1.31 8.36v-.71L3 5.93V3.5l.53-.5H6l1.67-1.71h.71L10.1 3h2.43l.5.49v2.44l1.71 1.72v.71L13 10.08v2.42l-.5.5h-2.4l-1.72 1.72Zm-1.65-4.24h.71l3.77-3.77L10.5 6L7.09 9.42L5.71 8.04L5 8.75l1.73 1.73Z"/></svg></span> */}
-                        <p className="col-11 text-white font-weight-bold"> <h3><i class="bi bi-patch-check-fill text-primary"></i></h3>Verified Artist</p>
+                            <i class="verified col-1 bi bi-patch-check-fill text-primary"></i>
+                            <p className="col-11 pt-2 text-white font-weight-bold"> Verified Artist</p>
                         </div>
-                        <span className="artist-title text-green-300 font-bold bg-transparent">Taylor Swift</span>
+                        <span className="artist-title bg-transparent">Taylor Swift</span>
 
                         <p className="text-sm font-weight-bold"> 1625793097 monthly listeners </p>
                         {/* change follow to unfollow if following */}

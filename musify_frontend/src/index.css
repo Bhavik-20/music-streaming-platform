@@ -67,14 +67,15 @@ p {
 
 .verified {
     color: #1DA1F2;
+    font-size: 25px;
 }
 
 .artist-profile-info {
-    height: 200px;
+    height: 15vw;
 }
 
 .artist-title {
-    font-size: 80px;
+    font-size: 7vw;
     font-weight: 800;
 }
 
