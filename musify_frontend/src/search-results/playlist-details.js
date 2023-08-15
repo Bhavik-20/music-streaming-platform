@@ -6,11 +6,14 @@ import {
 } from "../spotify-hook/spotifyApi";
 import "./album-details.css";
 import { useParams } from "react-router-dom";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const PlaylistDetails = () => {
   const [playlist, setPlaylist] = useState(null);
   const [tracks, setTracks] = useState([]);
   const {playlistID} = useParams();
+  const [isLiked, setIsLiked] = useState();
+  const [likesCount, setLikesCount] = useState();
 
   const msToMinSec = (durationMs) => {
     const minutes = Math.floor(durationMs / 60000);
@@ -24,10 +27,22 @@ const PlaylistDetails = () => {
       setPlaylist(playlistData);
       const playlistTracks = await fetchPlaylistTracks(playlistID);
       setTracks(playlistTracks);
+      const playlistLikes = playlist.followers.total;
+      setLikesCount(playlistLikes);
       console.log(playlistTracks);
     };
     fetchPlaylistData();
   }, [playlistID]);
+
+  const handleButtonClick = () => {
+    // Optimistic UI update
+    const newLikesCount = isLiked ? likesCount - 1 : likesCount + 1;
+    setLikesCount(newLikesCount);
+    setIsLiked(!isLiked);
+
+    // Update data on the server using dispatch
+    // dispatch(updateTuitThunk({ ...tuit, liked: !isLiked, likes: newLikesCount }));
+  };
 
   return (
     <div className="centered-container">
@@ -45,6 +60,19 @@ const PlaylistDetails = () => {
             <div className="album-details col">
               <h1>{playlist.name}</h1>
               <h3>Owner: {playlist.owner.display_name}</h3>
+              <div className="col">
+                  <button
+                    style={{
+                      background: "black",
+                      color: "white",
+                      border: "none",
+                    }}
+                    onClick={handleButtonClick}
+                  >
+                    {isLiked ? <FaHeart color="red" /> : <FaRegHeart />}
+                  </button>
+                  {likesCount}
+                </div>
             </div>
           </div>
           <table className="centered-table">

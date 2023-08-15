@@ -2,16 +2,28 @@ import React, { useState, useEffect } from "react";
 import { fetchAlbumDetails, fetchAlbumTracks } from "../spotify-hook/spotifyApi";
 import "./album-details.css";
 import { useParams, Link } from "react-router-dom";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const AlbumDetails = () => {
   const [album, setAlbum] = useState(null);
   const [tracks, setTracks] = useState([]);
   const {albumID} = useParams();
+  const [isLiked, setIsLiked] = useState();
+  const [likesCount, setLikesCount] = useState(0);
 
   const msToMinSec = (durationMs) => {
     const minutes = Math.floor(durationMs / 60000);
     const seconds = ((durationMs % 60000) / 1000).toFixed(0);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+  const handleButtonClick = () => {
+    // Optimistic UI update
+    const newLikesCount = isLiked ? likesCount - 1 : likesCount + 1;
+    setLikesCount(newLikesCount);
+    setIsLiked(!isLiked);
+
+    // Update data on the server using dispatch
+    // dispatch(updateTuitThunk({ ...tuit, liked: !isLiked, likes: newLikesCount }));
   };
 
   useEffect(() => {
@@ -20,6 +32,8 @@ const AlbumDetails = () => {
       setAlbum(albumData);
       const albumTracks = await fetchAlbumTracks(albumID);
       setTracks(albumTracks);
+      // const albumLikes = album.followers.total;
+      // setLikesCount(albumLikes);
     };
     fetchAlbumData();
   }, [albumID]);
@@ -38,6 +52,19 @@ const AlbumDetails = () => {
                 <b key={i}>{artist.name + " "}</b>
               ))}
               {album.release_date}
+              <div className="col">
+                  <button
+                    style={{
+                      background: "black",
+                      color: "white",
+                      border: "none",
+                    }}
+                    onClick={handleButtonClick}
+                  >
+                    {isLiked ? <FaHeart color="red" /> : <FaRegHeart />}
+                  </button>
+                  {likesCount}
+                </div>
             </div>
           </div>
           <table className="centered-table">
