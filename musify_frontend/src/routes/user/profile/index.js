@@ -36,7 +36,7 @@ const ListenerProfileComponent = () => {
 		try {
 			const { payload } = await dispatch(getSearchedProfileThunk(pid));
 			setProfile(payload);
-			setNameInitials(payload.firstName.charAt(0) + payload.lastName.charAt(0));
+			setNameInitials(payload.firstName.charAt(0).toUpperCase() + payload.lastName.charAt(0).toUpperCase());
 			console.log("loadProfile: ", payload.followers.includes(currentUserCookies.currentUserId));
 			if(payload.followers.includes(currentUserCookies.currentUserId)){
 				setFollowButtonText("Unfollow");

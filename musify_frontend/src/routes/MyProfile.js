@@ -65,7 +65,7 @@ const MyProfileComponent = () => {
 							<p className="text-sm"> Listener</p>
 
 							<h1 className="green-color bg-transparent listener-title">
-								{userProfile.firstName}
+								{userProfile.firstName}  {userProfile.lastName}
 							</h1>
 
 							<p className="text-sm">
@@ -127,9 +127,15 @@ const MyProfileComponent = () => {
 				<h2 className="col-10">Followers</h2>
 				<div className="row">
 					{userProfileFollowersList.map((follower) => (
-						<div className="col-2 border-solid rounded">
-							<div className="h-50 bg-dark"></div>
-							<p>{follower.firstName} {follower.lastName}</p>
+						<div className="col-lg-2 col-3 border-solid"
+						onClick={(e) => { e.preventDefault();
+							navigate(`/profile/${follower._id}`);}}> 
+							<div className="follower-icon rounded-circle d-flex justify-content-center align-items-center">
+								<span className="bg-transparent"> {follower.firstName.charAt(0).toUpperCase()}{follower.lastName.charAt(0).toUpperCase()}</span>
+							</div>
+							<div className="w-100 d-flex justify-content-center align-items-center">
+								<p>{follower.firstName} {follower.lastName}</p>
+							</div>
 						</div>
 					))}
 				</div>
@@ -139,15 +145,21 @@ const MyProfileComponent = () => {
 				<h2 className="col-10">Following</h2>
 				<div className="row">
 					{userProfileFollowingList.map((following) => (
-						<div className="col-2 border-solid rounded">
-							<div className="h-50 bg-dark"></div>
-							<p>{following.firstName} {following.lastName}</p>
+						<div className="col-lg-2 col-3 border-solid"
+						onClick={(e) => { e.preventDefault();
+							navigate(`/profile/${following._id}`);}}> 
+							<div className="follower-icon rounded-circle d-flex justify-content-center align-items-center">
+								<span className="bg-transparent"> {following.firstName.charAt(0).toUpperCase()}{following.lastName.charAt(0).toUpperCase()}</span>
+							</div>
+							<div className="w-100 d-flex justify-content-center align-items-center">
+								<p>{following.firstName} {following.lastName}</p>
+							</div>
 						</div>
 					))}
 				</div>
 			</div>
 		</div>
-	);
+	); 
 };
 
 export default MyProfileComponent;

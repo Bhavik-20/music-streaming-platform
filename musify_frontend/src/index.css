@@ -52,6 +52,15 @@ p {
     font-size: 6vw;
 }
 
+.follower-icon {
+    height: 9vw;
+    width: 9vw;
+    background-color: aquamarine;
+    font-size: 4vw;
+    color: black;
+    margin-bottom: 5px;
+}
+
 .listener-title {
     font-size: 4vw;
     font-weight: 800;
