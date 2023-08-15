@@ -26,14 +26,34 @@ const UserSchema = mangoose.Schema({
         type: String,
         required: true,
     },
+    followCount: {
+        type: Number,
+        default: 0,
+    },
+    followers: {
+        type: [String],
+        default: [],
+    },
+    followingCount: {
+        type: Number,
+        default: 0,
+    },
+    following: {
+        type: [String],
+        default: [],
+    },
     likedSongs: {
-        type: String,
-        default: "",
+        type: [String],
+        default: [],
     },
-    subscribedArtists: {
-        type: String,
-        default: "",
+    likedAlbums: {
+        type: [String],
+        default: [],
     },
+    likedArtists: {
+        type: [String],
+        default: [],
+    }
 });
 
 const UserModel = mangoose.model('User', UserSchema);

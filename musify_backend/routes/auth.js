@@ -4,7 +4,7 @@ const UserModel = require('../models/User');
 const bcrypt = require('bcrypt');
 const {getToken} = require('../utils/helpers');
 
-// Route to register a user
+// Route to register a user 
 router.post('/register', async (req, res) => {
     const {email, password, firstName, lastName, username, role} = req.body;
 

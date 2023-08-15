@@ -52,6 +52,15 @@ p {
     font-size: 6vw;
 }
 
+.follower-icon {
+    height: 9vw;
+    width: 9vw;
+    background-color: aquamarine;
+    font-size: 4vw;
+    color: black;
+    margin-bottom: 5px;
+}
+
 .listener-title {
     font-size: 4vw;
     font-weight: 800;
@@ -67,14 +76,15 @@ p {
 
 .verified {
     color: #1DA1F2;
+    font-size: 25px;
 }
 
 .artist-profile-info {
-    height: 200px;
+    height: 15vw;
 }
 
 .artist-title {
-    font-size: 80px;
+    font-size: 7vw;
     font-weight: 800;
 }
 
@@ -102,9 +112,17 @@ p {
     font-family: 'Ubuntu', sans-serif;
 }
 
+.logout {
+    color: gray;
+    border: none;
+    background-color: transparent;
+
+}
+
 .list-item {
-    height: 7vw;
+    height: auto;
     padding: 1vw;
+    cursor: pointer;
 }
 
 .profile-pic {
@@ -112,6 +130,9 @@ p {
     width: 4vw;
     border-radius: 50%;
     background-color: aquamarine;
+    color: black;
+    font-size: 2vw;
+    font-weight: 600;
 }
 
 .user-profile-info {
@@ -119,8 +140,8 @@ p {
 }
 
 .req-btn {
-    width: 5vw;
-    font-size: 1vw;
+    width: auto;
+    font-size: 15px;
 }
 
 .section {

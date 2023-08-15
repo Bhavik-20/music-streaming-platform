@@ -22,12 +22,13 @@ const LoginComponent = () => {
             "/auth/login",
             data
         );
-        // console.log("Login: ", response, response.err);
+        console.log("Login: ", response, response.err);
         if (response && !response.err) {
             const token = response.token;
             const date = new Date();
             date.setDate(date.getDate() + 30);
             setCookie("token", token, {path: "/", expires: date});
+            setCookie("currentUserId", response._id, {path: "/", expires: date});
             alert("Success");
             navigate("/home");
         } else {
