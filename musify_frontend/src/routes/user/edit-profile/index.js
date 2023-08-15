@@ -12,10 +12,8 @@ import Button from "../../../components/shared/Button";
 
 const EditProfileComponent = () => {
 	const [cookies, setCookie] = useCookies(["token"]);
-	const { editProfile } = useSelector((state) => state.editProfile);
-
-	const [profile, setProfile] = useState(editProfile);
-
+	const { myProfile } = useSelector((state) => state.myProfile);
+	const [profile, setProfile] = useState(myProfile);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -39,7 +37,7 @@ const EditProfileComponent = () => {
 		try {
 			const { payload } = await dispatch(getProfileThunk(cookies.token));
 			setProfile(payload);
-			console.log("loadProfile Payload: ", payload);
+			// console.log("loadProfile Payload: ", payload);
 		} catch (error) {
 			console.log("loadProfile Error: ", error);
 		}
@@ -62,7 +60,6 @@ const EditProfileComponent = () => {
 	
 
 	useEffect(() => {
-		console.log("Edit Profile Component");
 		loadProfile();
 	}, []);
 

@@ -7,6 +7,7 @@ const HomeComponent = () => {
 
     const logout = async () => {
         removeCookie("token", {path: "/"});
+        removeCookie("currentUserId", {path: "/"});
         alert("Success");
         navigate("/login");
     };
@@ -36,9 +37,9 @@ const HomeComponent = () => {
             className="bg-green-400 font-semibold p-3 px-10 rounded-full" 
             onClick={(e) => {
                 e.preventDefault();
-                navigate("/profile");
+                navigate("/my-profile");
             }}>
-            Profile
+            My Profile
             </button>  
 
             <button 
