@@ -76,9 +76,9 @@ const SearchUsers = () => {
                                                 <span className="d-flex justify-content-left user-profile-info"> 
                                                     <p className="me-2">{user.firstName} {user.lastName}</p> @{user.username} 
                                                     {user.role === "artist-verified" ? ( <i className="bi bi-patch-check-fill text-info ms-2 me-2"></i> ) : ( <></> )}
-                                                    - 1 public playlist . 234 Following . 234 Followers</span>
+                                                    - {user.followingCount} Following . {user.followCount} Followers</span>
                                                 <span className="user-profile-info">Email: {user.email}</span> <br></br>
-                                                <span className="user-profile-info">Role: {user.role}</span>
+                                                <span className="user-profile-info">Role: {user.role == "artist-verified"? "verified artist": "artist"} </span>
                                             </div>
                                         </div>  
                                     </div>

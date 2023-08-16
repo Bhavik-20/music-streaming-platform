@@ -85,9 +85,7 @@ const AdminHomeComponent = () => {
             {listUsers.map((user, index) => (
                 <div>
                 <div 
-                className="w-100 px-10 rounded border border-solid text-white bg-transparent m-1 row list-item" 
-                onClick={(e) => { e.preventDefault();
-                    navigate(`/profile/${user._id}`);}}> 
+                className="w-100 px-10 rounded border border-solid text-white bg-transparent m-1 row list-item" > 
                      <div className="col-1">
                         <div className="profile-pic d-flex justify-content-center align-items-center"> 
                             <span className="bg-transparent">{user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase()}</span>
