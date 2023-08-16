@@ -96,12 +96,14 @@ export const fetchItems = async (itemIds) => {
 };
 
 export const fetchTracks = async (trackIds) => {
-  try {
-    const { tracks } = await spotifyApi.getTracks(trackIds);
-    return tracks;
-  } catch (error) {
-    console.error('Error fetching tracks:', error);
-  }
+  let tracks = [];
+  if(trackIds.length > 0){
+    try {
+      tracks = await spotifyApi.getTracks(trackIds);
+    } catch (error) {
+      console.error('Error fetching tracks:', error);
+    }
+  } return tracks;
 };
 
 export const fetchPlaylistDetails = async (playlistID) => {

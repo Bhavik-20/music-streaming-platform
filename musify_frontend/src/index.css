@@ -150,10 +150,13 @@ p {
 .song-title {
   font-size: 100px;
   color: #58D68D;
-  
-
 }
 
 .cur {
     cursor: pointer;
+}
+
+.track-img {
+    max-width: 100%;
+    max-height: 100%;
 }

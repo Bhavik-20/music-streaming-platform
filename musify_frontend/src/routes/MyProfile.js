@@ -14,8 +14,8 @@ const MyProfileComponent = () => {
 	const [userProfileFollowingList, setUserProfileFollowingList] = useState(profile.userDataFollowing);
 	const [userProfileFollowersList, setUserProfileFollowersList] = useState(profile.userDataFollowers);
 	const [nameInitials, setNameInitials] = useState("");
-	const [likedTracks, setLikedTracks] = useState();
-	const [likedAlbums, setLikedAlbums] = useState();
+	const [likedTracks, setLikedTracks] = useState([]);
+	const [likedAlbums, setLikedAlbums] = useState([]);
 
 
 
@@ -34,13 +34,13 @@ const MyProfileComponent = () => {
 			const followerList = await dispatch(getUserDataFollowersThunk(currentUserCookies.currentUserId));
 			setUserProfileFollowersList(followerList.payload);
 
-			const likedTracks = await fetchTracks(payload.likedSongs);
-			setLikedTracks(likedTracks);
-			console.log(likedTracks);
+			const liked_tracks = await fetchTracks(payload.likedSongs);
+			setLikedTracks(liked_tracks);
+			console.log(liked_tracks);
 
-			const likedAlbums = await fetchItems(payload.likedAlbums);
-			setLikedAlbums(likedAlbums);
-			console.log(likedAlbums);
+			const liked_albums = await fetchItems(payload.likedAlbums);
+			setLikedAlbums(liked_albums);
+			console.log(liked_albums);
 
 		} catch (error) {
 			console.log("loadProfile Error: ", error);
@@ -92,35 +92,51 @@ const MyProfileComponent = () => {
 				</div>
 			</div>
 
-			<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
-				<h2 className="col-10">Public Playlist</h2>
-				<div className="row">
-					<div className="col-2 border-solid rounded">
-						<div className="h-50 bg-dark"></div>
-						<p>Taylor Swift</p>
+			{(likedTracks.length === 0) ? "" :
+				<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
+					<h2 className="col-10">Liked Tracks</h2>
+					<div className="row">
+						{likedTracks.tracks.map((track) => (
+							<div className="col-lg-2 col-3 border-solid cur"
+								onClick={(e) => {
+									e.preventDefault();
+									navigate(`/tracks/${track.id}`);
+								}}>
+								<div className="follower-icon rounded-circle d-flex justify-content-center align-items-center">
+									<img className="track-img" src={track.album.images[0].url} alt="" />
+								</div>
+								<div className="w-100 d-flex justify-content-center align-items-center">
+									<p>{track.name} </p>
+								</div>
+							</div>
+						))}
 					</div>
-					<div className="col-2 border-solid border-gray-300">
-						<div className="h-50 bg-dark"></div>
-						<p>Taylor Swift</p>
+				</div>}
+
+			{(likedAlbums.length === 0) ? "" :
+				<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
+					<h2 className="col-10">Liked Albums and Playlists</h2>
+					<div className="row">
+						{likedAlbums.map((album) => (
+							<div className="col-lg-2 col-3 border-solid cur"
+								onClick={(e) => {
+									e.preventDefault();
+									if(album.type === "album"){
+										navigate(`/albums/${album.id}`);
+									} else {
+										navigate(`/playlists/${album.id}`);
+									}
+								}}>
+								<div className="follower-icon rounded-circle d-flex justify-content-center align-items-center">
+									{/* <img src={album.images[0].url} alt="" /> */}
+								</div>
+								<div className="w-100 d-flex justify-content-center align-items-center">
+									<p>{album.name} </p>
+								</div>
+							</div>
+						))}
 					</div>
-					<div className="col-2 border-solid border-gray-300">
-						<div className="h-50 bg-dark"></div>
-						<p>Taylor Swift</p>
-					</div>
-					<div className="col-2 border-solid border-gray-300">
-						<div className="h-50 bg-dark"></div>
-						<p>Taylor Swift</p>
-					</div>
-					<div className="col-2 border-solid border-gray-300">
-						<div className="h-50 bg-dark"></div>
-						<p>Taylor Swift</p>
-					</div>
-					<div className="col-2 border-solid border-gray-300">
-						<div className="h-50 bg-dark"></div>
-						<p>Taylor Swift</p>
-					</div>
-				</div>
-			</div>
+				</div>}
 
 			{(userProfile.followCount == 0) ? "" :
 				<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
