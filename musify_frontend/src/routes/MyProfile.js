@@ -65,7 +65,7 @@ const MyProfileComponent = () => {
 							<p className="text-sm"> Listener</p>
 
 							<h1 className="green-color bg-transparent listener-title">
-								{userProfile.firstName}  {userProfile.lastName}
+								{userProfile.firstName}  {userProfile.lastName} - @{userProfile.username}
 							</h1>
 
 							<p className="text-sm">
@@ -77,21 +77,6 @@ const MyProfileComponent = () => {
 					</div>
 				</div>
 			</div>
-
-			{/* {userProfile._id !== cookies["token"] ? (
-				<div className="col-md-8 col-sm-10 col-10 justify-content-left">
-					<Button
-						text={followButtonText}
-						className="bg-transparent text-white border rounded px-4 py-2 mb-3"
-						onClick={(e) => {
-							e.preventDefault();
-							followUser();
-						}}
-					/>
-				</div>
-			) : (
-				<div></div>
-			)} */}
 
 			<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
 				<h2 className="col-10">Public Playlist</h2>
