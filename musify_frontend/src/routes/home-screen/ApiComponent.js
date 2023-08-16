@@ -15,6 +15,16 @@ const ApiComponent = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Logged In user */}
+            <div id="recently-played">
+                <h2 className="text-success">Liked Songs/tracks</h2>
+            </div>
+            <div id="recently-played">
+                <h2 className="text-success">Liked Albums</h2>
+            </div>
+
+            {/*For all users */}
             <div id="recently-played">
                 <h2 className="text-success">Recently played</h2>
                 <RecentlyPlayed />
