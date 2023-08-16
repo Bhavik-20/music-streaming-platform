@@ -17,6 +17,10 @@ const EditProfileComponent = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const deleteAccount = () => {
+		
+	}
+
 	const SaveProfileChanges = async () => {
 		try {
 			const response = await dispatch(
@@ -135,6 +139,14 @@ const EditProfileComponent = () => {
 							onClick={(e) => {
 								e.preventDefault();
 								SaveProfileChanges();
+							}}
+						/>
+						<Button
+							text="Delete Account"
+							className="btn btn-danger ms-2"
+							onClick={(e) => {
+								e.preventDefault();
+								deleteAccount();
 							}}
 						/>
 					</div>

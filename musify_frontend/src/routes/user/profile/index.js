@@ -176,26 +176,6 @@ const ListenerProfileComponent = () => {
 						<div className="h-50 bg-dark"></div>
 						<p>Taylor Swift</p>
 					</div>
-					<div className="col-2 border-solid border-gray-300">
-						<div className="h-50 bg-dark"></div>
-						<p>Taylor Swift</p>
-					</div>
-					<div className="col-2 border-solid border-gray-300">
-						<div className="h-50 bg-dark"></div>
-						<p>Taylor Swift</p>
-					</div>
-					<div className="col-2 border-solid border-gray-300">
-						<div className="h-50 bg-dark"></div>
-						<p>Taylor Swift</p>
-					</div>
-					<div className="col-2 border-solid border-gray-300">
-						<div className="h-50 bg-dark"></div>
-						<p>Taylor Swift</p>
-					</div>
-					<div className="col-2 border-solid border-gray-300">
-						<div className="h-50 bg-dark"></div>
-						<p>Taylor Swift</p>
-					</div>
 				</div>
 			</div>
 		</div>

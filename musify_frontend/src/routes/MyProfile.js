@@ -94,7 +94,7 @@ const MyProfileComponent = () => {
 			)} */}
 
 			<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
-				<h2 className="col-10">Public Playlist</h2>
+				<h2 className="col-10">Liked Albums</h2>
 				<div className="row">
 					<div className="col-2 border-solid rounded">
 						<div className="h-50 bg-dark"></div>

@@ -48,14 +48,14 @@ p {
 .profile-icon {
     height: 13vw;
     width: 13vw;
-    background-color: aquamarine;
+    background-color: #58D68D;
     font-size: 6vw;
 }
 
 .follower-icon {
     height: 9vw;
     width: 9vw;
-    background-color: aquamarine;
+    background-color: #58D68D;
     font-size: 4vw;
     color: black;
     margin-bottom: 5px;
@@ -129,7 +129,7 @@ p {
     height: 4vw;
     width: 4vw;
     border-radius: 50%;
-    background-color: aquamarine;
+    background-color: #58D68D;
     color: black;
     font-size: 2vw;
     font-weight: 600;
