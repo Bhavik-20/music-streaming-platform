@@ -25,7 +25,7 @@ const SearchUsers = () => {
 
     useEffect(() => {
 		loadUsers();
-	}, []);
+	}, [results, searchText]);
 
     return (
         <div className="w-100 h-100 flex flex-col items-center nav-bar">

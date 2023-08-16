@@ -7,11 +7,16 @@ const {getUserFromToken} = require('../utils/helpers');
 router.get('/search', async (req, res) => {
     const searchTerm = req.query.searchTerm || "";
     const token = req.query.token || "";
-    console.log("searchTerm: ", searchTerm);   
 
     const currentUser = await getUserFromToken(token);
-    console.log("currentUser: ", currentUser);
-    const users = await UserModel.find({username: {$regex: searchTerm, $options: "i"}});
+    const users = await UserModel.find({
+        $or: [
+            { username: { $regex: searchTerm, $options: "i" } },
+            { firstName: { $regex: searchTerm, $options: "i" } },
+            { lastName: { $regex: searchTerm, $options: "i" } }
+        ]
+    });
+
     const sanitized_user_list = users
                                 .filter(user => user._id != currentUser)
                                 .map(user => {
