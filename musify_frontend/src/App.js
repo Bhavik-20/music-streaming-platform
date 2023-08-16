@@ -26,6 +26,7 @@ import MyProfileComponent from './routes/MyProfile';
 import myProfileReducer from './reducers/my-profile-reducer';
 import songReducer from './reducers/song-reducer';
 import albumsPlaylistReducer from './reducers/albums-playlist-reducer';
+import HomeScreen from './routes/home-screen/HomeScreen';
 
 //v2 -- no backend use for API
 function App() {
@@ -61,6 +62,7 @@ function App() {
         <BrowserRouter>
           {cookie.token ? (
           <Routes>
+            <Route path="/new-home" element={<HomeScreen/>} />
             <Route path="/admin/*" element={<Admin/>} />
             <Route path="/" element={<HomeComponent />} />
             <Route path="/home" element={<HomeComponent />} />
