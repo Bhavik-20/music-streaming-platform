@@ -7,22 +7,43 @@ const axios = require('axios');
 
 
 router.post('/deleteProfile', async (req, res) => {
-    const {user_id} = req.body;
-    console.log("Delete User called: ", user_id)
-    try {
-        const deletedUser = await UserModel.findByIdAndDelete(user_id);
+    const { user_id } = req.body;
+    console.log("Delete User called: ", user_id);
 
-        if (!deletedUser) {
+    try {
+        // Find the user to be deleted
+        const userToDelete = await UserModel.findById(user_id);
+
+        if (!userToDelete) {
             console.log("Delete User not found");
             return res.status(404).json({ message: 'User not found' });
         }
+
+        // Iterate through each user to update their following and followers arrays
+        const allUsers = await UserModel.find({});
+        for (const user of allUsers) {
+            if (user.following.includes(user_id)) {
+                user.following = user.following.filter(id => id !== user_id);
+                user.followingCount = user.followCount - 1;
+                await user.save();
+            }
+            if (user.followers.includes(user_id)) {
+                user.followers = user.followers.filter(id => id !== user_id);
+                user.followCount = user.followCount - 1;
+                await user.save();
+            }
+        }
+
+        // Delete the user
+        await UserModel.findByIdAndDelete(user_id);
+
         console.log("Delete User success");
         res.status(200).json({ message: 'User deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error deleting user', error: error.message });
     }
-
 });
+
 
 router.put('/update-profile', async (req, res) => {
     const {email, firstName, lastName, username} = req.body.profile;

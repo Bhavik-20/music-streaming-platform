@@ -29,6 +29,13 @@ const ListenerProfileComponent = () => {
 		const{payload} = await dispatch(followUserThunk({currentUserId, followUserId}));
 		setProfile(payload);
 		setNameInitials(payload.firstName.charAt(0) + payload.lastName.charAt(0));
+
+		const followingList = await dispatch(getUserDataFollowingThunk(pid));
+		setUserProfileFollowingList(followingList.payload);
+
+		const followerList = await dispatch(getUserDataFollowersThunk(pid));
+		setUserProfileFollowersList(followerList.payload);
+
 		if(payload.followers.includes(currentUserCookies.currentUserId)){
 			setFollowButtonText("Unfollow");
 		} else {
