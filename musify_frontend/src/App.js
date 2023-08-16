@@ -63,19 +63,21 @@ function App() {
           {cookie.token ? (
           <Routes>
             <Route path="/new-home" element={<HomeScreen/>} />
-            <Route path="/admin/*" element={<Admin/>} />
-            <Route path="/" element={<HomeComponent />} />
             <Route path="/home" element={<HomeComponent />} />
             <Route path="/edit-profile" element={<EditProfileComponent/>} />
+            <Route path="/my-profile" element={<MyProfileComponent/>} />
+            <Route path="/admin/*" element={<Admin/>} />
+            <Route path="/search" element={<SearchComponent />} />
+            <Route path="/search-users" element={<SearchUsers/>} />
+            
             <Route path="/profile/:pid" element={<ListenerProfileComponent/>} />
             <Route path="/artist-profile" element={<ArtistProfileComponent/>} />
-            <Route path="/search-users" element={<SearchUsers/>} />
-            <Route path="*" element={<Navigate to="/home" />} />
-            <Route path="/search" element={<SearchComponent />} />
             <Route path="/albums/:albumID" element={<AlbumDetails/>} />
             <Route path="/tracks/:trackID" element={<TrackDetails/>} />
             <Route path="/playlists/:playlistID" element={<PlaylistDetails/>} />
-            <Route path="/my-profile" element={<MyProfileComponent/>} />
+
+            <Route path="*" element={<Navigate to="/home" />} />
+            
           </Routes>
           ) : (
           <Routes>
