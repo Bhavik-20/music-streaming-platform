@@ -4,6 +4,7 @@ import { getProfileThunk, getUserDataFollowingThunk, getUserDataFollowersThunk }
 import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../components/shared/Button";
+import { fetchItems, fetchTracks } from "../spotify-hook/spotifyApi";
 
 const MyProfileComponent = () => {
 	const [cookies, setCookie] = useCookies(["token"]);
@@ -13,6 +14,9 @@ const MyProfileComponent = () => {
 	const [userProfileFollowingList, setUserProfileFollowingList] = useState(profile.userDataFollowing);
 	const [userProfileFollowersList, setUserProfileFollowersList] = useState(profile.userDataFollowers);
 	const [nameInitials, setNameInitials] = useState("");
+	const [likedTracks, setLikedTracks] = useState();
+	const [likedAlbums, setLikedAlbums] = useState();
+
 
 
 	const dispatch = useDispatch();
@@ -29,6 +33,15 @@ const MyProfileComponent = () => {
 
 			const followerList = await dispatch(getUserDataFollowersThunk(currentUserCookies.currentUserId));
 			setUserProfileFollowersList(followerList.payload);
+
+			const likedTracks = await fetchTracks(payload.likedSongs);
+			setLikedTracks(likedTracks);
+			console.log(likedTracks);
+
+			const likedAlbums = await fetchItems(payload.likedAlbums);
+			setLikedAlbums(likedAlbums);
+			console.log(likedAlbums);
+
 		} catch (error) {
 			console.log("loadProfile Error: ", error);
 		}

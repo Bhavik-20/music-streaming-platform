@@ -70,6 +70,40 @@ export const fetchAlbumTracks = async (albumID) => {
   }
 };
 
+export const fetchItems = async (itemIds) => {
+  try {
+    const fetchedItems = [];
+
+    for (const id of itemIds) {
+      try {
+        const album = await spotifyApi.getAlbum(id);
+        fetchedItems.push(album);
+      } catch (albumError) {
+        try {
+          const playlist = await spotifyApi.getPlaylist(id);
+          fetchedItems.push(playlist);
+        } catch (playlistError) {
+          console.error(`Error fetching item with ID ${id}:`, playlistError);
+        }
+      }
+    }
+
+    return fetchedItems;
+  } catch (error) {
+    console.error("Error fetching items:", error);
+    throw error;
+  }
+};
+
+export const fetchTracks = async (trackIds) => {
+  try {
+    const { tracks } = await spotifyApi.getTracks(trackIds);
+    return tracks;
+  } catch (error) {
+    console.error('Error fetching tracks:', error);
+  }
+};
+
 export const fetchPlaylistDetails = async (playlistID) => {
   try {
     const data = await spotifyApi.getPlaylist(playlistID);
