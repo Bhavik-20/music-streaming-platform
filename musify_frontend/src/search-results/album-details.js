@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { fetchAlbumDetails, fetchAlbumTracks } from "../spotify-hook/spotifyApi";
 import "./album-details.css";
-import { useParams, Link } from "react-router-dom";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { FaHeart, FaRegHeart, FaChevronLeft } from "react-icons/fa";
 import { likeAlbumsPlaylistThunk, getLikedAlbumsPlaylistThunk } from "../services/albums-playlist-thunk";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
+import { searchAlbumsByGenre } from "../spotify-hook/spotifyApi";
+import { Row, Container, Card } from "react-bootstrap";
+import { fetchArtistAlbums } from "../spotify-hook/spotifyApi";
 
 const AlbumDetails = () => {
   const {likedAlbums} = useSelector((state) => state.albumsPlaylist);
@@ -15,9 +18,11 @@ const AlbumDetails = () => {
   const [tracks, setTracks] = useState([]);
   const {albumID} = useParams();
   const [isLiked, setIsLiked] = useState();
+  const [artistAlbums, setArtistAlbums] = useState([]);
   const [currentUserCookies, setCurrentUserCookies] = useCookies(["currentUserId"]);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const msToMinSec = (durationMs) => {
     const minutes = Math.floor(durationMs / 60000);
@@ -38,6 +43,7 @@ const AlbumDetails = () => {
       console.log("Liked Albums: ", payload, payload.includes(albumID));
       setlikedAlbumsState(payload);
       setIsLiked(payload.includes(albumID));
+  
     }
   };
 
@@ -47,14 +53,27 @@ const AlbumDetails = () => {
       setAlbum(albumData);
       const albumTracks = await fetchAlbumTracks(albumID);
       setTracks(albumTracks);
-      // const albumLikes = album.followers.total;
-      // setLikesCount(albumLikes);
-    };
+      const artistID =  albumData.artists[0].id
+      const artistAlbums = await fetchArtistAlbums(artistID);
+      setArtistAlbums(artistAlbums);
+
+        };
     fetchAlbumData();
     getLikedAlbums();
   }, [albumID]);
 
+  
   return (
+    <div>
+    <div className="col-2">
+    <FaChevronLeft className="section"style={{
+          height: "40px",
+          margin: '15px'
+        }}  onClick={(e) => {
+          e.preventDefault();
+          navigate("/search");
+      }}/>
+  </div>
     <div className="centered-container">
       {album && (
         <>
@@ -114,8 +133,36 @@ const AlbumDetails = () => {
               ))}
             </tbody>
           </table>
+          <div className="album-details">
+            <h3>More by {album.artists[0].name}</h3>
+            <Container style={{ marginTop: "10px" }}>
+              <Row className="mx-2 row row-cols-6">
+                {artistAlbums.slice(0, 5).map((album, i) => {
+                  return (
+                    <Link
+                      to={`/albums/${album.id}`}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <Card
+                        style={{
+                          margin: "5px",
+                        }}
+                        className="card"
+                      >
+                        <Card.Img src={album.images[0].url} />
+                        <Card.Body>
+                          <Card.Title>{album.name} </Card.Title>
+                        </Card.Body>
+                      </Card>
+                    </Link>
+                  );
+                })}
+              </Row>
+            </Container>
+          </div>
         </>
       )}
+    </div>
     </div>
   );
 };

@@ -5,8 +5,8 @@ import {
   fetchPlaylistTracks,
 } from "../spotify-hook/spotifyApi";
 import "./album-details.css";
-import { useParams } from "react-router-dom";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useParams, useNavigate } from "react-router-dom";
+import { FaHeart, FaRegHeart, FaChevronLeft } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { likeAlbumsPlaylistThunk, getLikedAlbumsPlaylistThunk } from "../services/albums-playlist-thunk";
@@ -22,6 +22,7 @@ const PlaylistDetails = () => {
   const [currentUserCookies, setCurrentUserCookies] = useCookies(["currentUserId"]);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const msToMinSec = (durationMs) => {
     const minutes = Math.floor(durationMs / 60000);
@@ -58,6 +59,16 @@ const PlaylistDetails = () => {
   }, [playlistID]);
 
   return (
+    <div className="row">
+    <div className="col-2">
+            <FaChevronLeft className="section"style={{
+                  height: "40px",
+                  margin: '15px'
+                }}  onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/search");
+              }}/>
+          </div>
     <div className="centered-container">
       {playlist && (
         <>
@@ -125,6 +136,7 @@ const PlaylistDetails = () => {
           </table>
         </>
       )}
+    </div>
     </div>
   );
 };

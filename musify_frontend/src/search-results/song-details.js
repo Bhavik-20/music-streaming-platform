@@ -5,50 +5,44 @@ import {
 } from "../spotify-hook/spotifyApi";
 import "./album-details.css";
 import { Container, Row, Card } from "react-bootstrap";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import {likeSongThunk, getLikedSongsThunk} from "../services/song-thunk"
+import { FaHeart, FaRegHeart, FaChevronLeft } from "react-icons/fa";
+import { likeSongThunk, getLikedSongsThunk } from "../services/song-thunk";
 import { useCookies } from "react-cookie";
 
 const TrackDetails = () => {
-  const {likedSongs} = useSelector((state) => state.songs);
+  const { likedSongs } = useSelector((state) => state.songs);
   const [likedSongsState, setLikedSongsState] = useState(likedSongs);
   const [track, setTrack] = useState();
   const [albums, setAlbums] = useState([]);
   const [isLiked, setIsLiked] = useState(likedSongsState.includes(track?.id));
-  const [currentUserCookies, setCurrentUserCookies] = useCookies(["currentUserId"]);
+  const [currentUserCookies, setCurrentUserCookies] = useCookies([
+    "currentUserId",
+  ]);
 
   const { trackID } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const msToMinSec = (durationMs) => {
     const minutes = Math.floor(durationMs / 60000);
     const seconds = ((durationMs % 60000) / 1000).toFixed(0);
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
-
-  const fetchAlbums = async () => {
-    console.log("here: ", track, track.artists);
-    if (track && track.artists) {
-      const albumsData = await fetchArtistAlbums(track.artists[0].id);
-      console.log("fetch albums: ", albumsData);
-      setAlbums(albumsData);
-    } else {
-      console.log("no track");
-    }
+    return `Duration: ${minutes} minutes ${seconds < 10 ? "0" : ""}${seconds} seconds`;
   };
 
   const likeSong = async () => {
-      const currentUserId = currentUserCookies.currentUserId;
-      const {payload} = await dispatch(likeSongThunk({currentUserId, songId: track.id}));
-      setIsLiked(payload.includes(track.id));
-	};
+    const currentUserId = currentUserCookies.currentUserId;
+    const { payload } = await dispatch(
+      likeSongThunk({ currentUserId, songId: track.id })
+    );
+    setIsLiked(payload.includes(track.id));
+  };
 
   const getLikedSongs = async () => {
-    if (trackID) { 
+    if (trackID) {
       const currentUserId = currentUserCookies.currentUserId;
-      const {payload} = await dispatch(getLikedSongsThunk(currentUserId));
+      const { payload } = await dispatch(getLikedSongsThunk(currentUserId));
       console.log("Liked Songs: ", payload, payload.includes(trackID));
       setLikedSongsState(payload);
       setIsLiked(payload.includes(trackID));
@@ -58,26 +52,49 @@ const TrackDetails = () => {
   const fetchTrackData = async () => {
     const trackData = await fetchTrackDetails(trackID);
     setTrack(trackData);
+    if (trackData && trackData.artists) {
+      const albumsData = await fetchArtistAlbums(trackData.artists[0].id);
+      console.log("fetch albums: ", albumsData);
+      setAlbums(albumsData);
+    } else {
+      console.log("no track");
+    }
   };
 
   useEffect(() => {
-    fetchTrackData()
-    getLikedSongs(); 
+    fetchTrackData();
+    getLikedSongs();
   }, []);
 
   return (
+    <div>
+    <div className="col-2">
+    <FaChevronLeft className="section"style={{
+          height: "40px",
+          margin: '15px'
+        }}  onClick={(e) => {
+          e.preventDefault();
+          navigate("/search");
+      }}/>
+  </div>
     <div className="centered-container">
       {track && (
         <>
           <div id="album-info">
             <div className="album-details col">
               Track <br />
-              <h1>{track.name}</h1>
+              <h1 className="song-title">{track.name}</h1>
               <div className="row">
                 <div className="col">
                   {track.artists.map((artist, i) => (
-                    <b key={i}>{artist.name + " "}</b>
+                    <React.Fragment key={i}>
+                      {i > 0 && ", "}
+                      <b>{artist.name}</b>
+                    </React.Fragment>
                   ))}
+                </div>
+                <div className="col">
+                   {msToMinSec(track.duration_ms)}
                 </div>
                 <div className="col">
                   <button
@@ -98,7 +115,7 @@ const TrackDetails = () => {
             <h3>More by {track.artists[0].name}</h3>
             <Container style={{ marginTop: "10px" }}>
               <Row className="mx-2 row row-cols-6">
-                {albums.map((album, i) => {
+                {albums.slice(0, 10).map((album, i) => {
                   return (
                     <Link
                       to={`/albums/${album.id}`}
@@ -123,6 +140,7 @@ const TrackDetails = () => {
           </div>
         </>
       )}
+    </div>
     </div>
   );
 };

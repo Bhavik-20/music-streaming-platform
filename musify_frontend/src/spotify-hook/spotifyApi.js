@@ -33,6 +33,16 @@ export const searchTracks = async (searchQuery) => {
     return [];
   }
 };
+export const searchAlbumsByGenre = async (searchQuery) => {
+  try {
+    const input = "genre:"+searchQuery;
+    const response = await spotifyApi.searchTracks(input);
+    return response.albums.items;
+  } catch (error) {
+    console.error("Not songs in this genre", error);
+    return [];
+  }
+};
 
 export const playTrack = async (trackUri) => {
   try {

@@ -147,6 +147,13 @@ p {
   color: white;
 }
 
+.song-title {
+  font-size: 100px;
+  color: #58D68D;
+  
+
+}
+
 .cur {
     cursor: pointer;
 }
