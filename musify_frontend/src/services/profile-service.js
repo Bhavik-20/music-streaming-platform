@@ -1,6 +1,12 @@
 import axios from 'axios';
 const PROFILE_API = 'http://localhost:8000/profile';
 
+export const deleteProfile = async (user_id) => {
+    const body = {user_id};
+    const response = await axios.post(`${PROFILE_API}/deleteProfile`, body);
+    return response.data;
+};
+
 export const getProfile = async (token) => {
     const body = {token};
     const response = await axios.post(`${PROFILE_API}/getProfile`, body);

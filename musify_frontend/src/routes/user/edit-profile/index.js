@@ -5,17 +5,28 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	getProfileThunk,
 	updateProfileThunk,
+	deleteProfileThunk
 } from "../../../services/profile-thunks";
 import ReadOnlyInput from '../../../components/shared/ReadOnlyInput';
 import TextInput from "../../../components/shared/TextInput";
 import Button from "../../../components/shared/Button";
 
 const EditProfileComponent = () => {
-	const [cookies, setCookie] = useCookies(["token"]);
+	const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+	const [currentUserCookies, setCurrentUserCookies, removeCurrentUserCookies] = useCookies(["currentUserId"]);
 	const { myProfile } = useSelector((state) => state.myProfile);
 	const [profile, setProfile] = useState(myProfile);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const deleteAccount = async () => {
+		const {paylod} = await dispatch(deleteProfileThunk(currentUserCookies.currentUserId));
+		console.log("deleted");
+		removeCookie("token", {path: "/"});
+        removeCurrentUserCookies("currentUserId", {path: "/"});
+        alert("Success");
+        navigate("/login");
+	}
 
 	const SaveProfileChanges = async () => {
 		try {
@@ -135,6 +146,14 @@ const EditProfileComponent = () => {
 							onClick={(e) => {
 								e.preventDefault();
 								SaveProfileChanges();
+							}}
+						/>
+						<Button
+							text="Delete Account"
+							className="btn btn-danger ms-2"
+							onClick={(e) => {
+								e.preventDefault();
+								deleteAccount();
 							}}
 						/>
 					</div>

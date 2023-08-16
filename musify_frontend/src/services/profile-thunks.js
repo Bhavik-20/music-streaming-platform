@@ -1,6 +1,14 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import * as profileService from "./profile-service";
 
+export const deleteProfileThunk = createAsyncThunk(
+   "profile/deleteProfile",
+   async (user_id) => {
+      const user = await profileService.deleteProfile(user_id);
+      return user;
+   }
+);
+
 export const getProfileThunk = createAsyncThunk(
    "profile/getProfile",
    async (token) => {
