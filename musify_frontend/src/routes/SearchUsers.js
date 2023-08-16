@@ -66,7 +66,7 @@ const SearchUsers = () => {
                                 (user, index) => (
                                     <div>
                                         <div 
-                                        className="w-100 px-10 rounded text-white bg-transparent m-1 row list-item" 
+                                        className="w-100 px-10 rounded text-white bg-transparent m-1 row cur list-item" 
                                         onClick={(e) => { e.preventDefault();
                                             navigate(`/profile/${user._id}`);}}> 
                                             <div className="col-1 profile-pic d-flex justify-content-center align-items-center"> 
@@ -78,7 +78,7 @@ const SearchUsers = () => {
                                                     {user.role === "artist-verified" ? ( <i className="bi bi-patch-check-fill text-info ms-2 me-2"></i> ) : ( <></> )}
                                                     - {user.followingCount} Following . {user.followCount} Followers</span>
                                                 <span className="user-profile-info">Email: {user.email}</span> <br></br>
-                                                <span className="user-profile-info">Role: {user.role == "artist-verified"? "verified artist": "artist"} </span>
+                                                <span className="user-profile-info">Role: {user.role == "artist-verified"? "verified artist": user.role == "listener"? "listener" : "artist"} </span>
                                             </div>
                                         </div>  
                                     </div>

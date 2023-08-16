@@ -24,7 +24,7 @@ router.post('/deleteProfile', async (req, res) => {
         for (const user of allUsers) {
             if (user.following.includes(user_id)) {
                 user.following = user.following.filter(id => id !== user_id);
-                user.followingCount = user.followCount - 1;
+                user.followingCount = user.followingCount - 1;
                 await user.save();
             }
             if (user.followers.includes(user_id)) {

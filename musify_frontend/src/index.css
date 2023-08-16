@@ -146,3 +146,7 @@ p {
 .section {
   color: white;
 }
+
+.cur {
+    cursor: pointer;
+}

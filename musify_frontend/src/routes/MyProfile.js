@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfileThunk,getUserDataFollowingThunk, getUserDataFollowersThunk } from "../services/profile-thunks";
+import { getProfileThunk, getUserDataFollowingThunk, getUserDataFollowersThunk } from "../services/profile-thunks";
 import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
+import Button from "../components/shared/Button";
 
 const MyProfileComponent = () => {
 	const [cookies, setCookie] = useCookies(["token"]);
 	const [currentUserCookies, setCurrentUserCookies] = useCookies(["currentUserId"]);
 	const profile = useSelector((state) => state.myProfile);
 	const [userProfile, setProfile] = useState(profile.myProfile);
-    const [userProfileFollowingList, setUserProfileFollowingList] = useState(profile.userDataFollowing);
-    const [userProfileFollowersList, setUserProfileFollowersList] = useState(profile.userDataFollowers);
+	const [userProfileFollowingList, setUserProfileFollowingList] = useState(profile.userDataFollowing);
+	const [userProfileFollowersList, setUserProfileFollowersList] = useState(profile.userDataFollowers);
 	const [nameInitials, setNameInitials] = useState("");
 
 
@@ -22,8 +23,8 @@ const MyProfileComponent = () => {
 			const { payload } = await dispatch(getProfileThunk(cookies.token));
 			setProfile(payload);
 			setNameInitials(payload.firstName.charAt(0) + payload.lastName.charAt(0));
-            
-            const followingList = await dispatch(getUserDataFollowingThunk(currentUserCookies.currentUserId));
+
+			const followingList = await dispatch(getUserDataFollowingThunk(currentUserCookies.currentUserId));
 			setUserProfileFollowingList(followingList.payload);
 
 			const followerList = await dispatch(getUserDataFollowersThunk(currentUserCookies.currentUserId));
@@ -108,43 +109,59 @@ const MyProfileComponent = () => {
 				</div>
 			</div>
 
-			<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
-				<h2 className="col-10">Followers</h2>
-				<div className="row">
-					{userProfileFollowersList.map((follower) => (
-						<div className="col-lg-2 col-3 border-solid"
-						onClick={(e) => { e.preventDefault();
-							navigate(`/profile/${follower._id}`);}}> 
-							<div className="follower-icon rounded-circle d-flex justify-content-center align-items-center">
-								<span className="bg-transparent"> {follower.firstName.charAt(0).toUpperCase()}{follower.lastName.charAt(0).toUpperCase()}</span>
+			{(userProfile.followCount == 0) ? "" :
+				<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
+					<h2 className="col-10">Followers</h2>
+					<div className="row">
+						{userProfileFollowersList.map((follower) => (
+							<div className="col-lg-2 col-3 border-solid cur"
+								onClick={(e) => {
+									e.preventDefault();
+									navigate(`/profile/${follower._id}`);
+								}}>
+								<div className="follower-icon rounded-circle d-flex justify-content-center align-items-center">
+									<span className="bg-transparent"> {follower.firstName.charAt(0).toUpperCase()}{follower.lastName.charAt(0).toUpperCase()}</span>
+								</div>
+								<div className="w-100 d-flex justify-content-center align-items-center">
+									<p>{follower.firstName} {follower.lastName}</p>
+								</div>
 							</div>
-							<div className="w-100 d-flex justify-content-center align-items-center">
-								<p>{follower.firstName} {follower.lastName}</p>
-							</div>
-						</div>
-					))}
-				</div>
-			</div>
+						))}
+					</div>
+				</div>}
 
 			<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-5">
 				<h2 className="col-10">Following</h2>
 				<div className="row">
-					{userProfileFollowingList.map((following) => (
-						<div className="col-lg-2 col-3 border-solid"
-						onClick={(e) => { e.preventDefault();
-							navigate(`/profile/${following._id}`);}}> 
-							<div className="follower-icon rounded-circle d-flex justify-content-center align-items-center">
-								<span className="bg-transparent"> {following.firstName.charAt(0).toUpperCase()}{following.lastName.charAt(0).toUpperCase()}</span>
-							</div>
-							<div className="w-100 d-flex justify-content-center align-items-center">
-								<p>{following.firstName} {following.lastName}</p>
-							</div>
+					{(userProfile.followingCount == 0) ?
+						<div className="w-100 d-flex justify-content-center align-items-center">
+							<Button
+								text="Search Users"
+								className = "green-btn"
+								onClick={(e) => {
+									e.preventDefault();
+									navigate("/search-users");
+								}}
+							> </Button>
 						</div>
-					))}
+						: userProfileFollowingList.map((following) => (
+							<div className="col-lg-2 col-3 border-solid cur"
+								onClick={(e) => {
+									e.preventDefault();
+									navigate(`/profile/${following._id}`);
+								}}>
+								<div className="follower-icon rounded-circle d-flex justify-content-center align-items-center">
+									<span className="bg-transparent"> {following.firstName.charAt(0).toUpperCase()}{following.lastName.charAt(0).toUpperCase()}</span>
+								</div>
+								<div className="w-100 d-flex justify-content-center align-items-center">
+									<p>{following.firstName} {following.lastName}</p>
+								</div>
+							</div>
+						))}
 				</div>
 			</div>
 		</div>
-	); 
+	);
 };
 
 export default MyProfileComponent;
