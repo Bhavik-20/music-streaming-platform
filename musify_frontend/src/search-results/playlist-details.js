@@ -7,18 +7,42 @@ import {
 import "./album-details.css";
 import { useParams } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useCookies } from "react-cookie";
+import { likeAlbumsPlaylistThunk, getLikedAlbumsPlaylistThunk } from "../services/albums-playlist-thunk";
 
 const PlaylistDetails = () => {
+  const {likedAlbums} = useSelector((state) => state.albumsPlaylist);
+  const [likedAlbumsState, setlikedAlbumsState] = useState(likedAlbums);
+
   const [playlist, setPlaylist] = useState(null);
   const [tracks, setTracks] = useState([]);
   const {playlistID} = useParams();
   const [isLiked, setIsLiked] = useState();
-  const [likesCount, setLikesCount] = useState();
+  const [currentUserCookies, setCurrentUserCookies] = useCookies(["currentUserId"]);
+
+  const dispatch = useDispatch();
 
   const msToMinSec = (durationMs) => {
     const minutes = Math.floor(durationMs / 60000);
     const seconds = ((durationMs % 60000) / 1000).toFixed(0);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+
+  const likeAlbums = async () => {
+      const currentUserId = currentUserCookies.currentUserId;
+      const {payload} = await dispatch(likeAlbumsPlaylistThunk({currentUserId, albumId: playlist.id}));
+      setIsLiked(payload.includes(playlist.id));
+	};
+
+  const getLikedAlbums = async () => {
+    if (playlistID) { 
+      const currentUserId = currentUserCookies.currentUserId;
+      const {payload} = await dispatch(getLikedAlbumsPlaylistThunk(currentUserId));
+      console.log("Liked Albums: ", payload, payload.includes(playlistID));
+      setlikedAlbumsState(payload);
+      setIsLiked(payload.includes(playlistID));
+    }
   };
 
   useEffect(() => {
@@ -27,22 +51,11 @@ const PlaylistDetails = () => {
       setPlaylist(playlistData);
       const playlistTracks = await fetchPlaylistTracks(playlistID);
       setTracks(playlistTracks);
-      const playlistLikes = playlist.followers.total;
-      setLikesCount(playlistLikes);
-      console.log(playlistTracks);
+      // const playlistLikes = playlist.followers.total;
     };
     fetchPlaylistData();
+    getLikedAlbums();
   }, [playlistID]);
-
-  const handleButtonClick = () => {
-    // Optimistic UI update
-    const newLikesCount = isLiked ? likesCount - 1 : likesCount + 1;
-    setLikesCount(newLikesCount);
-    setIsLiked(!isLiked);
-
-    // Update data on the server using dispatch
-    // dispatch(updateTuitThunk({ ...tuit, liked: !isLiked, likes: newLikesCount }));
-  };
 
   return (
     <div className="centered-container">
@@ -67,11 +80,10 @@ const PlaylistDetails = () => {
                       color: "white",
                       border: "none",
                     }}
-                    onClick={handleButtonClick}
+                    onClick={likeAlbums}
                   >
                     {isLiked ? <FaHeart color="red" /> : <FaRegHeart />}
                   </button>
-                  {likesCount}
                 </div>
             </div>
           </div>

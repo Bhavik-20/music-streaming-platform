@@ -24,7 +24,6 @@ const SearchBar = () => {
     setArtists(artistResults);
 
     const albumsResults = await searchAlbums(searchInput);
-    console.log(albumsResults);
     setAlbumsSearch(albumsResults);
 
     const tracksResults = await searchTracks(searchInput);

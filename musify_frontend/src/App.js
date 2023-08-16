@@ -24,11 +24,14 @@ import SearchUsers from './routes/SearchUsers';
 import SearchUsersReducer from './reducers/user-search-reducer';
 import MyProfileComponent from './routes/MyProfile';
 import myProfileReducer from './reducers/my-profile-reducer';
+import songReducer from './reducers/song-reducer';
+import albumsPlaylistReducer from './reducers/albums-playlist-reducer';
 
 //v2 -- no backend use for API
 function App() {
   const store = configureStore(
-  {reducer: {myProfile: myProfileReducer, profile: profileReducer, admin: adminReducer, userSearch: SearchUsersReducer}});
+  {reducer: {myProfile: myProfileReducer, profile: profileReducer, admin: adminReducer, 
+    userSearch: SearchUsersReducer, songs: songReducer, albumsPlaylist: albumsPlaylistReducer}});
   
   const CLIENT_ID = 'c4cdfc316afc45aebeffea58959ac714';
   const CLIENT_SECRET = '5f290d251a5648e5bea5050a200f5114'

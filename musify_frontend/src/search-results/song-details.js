@@ -6,14 +6,19 @@ import {
 import "./album-details.css";
 import { Container, Row, Card } from "react-bootstrap";
 import { useParams, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import {likeSongThunk, getLikedSongsThunk} from "../services/song-thunk"
+import { useCookies } from "react-cookie";
 
 const TrackDetails = () => {
-  const [track, setTrack] = useState(null);
+  const {likedSongs} = useSelector((state) => state.songs);
+  const [likedSongsState, setLikedSongsState] = useState(likedSongs);
+  const [track, setTrack] = useState();
   const [albums, setAlbums] = useState([]);
-  const [isLiked, setIsLiked] = useState();
-  const [likesCount, setLikesCount] = useState();
+  const [isLiked, setIsLiked] = useState(likedSongsState.includes(track?.id));
+  const [currentUserCookies, setCurrentUserCookies] = useCookies(["currentUserId"]);
+
   const { trackID } = useParams();
   const dispatch = useDispatch();
 
@@ -22,32 +27,43 @@ const TrackDetails = () => {
     const seconds = ((durationMs % 60000) / 1000).toFixed(0);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
-  const handleButtonClick = () => {
-    // Optimistic UI update
-    const newLikesCount = isLiked ? likesCount - 1 : likesCount + 1;
-    setLikesCount(newLikesCount);
-    setIsLiked(!isLiked);
 
-    // Update data on the server using dispatch
-    // dispatch(updateTuitThunk({ ...tuit, liked: !isLiked, likes: newLikesCount }));
+  const fetchAlbums = async () => {
+    console.log("here: ", track, track.artists);
+    if (track && track.artists) {
+      const albumsData = await fetchArtistAlbums(track.artists[0].id);
+      console.log("fetch albums: ", albumsData);
+      setAlbums(albumsData);
+    } else {
+      console.log("no track");
+    }
+  };
+
+  const likeSong = async () => {
+      const currentUserId = currentUserCookies.currentUserId;
+      const {payload} = await dispatch(likeSongThunk({currentUserId, songId: track.id}));
+      setIsLiked(payload.includes(track.id));
+	};
+
+  const getLikedSongs = async () => {
+    if (trackID) { 
+      const currentUserId = currentUserCookies.currentUserId;
+      const {payload} = await dispatch(getLikedSongsThunk(currentUserId));
+      console.log("Liked Songs: ", payload, payload.includes(trackID));
+      setLikedSongsState(payload);
+      setIsLiked(payload.includes(trackID));
+    }
+  };
+
+  const fetchTrackData = async () => {
+    const trackData = await fetchTrackDetails(trackID);
+    setTrack(trackData);
   };
 
   useEffect(() => {
-    const fetchTrackData = async () => {
-      const trackData = await fetchTrackDetails(trackID);
-      setTrack(trackData);
-    };
-
-    const fetchAlbums = async () => {
-      if (track && track.artists) {
-        const albumsData = await fetchArtistAlbums(track.artists[0].id);
-        setAlbums(albumsData);
-      }
-    };
-
-    fetchTrackData();
-    fetchAlbums();
-  }, [trackID, track]);
+    fetchTrackData()
+    getLikedSongs(); 
+  }, []);
 
   return (
     <div className="centered-container">
@@ -70,11 +86,10 @@ const TrackDetails = () => {
                       color: "white",
                       border: "none",
                     }}
-                    onClick={handleButtonClick}
+                    onClick={likeSong}
                   >
                     {isLiked ? <FaHeart color="red" /> : <FaRegHeart />}
                   </button>
-                  {likesCount}
                 </div>
               </div>
             </div>

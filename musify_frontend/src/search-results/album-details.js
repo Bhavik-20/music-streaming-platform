@@ -3,27 +3,42 @@ import { fetchAlbumDetails, fetchAlbumTracks } from "../spotify-hook/spotifyApi"
 import "./album-details.css";
 import { useParams, Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { likeAlbumsPlaylistThunk, getLikedAlbumsPlaylistThunk } from "../services/albums-playlist-thunk";
+import { useCookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
 
 const AlbumDetails = () => {
+  const {likedAlbums} = useSelector((state) => state.albumsPlaylist);
+  const [likedAlbumsState, setlikedAlbumsState] = useState(likedAlbums);
+
   const [album, setAlbum] = useState(null);
   const [tracks, setTracks] = useState([]);
   const {albumID} = useParams();
   const [isLiked, setIsLiked] = useState();
-  const [likesCount, setLikesCount] = useState(0);
+  const [currentUserCookies, setCurrentUserCookies] = useCookies(["currentUserId"]);
+
+  const dispatch = useDispatch();
 
   const msToMinSec = (durationMs) => {
     const minutes = Math.floor(durationMs / 60000);
     const seconds = ((durationMs % 60000) / 1000).toFixed(0);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
-  const handleButtonClick = () => {
-    // Optimistic UI update
-    const newLikesCount = isLiked ? likesCount - 1 : likesCount + 1;
-    setLikesCount(newLikesCount);
-    setIsLiked(!isLiked);
+  
+  const likeAlbums = async () => {
+      const currentUserId = currentUserCookies.currentUserId;
+      const {payload} = await dispatch(likeAlbumsPlaylistThunk({currentUserId, albumId: album.id}));
+      setIsLiked(payload.includes(album.id));
+	};
 
-    // Update data on the server using dispatch
-    // dispatch(updateTuitThunk({ ...tuit, liked: !isLiked, likes: newLikesCount }));
+  const getLikedAlbums = async () => {
+    if (albumID) { 
+      const currentUserId = currentUserCookies.currentUserId;
+      const {payload} = await dispatch(getLikedAlbumsPlaylistThunk(currentUserId));
+      console.log("Liked Albums: ", payload, payload.includes(albumID));
+      setlikedAlbumsState(payload);
+      setIsLiked(payload.includes(albumID));
+    }
   };
 
   useEffect(() => {
@@ -36,6 +51,7 @@ const AlbumDetails = () => {
       // setLikesCount(albumLikes);
     };
     fetchAlbumData();
+    getLikedAlbums();
   }, [albumID]);
 
   return (
@@ -59,11 +75,10 @@ const AlbumDetails = () => {
                       color: "white",
                       border: "none",
                     }}
-                    onClick={handleButtonClick}
+                    onClick={likeAlbums}
                   >
                     {isLiked ? <FaHeart color="red" /> : <FaRegHeart />}
                   </button>
-                  {likesCount}
                 </div>
             </div>
           </div>
