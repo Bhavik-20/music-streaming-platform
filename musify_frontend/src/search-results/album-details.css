@@ -53,4 +53,9 @@
     cursor: pointer;
     color: black;
   }
+
+  .album-link {
+    color: "white";
+    text-decoration: "none";
+  }
   

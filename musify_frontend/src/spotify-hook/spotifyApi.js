@@ -24,6 +24,23 @@ export const initializeSpotifyApi = (token) => {
 	}
 };
 
+export const searchTopTrack = async (searchQuery) => {
+	try {
+		const catPlay = await spotifyApi.getCategoryPlaylists('toplists');
+		console.log("top playlists:", catPlay);
+		const topPlaylist = catPlay.playlists.items[0];
+		console.log("toPlay:", topPlaylist);
+		const topTracks = await spotifyApi.getPlaylistTracks(topPlaylist.id);
+		console.log("topTracks:", topTracks);
+		const top = topTracks.items[0].track;
+		console.log("top:", top);
+		return top;
+	}catch (error) {
+		console.error("Error searching for tracks:", error);
+		return [];
+	}
+};
+
 export const searchTracks = async (searchQuery) => {
 	try {
 		const response = await spotifyApi.searchTracks(searchQuery);

@@ -40,7 +40,7 @@ const SearchBar = () => {
       <Container>
         <InputGroup className="mb-3" size="lg">
           <FormControl
-            placeholder="Search For Artist"
+            placeholder="Search For Tracks, Albums, and Playlists"
             type="input"
             onKeyDown={(event) => {
               if (event.key === "Enter") {
@@ -80,7 +80,7 @@ const SearchBar = () => {
                       fontSize: "14px",
                       whiteSpace: "nowrap",
                       overflow: "hidden",
-                      textOverflow: "ellipsis",
+                      textOverflow: "clip"
                     }}
                   >
                     {track.name}{" "}

@@ -103,6 +103,34 @@ p {
 .green-color {
     color: #58D68D;
 }
+a:-webkit-any-link {
+  color: -webkit-link;
+  cursor: pointer;
+  text-decoration: none;
+}
+.card {
+  --bs-card-color: white;
+  --bs-card-bg: transparent;
+  border: "none";
+  cursor: pointer;
+}
+
+
+.white-color {
+  color: white;
+}
+.card img {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Adjust the shadow values as needed */
+}
+
+.album-link {
+  color: "white";
+  text-decoration: "none";
+}
+.list-group-item.active {
+  background-color: #58D68D;
+  border-color:#58D68D;
+}
 
 .admin-stamp {
     color: gray;
@@ -175,4 +203,43 @@ p {
  .titleStyle {
   fontSize: "14px";
   color: "white";
-};
+}
+
+.featured-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 35vh;
+  background: linear-gradient(to right, #333333, #000000);
+  color: white;
+  overflow: hidden; 
+}
+
+.feature-info {
+  display: flex;
+  align-items: flex-start; 
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.feature-image img {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  object-fit: cover;
+}
+
+.feature-details {
+  padding-left: 20px; 
+  color: white;
+}
+
+.feature-details h1 {
+  margin-top: 0;
+}
+
+.feature-details p {
+  margin-bottom: 0; 
+}

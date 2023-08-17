@@ -10,6 +10,7 @@ import spotifyApi, {
 	fetchItems,
 	fetchTracks,
 } from "../../spotify-hook/spotifyApi";
+import Featured from "./Featured";
 
 const ApiComponent = () => {
 	const [cookies, setCookie, removeCookie] = useCookies(["token"]);
@@ -62,23 +63,7 @@ const ApiComponent = () => {
 		loadLikedContent();
 	}, [loggedIn]);
 
-	const cardStyle = {
-		background: "transparent",
-		border: "none",
-		marginBottom: "5px",
-	};
-
-	const imageStyle = {
-		boxShadow: "0px 0px 10px white", // Add white shadow
-	};
-
-	const titleStyle = {
-		fontSize: "14px",
-		whiteSpace: "nowrap",
-		overflow: "hidden",
-		textOverflow: "ellipsis",
-		color: "white", // Set title color to white
-	};
+	
 
 	return (
 		<div className="container-fluid">
@@ -86,7 +71,7 @@ const ApiComponent = () => {
 				<div className="row">
 					<div className="jumbotron col-9">
 						<h1 className="green-color">Welcome to Musify!</h1>
-						<p className="green-color">
+						<p className="white-color">
 							Your personalized online music streaming
 						</p>
 					</div>
@@ -107,6 +92,9 @@ const ApiComponent = () => {
 					</div>
 				</div>
 			</div>
+			<div className="row">
+			<Featured/>
+			</div>
 
 			{userProfile.length !== 0 ? (
 				<div>
@@ -117,11 +105,10 @@ const ApiComponent = () => {
 								You have not liked any Albums yet!
 							</h4>
 						) : (
-							<Row className="mx-2 col-6 row row-cols-6">
+							<Row className="mx-2 row row-cols-6">
 								{likedAlbums.map((album) => (
 									<Card
-										style={cardStyle}
-										className="card"
+										
 										onClick={(e) => {
 											e.preventDefault();
 											if (album.type === "album") {
@@ -130,9 +117,9 @@ const ApiComponent = () => {
 												navigate(`/playlists/${album.id}`);
 											}
 										}}>
-										<Card.Img style={imageStyle} src={album.images[0]?.url} />
+										<Card.Img  src={album.images[0]?.url} />
 										<Card.Body>
-											<Card.Title style={titleStyle}>{album.name} </Card.Title>
+											<Card.Title >{album.name} </Card.Title>
 											{/* link to go to album details page */}
 										</Card.Body>
 									</Card>
@@ -150,18 +137,16 @@ const ApiComponent = () => {
 							<Row className="mx-2 row row-cols-6">
 								{likedTracks.tracks.map((track) => (
 									<Card
-										style={cardStyle}
-										className="card"
 										onClick={(e) => {
 											e.preventDefault();
 											navigate(`/tracks/${track.id}`);
 										}}>
 										<Card.Img
-											style={imageStyle}
+											
 											src={track.album.images[0]?.url}
 										/>
 										<Card.Body>
-											<Card.Title style={titleStyle}>{track.name} </Card.Title>
+											<Card.Title>{track.name} </Card.Title>
 											{/* link to go to album details page */}
 										</Card.Body>
 									</Card>

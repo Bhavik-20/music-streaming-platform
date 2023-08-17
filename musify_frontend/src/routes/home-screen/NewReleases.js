@@ -21,30 +21,12 @@ const NewReleases = () => {
         fetchAlbums();
     }, []);
 
-
-  const cardStyle = {
-    background: "transparent",
-    border: "none",
-    marginBottom: "5px",
-  };
-
-  const imageStyle = {
-    boxShadow: "0px 0px 10px white", // Add white shadow
-
-  }
-
-  const titleStyle = {
-    fontSize: "14px",
-    color: "white", // Set title color to white
-  };
-
     return (
         <div>
         <Row className="mx-2 row row-cols-6">
         {albums.map((album, i) => {
           return (
               <Card
-                style={cardStyle}
                 onClick={(e) => {
                   e.preventDefault();
                     navigate(`/albums/${album.id}`);
@@ -52,9 +34,9 @@ const NewReleases = () => {
                 }}
               
               >
-                <Card.Img src={album.images[0].url} style={imageStyle} />
+                <Card.Img src={album.images[0].url} />
                 <Card.Body>
-                  <Card.Title style={titleStyle}>{album.name} </Card.Title>
+                  <Card.Title >{album.name} </Card.Title>
                 </Card.Body>
               </Card>
           );

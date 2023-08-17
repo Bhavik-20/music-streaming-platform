@@ -24,20 +24,6 @@ const Trending = () => {
     fetchPlaylists();
   }, []);
 
-  const cardStyle = {
-    background: "transparent",
-    border: "none",
-    marginBottom: "5px",
-  };
-
-  const imageStyle = {
-    boxShadow: "0px 0px 10px white", // Add white shadow
-  };
-
-  const titleStyle = {
-    fontSize: "14px",
-    color: "white", // Set title color to white
-  };
 
   return (
     <div>
@@ -45,7 +31,7 @@ const Trending = () => {
         {playlists.map((playlist, i) => {
           return (
               <Card
-                style={cardStyle}
+                
                 className="card"
                 onClick={(e) => {
                     e.preventDefault();
@@ -53,9 +39,9 @@ const Trending = () => {
                   
                   }}
               >
-                <Card.Img src={playlist.images[0].url} style={imageStyle} />
+                <Card.Img src={playlist.images[0].url} />
                 <Card.Body>
-                  <Card.Title style={titleStyle}>{playlist.name} </Card.Title>
+                  <Card.Title >{playlist.name} </Card.Title>
                 </Card.Body>
               </Card>
           );
