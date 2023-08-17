@@ -7,7 +7,7 @@ import {
   Row,
   Card,
 } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { searchAlbums, searchArtists, searchTracks, searchPlaylists } from "../spotify-hook/spotifyApi";
 import { Link } from "react-router-dom";
 
@@ -18,20 +18,35 @@ const SearchBar = () => {
   const [artists, setArtists] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [playlists, setPlaylists] = useState([]);
+  
 
-  async function search() {
-    const artistResults = await searchArtists(searchInput);
-    setArtists(artistResults);
+  useEffect(() => {
+    // Load saved search results from localStorage
+    const savedTracks = JSON.parse(localStorage.getItem("savedTracks") || "[]");
+    const savedAlbums = JSON.parse(localStorage.getItem("savedAlbums") || "[]");
+    const savedPlaylists = JSON.parse(localStorage.getItem("savedPlaylists") || "[]");
 
-    const albumsResults = await searchAlbums(searchInput);
-    setAlbumsSearch(albumsResults);
+    setTracks(savedTracks);
+    setAlbumsSearch(savedAlbums);
+    setPlaylists(savedPlaylists);
+  }, []);
 
-    const tracksResults = await searchTracks(searchInput);
-    setTracks(tracksResults);
+async function search() {
+  const artistResults = await searchArtists(searchInput);
+  setArtists(artistResults);
 
-    const playlistsResults = await searchPlaylists(searchInput);
-    setPlaylists(playlistsResults);
-  };
+  const albumsResults = await searchAlbums(searchInput);
+  setAlbumsSearch(albumsResults);
+  localStorage.setItem("savedAlbums", JSON.stringify(albumsResults));
+
+  const tracksResults = await searchTracks(searchInput);
+  setTracks(tracksResults);
+  localStorage.setItem("savedTracks", JSON.stringify(tracksResults));
+
+  const playlistsResults = await searchPlaylists(searchInput);
+  setPlaylists(playlistsResults);
+  localStorage.setItem("savedPlaylists", JSON.stringify(playlistsResults));
+}
 
 
 
