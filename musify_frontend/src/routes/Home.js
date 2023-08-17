@@ -66,6 +66,13 @@ const HomeComponent = () => {
             }}>
             Search Users
             </button>  
+            <button 
+            className="bg-green-400 font-semibold p-3 px-10 rounded-full" 
+            onClick={(e) => {
+                e.preventDefault();
+                navigate("/new-home");
+            }}>     New Home       </button>  
+            
         </div>
         
     );

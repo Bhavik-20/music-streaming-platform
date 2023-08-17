@@ -1,15 +1,68 @@
+import { Card, Row } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import {
+  fetchFeaturedPlaylists,
+  fetchNewReleases,
+} from "../../spotify-hook/spotifyApi";
+
 const Trending = () => {
-    return (
-        <div className="row">
-            <div className="card h-100 col-3 m-2">
-                <img className="card-img-top" src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1546&q=80" alt="Card image cap" />
-                <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">music information in details</p>
-                </div>
-            </div>
-        </div>
-    );
-}
+  const [playlists, setPlaylists] = useState([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPlaylists = async () => {
+      try {
+        const playlistData = await fetchFeaturedPlaylists();
+        console.log("Fetched album items:", playlistData); // Add this line
+        setPlaylists(playlistData.playlists.items.slice(0, 5));
+      } catch (error) {
+        console.error("Error fetching playlists:", error);
+      }
+    };
+    fetchPlaylists();
+  }, []);
+
+  const cardStyle = {
+    background: "transparent",
+    border: "none",
+    marginBottom: "5px",
+  };
+
+  const imageStyle = {
+    boxShadow: "0px 0px 10px white", // Add white shadow
+  };
+
+  const titleStyle = {
+    fontSize: "14px",
+    color: "white", // Set title color to white
+  };
+
+  return (
+    <div>
+      <Row className="mx-2 row row-cols-6">
+        {playlists.map((playlist, i) => {
+          return (
+              <Card
+                style={cardStyle}
+                className="card"
+                onClick={(e) => {
+                    e.preventDefault();
+                      navigate(`/playlists/${playlist.id}`);
+                  
+                  }}
+              >
+                <Card.Img src={playlist.images[0].url} style={imageStyle} />
+                <Card.Body>
+                  <Card.Title style={titleStyle}>{playlist.name} </Card.Title>
+                </Card.Body>
+              </Card>
+          );
+        })}
+      </Row>
+    </div>
+  );
+};
 
 export default Trending;

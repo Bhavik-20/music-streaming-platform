@@ -160,3 +160,19 @@ p {
     max-width: 100%;
     max-height: 100%;
 }
+
+.cardStyle {
+  background: "transparent", !important;
+  border: "none" !important;;
+  marginBottom: "5px" !important;;
+}
+
+.imageStyle {
+  boxShadow: "0px 0px 10px white";
+
+}
+
+ .titleStyle {
+  fontSize: "14px";
+  color: "white";
+};

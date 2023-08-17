@@ -106,6 +106,18 @@ export const fetchTracks = async (trackIds) => {
   } return tracks;
 };
 
+export const fetchNewReleases = async () => {
+const content = await spotifyApi.getNewReleases();
+console.log(content)
+return content;
+};
+
+export const fetchFeaturedPlaylists = async () => {
+  const content = await spotifyApi.getFeaturedPlaylists();
+  console.log(content)
+  return content;
+  };
+
 export const fetchPlaylistDetails = async (playlistID) => {
   try {
     const data = await spotifyApi.getPlaylist(playlistID);
