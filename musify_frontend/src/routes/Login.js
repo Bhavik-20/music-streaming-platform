@@ -30,7 +30,7 @@ const LoginComponent = () => {
             setCookie("token", token, {path: "/", expires: date});
             setCookie("currentUserId", response._id, {path: "/", expires: date});
             alert("Success");
-            navigate("/home");
+            navigate("/new-home");
         } else {
             alert("Error: " + response.err);
         }

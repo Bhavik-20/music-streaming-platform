@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { useNavigate, Link } from "react-router-dom";
 import { Row, Card } from "react-bootstrap";
-import { fetchItems, fetchTracks } from "../../spotify-hook/spotifyApi";
+import spotifyApi, { fetchItems, fetchTracks } from "../../spotify-hook/spotifyApi";
 
 const ApiComponent = () => {
   const [cookies, setCookie] = useCookies(["token"]);

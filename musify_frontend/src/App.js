@@ -28,7 +28,6 @@ import songReducer from './reducers/song-reducer';
 import albumsPlaylistReducer from './reducers/albums-playlist-reducer';
 import HomeScreen from './routes/home-screen/HomeScreen';
 
-//v2 -- no backend use for API
 function App() {
   const store = configureStore(
   {reducer: {myProfile: myProfileReducer, profile: profileReducer, admin: adminReducer, 
@@ -37,8 +36,9 @@ function App() {
   const CLIENT_ID = 'c4cdfc316afc45aebeffea58959ac714';
   const CLIENT_SECRET = '5f290d251a5648e5bea5050a200f5114'
   const [accessToken, setAccessToken] = useState("");
-  
-  useEffect(() => {
+  const [cookie] = useCookies(["token"]);
+
+  const spotifyApiSetup = async () => {
     var authParameters = {
       method: 'POST',
       headers: {
@@ -46,16 +46,20 @@ function App() {
       },
       body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
     };
-  
-    fetch('https://accounts.spotify.com/api/token', authParameters)
+
+    await fetch('https://accounts.spotify.com/api/token', authParameters)
       .then(result => result.json())
       .then(data => {
+        console.log("-x-x-x-x-x-x-x-x-x-x-x-x");
         setAccessToken(data.access_token);
-        initializeSpotifyApi(data.access_token); // Use the updated token here
+        initializeSpotifyApi(data.access_token); 
       });
+  }
+
+  useEffect(() => {
+    spotifyApiSetup();    
   }, []);  
      
-  const [cookie] = useCookies(["token"]);
   return (
     <Provider store={store}>
       <div className="w-screen h-screen font-poppins">
