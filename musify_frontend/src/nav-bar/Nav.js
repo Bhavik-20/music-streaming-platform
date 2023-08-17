@@ -9,7 +9,7 @@ const Nav = () => {
  const [currentUserCookies, setCurrentUserCookies] = useCookies(["currentUserId"]);
  
  const { pathname } = useLocation();
- const [ignore, musify, active] = pathname.split("/");
+ const [musify, active] = pathname.split("/");
 
  return (
    <div className="list-group">
@@ -20,12 +20,12 @@ const Nav = () => {
          </Link>
       )}
       {!currentUserCookies.currentUserId && 
-      <Link className={`list-group-item text-capitalize ${active === "login" ? "active" : ""}`} to="/tuiter/login">
+      <Link className={`list-group-item text-capitalize ${active === "login" ? "active" : ""}`} to="/login">
         <span><i className="bi bi-box-arrow-in-right me-2"/></span> 
         <span className="d-none d-xl-inline-block">Login</span>
       </Link>}
       {!currentUserCookies.currentUserId && 
-       <Link className={`list-group-item text-capitalize ${active === "signup" ? "active" : ""}`} to="/tuiter/register">
+       <Link className={`list-group-item text-capitalize ${active === "signup" ? "active" : ""}`} to="/signup">
         <span><i className="bi bi-person-lines-fill me-2"/></span> 
         <span className="d-none d-xl-inline-block">Sign Up</span>
       </Link>}

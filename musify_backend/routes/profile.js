@@ -87,6 +87,7 @@ router.post('/getProfile', async (req, res) => {
     }
     delete user.password; 
     res.status(200).json(user);
+    
 });
 
 
