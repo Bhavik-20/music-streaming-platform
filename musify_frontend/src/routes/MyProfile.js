@@ -17,8 +17,6 @@ const MyProfileComponent = () => {
 	const [likedTracks, setLikedTracks] = useState([]);
 	const [likedAlbums, setLikedAlbums] = useState([]);
 
-
-
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 

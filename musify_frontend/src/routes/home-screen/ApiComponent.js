@@ -61,13 +61,13 @@ const ApiComponent = () => {
       <div id="welcome" className="w-100">
         <div className="row">
           <div className="jumbotron col-9">
-            <h1 className="text-success">Welcome to Musify!</h1>
-            <p className="text-success">
+            <h1 className="green-color">Welcome to Musify!</h1>
+            <p className="green-color">
               Your personalized online music streaming
             </p>
           </div>
           <div className="col-3">
-            <h2 className="text-success">Hi, Shreyas</h2>
+            <h2 className="green-color">Hi, Username</h2>
           </div>
         </div>
       </div>
@@ -75,11 +75,11 @@ const ApiComponent = () => {
       {/* Logged In user */}
       
       <div id="recently-played">
-        <h2 className="text-success">Liked Albums</h2>
+        <h2 className="green-color">Liked Albums</h2>
         {likedAlbums.length === 0 ? (
           ""
         ) : (
-          <Row className="mx-2 row row-cols-6">
+          <Row className="mx-2 col-6 row row-cols-6">
             {likedAlbums.map((album) => (
               <Card
                 style={cardStyle}
@@ -108,7 +108,7 @@ const ApiComponent = () => {
         )}
       </div>
       <div id="recently-played">
-        <h2 className="text-success">Liked Tracks</h2>
+        <h2 className="green-color">Liked Tracks</h2>
         {likedTracks.length === 0 ? (
           ""
         ) : (
@@ -140,11 +140,11 @@ const ApiComponent = () => {
 
       {/*For all users */}
       <div id="recently-played">
-        <h2 className="text-success">New Releases</h2>
+        <h2 className="green-color">New Releases</h2>
         <NewReleases />
       </div>
       <div id="trending">
-        <h2 className="text-success">Featured Playlists</h2>
+        <h2 className="green-color">Featured Playlists</h2>
         <Trending />
       </div>
     </div>
