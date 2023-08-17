@@ -101,7 +101,7 @@ function App() {
             <Route path="/my-profile" element={<Navigate to="/login" />} />
             <Route path="/edit-profile" element={<Navigate to="/login" />} />
 
-            <Route path="*" element={<Navigate to="/new-home" />} />
+            <Route path="*" element={<Navigate to="/home" />} />
           </Routes>
           )}
         </BrowserRouter>
