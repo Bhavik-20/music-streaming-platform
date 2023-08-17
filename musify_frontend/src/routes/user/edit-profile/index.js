@@ -11,6 +11,7 @@ import ReadOnlyInput from "../../../components/shared/ReadOnlyInput";
 import TextInput from "../../../components/shared/TextInput";
 import Button from "../../../components/shared/Button";
 import Nav from "../../../nav-bar/Nav";
+import Musify from "../../../nav-bar/Musify";
 
 const EditProfileComponent = () => {
 	const [cookies, setCookie, removeCookie] = useCookies(["token"]);
@@ -78,18 +79,19 @@ const EditProfileComponent = () => {
 	return (
 		<div className="container-fluid bg-black mt-3">
 			<div className="row">
-				<div className="col-2 mt-5">
+				<div className="col-2">
+					<Musify />
 					<Nav />
 				</div>
 				<div className="col-10">
 					<div className="w-100 h-100 flex flex-col items-center nav-bar">
-						<div className="p-5 w-100 d-flex justify-content-center">
+						{/* <div className="p-5 w-100 d-flex justify-content-center">
 							<i class="musify-icon bi bi-music-note-beamed"></i>
 							<h1 className="musify">Musify</h1>
-						</div>
-						<div className="col-xl-5 col-md-6 col-sm-10 col-10 mx-auto center-bordered-block">
+						</div> */}
+						<div className="col-lg-7 col-sm-10 col-10 mx-auto center-bordered-block">
 							<div className="w-100 font-bold mb-4 d-flex justify-content-center">
-								<button
+								{/* <button
 									className="back-btn col-1"
 									onClick={() => navigate("/home")}>
 									<svg
@@ -102,7 +104,7 @@ const EditProfileComponent = () => {
 											d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
 										/>
 									</svg>
-								</button>
+								</button> */}
 								<h1 className="p-4 col-10 green-color d-flex justify-content-center">
 									Edit Profile
 								</h1>

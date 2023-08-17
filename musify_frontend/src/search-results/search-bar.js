@@ -91,7 +91,7 @@ const SearchBar = () => {
               </Link>
             ))
           ) : (
-            <p>No tracks found.</p>
+            <p className="text-white">No tracks found.</p>
           )}
         </Row>
       </Container>

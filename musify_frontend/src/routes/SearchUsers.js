@@ -5,6 +5,7 @@ import TextInput from "../components/shared/TextInput";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import Nav from "../nav-bar/Nav";
+import Musify from "../nav-bar/Musify";
 
 const SearchUsers = () => {
 	const { usersList } = useSelector((state) => state.userSearch);
@@ -33,18 +34,19 @@ const SearchUsers = () => {
 	return (
 		<div className="container-fluid bg-black mt-3">
 			<div className="row">
-				<div className="col-2 mt-5">
+				<div className="col-2">
+					<Musify />
 					<Nav />
 				</div>
 				<div className="col-10">
 					<div className="w-100 h-100 flex flex-col items-center nav-bar">
-						<div className="p-5 w-100 d-flex justify-content-center">
+						{/* <div className="p-5 w-100 d-flex justify-content-center">
 							<i class="musify-icon bi bi-music-note-beamed"></i>
 							<h1 className="musify">Musify</h1>
-						</div>
-						<div className="col-xl-7 col-md-6 col-sm-10 col-10 mx-auto center-bordered-block">
+						</div> */}
+						<div className="col-xl-7 col-md-10 col-sm-12 mx-auto center-bordered-block">
 							<div className="w-100 font-bold mb-4 row">
-								<button
+								{/* <button
 									className="back-btn col-2"
 									onClick={() => navigate("/home")}>
 									<svg
@@ -57,8 +59,8 @@ const SearchUsers = () => {
 											d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
 										/>
 									</svg>
-								</button>
-								<h1 className="p-4 col-9 green-color d-flex justify-content-center">
+								</button> */}
+								<h1 className="p-4 green-color d-flex justify-content-center">
 									Search Users
 								</h1>
 							</div>
@@ -82,13 +84,13 @@ const SearchUsers = () => {
 													e.preventDefault();
 													navigate(`/profile/${user._id}`);
 												}}>
-												<div className="col-1 profile-pic d-flex justify-content-center align-items-center">
+												<div className="col-2 profile-pic d-flex justify-content-center align-items-center">
 													<span className="bg-transparent">
 														{user.firstName.charAt(0).toUpperCase() +
 															user.lastName.charAt(0).toUpperCase()}
 													</span>
 												</div>
-												<div className="col-11 ps-4">
+												<div className="col-10 ps-4">
 													<span className="d-flex justify-content-left user-profile-info">
 														<p className="me-2">
 															{user.firstName} {user.lastName}

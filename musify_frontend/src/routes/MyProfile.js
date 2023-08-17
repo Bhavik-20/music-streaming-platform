@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "../components/shared/Button";
 import { fetchItems, fetchTracks } from "../spotify-hook/spotifyApi";
 import Nav from "../nav-bar/Nav";
+import Musify from "../nav-bar/Musify";
 
 const MyProfileComponent = () => {
 	const [cookies, setCookie] = useCookies(["token"]);
@@ -66,13 +67,14 @@ const MyProfileComponent = () => {
 	return (
 		<div className="container-fluid bg-black mt-3">
 			<div className="row">
-				<div className="col-2 mt-5">
+				<div className="col-2">
+					<Musify />
 					<Nav />
 				</div>
 				<div className="col-10">
 					<div className="w-100 h-100 d-flex flex-column align-items-center">
 						<div className="p-5 w-100 d-flex justify-content-center row nav-bar border-b border-solid">
-							<button
+							{/* <button
 								className="col-1 back-btn"
 								onClick={() => navigate("/home")}>
 								<svg
@@ -85,12 +87,13 @@ const MyProfileComponent = () => {
 										d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
 									/>
 								</svg>
-							</button>
+							</button> */}
 							<div className="col-2">
 								<div className="profile-icon rounded-circle d-flex justify-content-center align-items-center">
 									<span className="bg-transparent"> {nameInitials}</span>
 								</div>
 							</div>
+							<div className="col-1"></div>
 							<div className="col-9">
 								<div className="profile-info text-white d-flex align-items-end">
 									<div>
@@ -102,9 +105,8 @@ const MyProfileComponent = () => {
 										</h1>
 
 										<p className="text-sm">
-											{" "}
-											1 Public Playlist . {userProfile.followCount} Followers .{" "}
-											{userProfile.followingCount} Following{" "}
+											<a href="#followers" className="text-white">{userProfile.followCount} Followers</a> .{" "}
+											<a href="#following" className="text-white">{userProfile.followingCount} Following</a>{" "}
 										</p>
 										{/* change follow to unfollow if following */}
 									</div>
@@ -115,12 +117,12 @@ const MyProfileComponent = () => {
 						{likedTracks.length === 0 ? (
 							""
 						) : (
-							<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
+							<div className="col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
 								<h2 className="col-10">Liked Tracks</h2>
 								<div className="row">
 									{likedTracks.tracks.map((track) => (
 										<div
-											className="col-lg-2 col-3 border-solid cur"
+											className="col-lg-2 col-3 border-solid cur mb-5"
 											onClick={(e) => {
 												e.preventDefault();
 												navigate(`/tracks/${track.id}`);
@@ -133,7 +135,7 @@ const MyProfileComponent = () => {
 												/>
 											</div>
 											<div className="w-100 d-flex justify-content-center align-items-center">
-												<p>{track.name} </p>
+											<p className="d-none d-sm-block">{(track.name.length > 13) ? track.name.substring(0, 11) + "..." : track.name}</p>
 											</div>
 										</div>
 									))}
@@ -144,12 +146,12 @@ const MyProfileComponent = () => {
 						{likedAlbums.length === 0 ? (
 							""
 						) : (
-							<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
+							<div className="col-md-10 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
 								<h2 className="col-10">Liked Albums and Playlists</h2>
 								<div className="row">
 									{likedAlbums.map((album) => (
 										<div
-											className="col-lg-2 col-3 border-solid cur"
+											className="col-lg-2 col-3 border-solid cur mb-2"
 											onClick={(e) => {
 												e.preventDefault();
 												if (album.type === "album") {
@@ -158,11 +160,23 @@ const MyProfileComponent = () => {
 													navigate(`/playlists/${album.id}`);
 												}
 											}}>
-											<div className="follower-icon rounded-circle d-flex justify-content-center align-items-center">
-												{/* <img src={album.images[0].url} alt="" /> */}
+											<div className="rounded-circle d-flex justify-content-center align-items-center">
+												{album.type === "album" ? (
+													<img
+														className="track-img"
+														src={album.images[0].url}
+														alt=""
+													/>) : (
+													<img
+														className="playlist-img"
+														src={album.images[0].url}
+														alt=""
+													/>
+												)}
+
 											</div>
 											<div className="w-100 d-flex justify-content-center align-items-center">
-												<p>{album.name} </p>
+												<p className="d-none d-sm-block">{(album.name.length > 13) ? album.name.substring(0, 13) + "..." : album.name}</p>
 											</div>
 										</div>
 									))}
@@ -173,8 +187,8 @@ const MyProfileComponent = () => {
 						{userProfile.followCount == 0 ? (
 							""
 						) : (
-							<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
-								<h2 className="col-10">Followers</h2>
+							<div className="col-md-10 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3">
+								<h2 className="col-10" id="followers">Followers</h2>
 								<div className="row">
 									{userProfileFollowersList.map((follower) => (
 										<div
@@ -191,7 +205,7 @@ const MyProfileComponent = () => {
 												</span>
 											</div>
 											<div className="w-100 d-flex justify-content-center align-items-center">
-												<p>
+												<p className="d-none d-sm-block">
 													{follower.firstName} {follower.lastName}
 												</p>
 											</div>
@@ -201,8 +215,8 @@ const MyProfileComponent = () => {
 							</div>
 						)}
 
-						<div className="col-md-8 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-5">
-							<h2 className="col-10">Following</h2>
+						<div className="col-md-10 col-sm-10 col-10 p-5 border rounded border-solid text-white mb-5">
+							<h2 className="col-10" id="following">Following</h2>
 							<div className="row">
 								{userProfile.followingCount == 0 ? (
 									<div className="w-100 d-flex justify-content-center align-items-center">

@@ -5,6 +5,7 @@ import { BsPersonCircle } from "react-icons/bs";
 import AlbumDetails from "./album-details";
 import { useNavigate } from "react-router-dom";
 import Nav from "../nav-bar/Nav";
+import Musify from "../nav-bar/Musify";
 
 const SearchComponent = ({ accessToken, spotifyApi }) => {
 	const navigate = useNavigate();
@@ -12,7 +13,8 @@ const SearchComponent = ({ accessToken, spotifyApi }) => {
 	return (
 		<div className="container-fluid bg-black mt-3">
 			<div className="row">
-				<div className="col-2 mt-5">
+				<div className="col-2">
+					<Musify />
 					<Nav />
 				</div>
 				<div className="col-10">

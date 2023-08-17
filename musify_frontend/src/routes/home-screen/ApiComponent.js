@@ -63,52 +63,53 @@ const ApiComponent = () => {
 		loadLikedContent();
 	}, [loggedIn]);
 
-	
+
 
 	return (
 		<div className="container-fluid">
 			<div id="welcome" className="w-100">
 				<div className="row">
-					<div className="jumbotron col-9">
+					<div className="jumbotron col-7">
 						<h1 className="green-color">Welcome to Musify!</h1>
 						<p className="white-color">
 							Your personalized online music streaming
 						</p>
 					</div>
-					<div className="col-3">
+					<div className="col-5">
 						{userProfile.length !== 0 ? (
-							<div>
-								<h2 className="green-color">Hi, {userProfile.firstName}!</h2>
-								<button
-									className="green-color"
+							<div className="d-flex justify-content-end admin-stamp">
+								<h2 className="green-color d-none d-lg-block">Hi, {userProfile.firstName}!</h2>
+								<button className="mx-3 logout"
 									onClick={(e) => {
 										e.preventDefault();
 										logout();
-									}}></button>
+									}}>
+									<i className="bi bi-box-arrow-right me-2"></i>Log Out
+								</button>
 							</div>
 						) : (
-							<h2 className="green-color">Hi, User!</h2>
+							<h2 className="d-flex justify-content-end green-color">Hi, User!</h2>
 						)}
 					</div>
 				</div>
 			</div>
-			{/* <div className="row">
+			<div className="row">
 			<Featured/>
-			</div> */}
+			</div>
 
 			{userProfile.length !== 0 ? (
 				<div>
 					<div id="recently-played">
 						<h2 className="green-color">Liked Albums</h2>
 						{likedAlbums.length === 0 ? (
-							<h4 className="green-color">
+							<h4 className="text-white">
 								You have not liked any Albums yet!
 							</h4>
 						) : (
 							<Row className="mx-2 row row-cols-6">
 								{likedAlbums.map((album) => (
 									<Card
-										
+
 										onClick={(e) => {
 											e.preventDefault();
 											if (album.type === "album") {
@@ -117,7 +118,7 @@ const ApiComponent = () => {
 												navigate(`/playlists/${album.id}`);
 											}
 										}}>
-										<Card.Img  src={album.images[0]?.url} />
+										<Card.Img src={album.images[0]?.url} />
 										<Card.Body>
 											<Card.Title >{album.name} </Card.Title>
 											{/* link to go to album details page */}
@@ -142,7 +143,7 @@ const ApiComponent = () => {
 											navigate(`/tracks/${track.id}`);
 										}}>
 										<Card.Img
-											
+
 											src={track.album.images[0]?.url}
 										/>
 										<Card.Body>
