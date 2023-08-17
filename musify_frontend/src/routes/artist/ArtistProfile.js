@@ -1,13 +1,30 @@
 import TextInput from "../../components/shared/TextInput";
 import DropDown from "../../components/shared/Dropdown";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { editProfilePOSTRequest, makeUserDataPOSTRequest } from "../../utils/serverHelpers";
 import Button from "../../components/shared/Button";
+import { fetchArtistAlbumsFromName } from "../../spotify-hook/spotifyApi";
 
 const ArtistProfileComponent = () => {
     const navigate = useNavigate(); 
+    const [albums, setAlbums] = useState([]);
+
+    const fetchAlbums = async () => {
+        try {
+            const artist_albums = await fetchArtistAlbumsFromName("Taylor Swift"); 
+            const top5Albums = artist_albums.slice(0, 5); 
+            setAlbums(top5Albums); 
+            console.log("artist albums:", albums);
+        } catch (error) {
+            console.log("loadContent Error: ", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchAlbums();
+    }, []);
     return (
 
         <div className="w-100 h-100 d-flex flex-column align-items-center">

@@ -143,6 +143,21 @@ export const fetchArtistAlbums = async (artistID) => {
     console.error("Error fetching albums:", error);
   }
 };
+
+export const fetchArtistAlbumsFromName = async (artistName) => {
+  let artist = {};
+  try {
+    const data = await spotifyApi.searchArtists(artistName);
+    // console.log("artist search",data);
+     artist = data.artists.items[0];
+    //  console.log("artist one",artist);
+     const albums = await spotifyApi.getArtistAlbums(artist.id);
+    //  console.log("album search", albums.items);
+     return albums.items;
+  } catch (error) {
+    console.error("Error fetching albums:", error);
+  }
+}
 export const fetchTrackDetails = async (trackID) => {
   try {
     const data = await spotifyApi.getTrack(trackID);
