@@ -23,10 +23,11 @@ const NewReleases = () => {
 
     return (
         <div>
-        <Row className="mx-2 row row-cols-6">
+        <Row className="mx-2 row">
         {albums.map((album, i) => {
           return (
               <Card
+              className="col-lg-2 col-md-3 col-sm-4"
                 onClick={(e) => {
                   e.preventDefault();
                     navigate(`/albums/${album.id}`);

@@ -27,12 +27,12 @@ const Trending = () => {
 
   return (
     <div>
-      <Row className="mx-2 row row-cols-6">
+      <Row className="mx-2">
         {playlists.map((playlist, i) => {
           return (
               <Card
                 
-                className="card"
+                className="card col-lg-2 col-md-3 col-sm-4"
                 onClick={(e) => {
                     e.preventDefault();
                       navigate(`/playlists/${playlist.id}`);

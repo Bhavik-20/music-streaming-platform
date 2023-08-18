@@ -93,23 +93,23 @@ const ApiComponent = () => {
 					</div>
 				</div>
 			</div>
-			<div className="row">
+			{/* <div className="row">
 			<Featured/>
-			</div>
+			</div> */}
 
 			{userProfile.length !== 0 ? (
 				<div>
 					<div id="recently-played">
-						<h2 className="green-color">Liked Albums</h2>
+						<h2 className="green-color">Liked Albums and Playlists</h2>
 						{likedAlbums.length === 0 ? (
 							<h4 className="text-white">
-								You have not liked any Albums yet!
+								You have not liked any Albums or Playlists yet!
 							</h4>
 						) : (
-							<Row className="mx-2 row row-cols-6">
+							<Row className="mx-2 row">
 								{likedAlbums.map((album) => (
 									<Card
-
+										className="col-lg-2 col-md-3 col-sm-4"
 										onClick={(e) => {
 											e.preventDefault();
 											if (album.type === "album") {
@@ -118,9 +118,9 @@ const ApiComponent = () => {
 												navigate(`/playlists/${album.id}`);
 											}
 										}}>
-										<Card.Img src={album.images[0]?.url} />
+										<Card.Img src={album.images[0]?.url} className={album.type === "album"? "" : "card-img-top rounded-circle playlist-img"} />
 										<Card.Body>
-											<Card.Title >{album.name} </Card.Title>
+											<Card.Title >{(album.name.length > 13) ? album.name.substring(0, 11) + "..." : album.name} </Card.Title>
 											{/* link to go to album details page */}
 										</Card.Body>
 									</Card>
@@ -135,19 +135,19 @@ const ApiComponent = () => {
 								You have not liked any Tracks yet!
 							</h4>
 						) : (
-							<Row className="mx-2 row row-cols-6">
+							<Row className="mx-2 row">
 								{likedTracks.tracks.map((track) => (
 									<Card
+									className="col-lg-2 col-md-3 col-sm-4"
 										onClick={(e) => {
 											e.preventDefault();
 											navigate(`/tracks/${track.id}`);
 										}}>
 										<Card.Img
-
 											src={track.album.images[0]?.url}
 										/>
 										<Card.Body>
-											<Card.Title>{track.name} </Card.Title>
+											<Card.Title>{(track.name.length > 13) ? track.name.substring(0, 11) + "..." : track.name} </Card.Title>
 											{/* link to go to album details page */}
 										</Card.Body>
 									</Card>
