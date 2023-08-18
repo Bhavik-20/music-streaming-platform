@@ -30,20 +30,26 @@ const Trending = () => {
       <Row className="mx-2">
         {playlists.map((playlist, i) => {
           return (
-              <Card
-                
-                className="card col-lg-2 col-md-3 col-sm-4"
-                onClick={(e) => {
-                    e.preventDefault();
-                      navigate(`/playlists/${playlist.id}`);
-                  
-                  }}
-              >
-                <Card.Img src={playlist.images[0].url} />
-                <Card.Body>
-                  <Card.Title >{playlist.name} </Card.Title>
-                </Card.Body>
-              </Card>
+            <Card
+
+              className="card col-lg-2 col-md-3 col-sm-4"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/playlists/${playlist.id}`);
+
+              }}
+            >
+              <Card.Img src={playlist.images[0].url} />
+              <Card.Body>
+                <Card.Title
+                  style={{
+                    fontSize: "14px",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "clip"
+                  }}>{playlist.name} </Card.Title>
+              </Card.Body>
+            </Card>
           );
         })}
       </Row>

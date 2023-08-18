@@ -118,9 +118,15 @@ const ApiComponent = () => {
 												navigate(`/playlists/${album.id}`);
 											}
 										}}>
-										<Card.Img src={album.images[0]?.url} className={album.type === "album"? "" : "card-img-top rounded-circle playlist-img"} />
+										<Card.Img src={album.images[0]?.url} className={album.type === "album" ? "" : "card-img-top rounded-circle playlist-img"} />
 										<Card.Body>
-											<Card.Title >{(album.name.length > 13) ? album.name.substring(0, 11) + "..." : album.name} </Card.Title>
+											<Card.Title
+												style={{
+													fontSize: "14px",
+													whiteSpace: "nowrap",
+													overflow: "hidden",
+													textOverflow: "clip"
+												}} >{album.name} </Card.Title>
 											{/* link to go to album details page */}
 										</Card.Body>
 									</Card>
@@ -138,7 +144,7 @@ const ApiComponent = () => {
 							<Row className="mx-2 row">
 								{likedTracks.tracks.map((track) => (
 									<Card
-									className="col-lg-2 col-md-3 col-sm-4"
+										className="col-lg-2 col-md-3 col-sm-4"
 										onClick={(e) => {
 											e.preventDefault();
 											navigate(`/tracks/${track.id}`);
@@ -147,7 +153,13 @@ const ApiComponent = () => {
 											src={track.album.images[0]?.url}
 										/>
 										<Card.Body>
-											<Card.Title>{(track.name.length > 13) ? track.name.substring(0, 11) + "..." : track.name} </Card.Title>
+											<Card.Title
+												style={{
+													fontSize: "14px",
+													whiteSpace: "nowrap",
+													overflow: "hidden",
+													textOverflow: "clip"
+												}}>{track.name} </Card.Title>
 											{/* link to go to album details page */}
 										</Card.Body>
 									</Card>

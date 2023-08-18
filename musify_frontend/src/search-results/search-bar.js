@@ -18,7 +18,7 @@ const SearchBar = () => {
   const [artists, setArtists] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [playlists, setPlaylists] = useState([]);
-  
+
 
   useEffect(() => {
     // Load saved search results from localStorage
@@ -31,25 +31,22 @@ const SearchBar = () => {
     setPlaylists(savedPlaylists);
   }, []);
 
-async function search() {
-  const artistResults = await searchArtists(searchInput);
-  setArtists(artistResults);
+  async function search() {
+    const artistResults = await searchArtists(searchInput);
+    setArtists(artistResults);
 
-  const albumsResults = await searchAlbums(searchInput);
-  setAlbumsSearch(albumsResults);
-  localStorage.setItem("savedAlbums", JSON.stringify(albumsResults));
+    const albumsResults = await searchAlbums(searchInput);
+    setAlbumsSearch(albumsResults);
+    localStorage.setItem("savedAlbums", JSON.stringify(albumsResults));
 
-  const tracksResults = await searchTracks(searchInput);
-  setTracks(tracksResults);
-  localStorage.setItem("savedTracks", JSON.stringify(tracksResults));
+    const tracksResults = await searchTracks(searchInput);
+    setTracks(tracksResults);
+    localStorage.setItem("savedTracks", JSON.stringify(tracksResults));
 
-  const playlistsResults = await searchPlaylists(searchInput);
-  setPlaylists(playlistsResults);
-  localStorage.setItem("savedPlaylists", JSON.stringify(playlistsResults));
-}
-
-
-
+    const playlistsResults = await searchPlaylists(searchInput);
+    setPlaylists(playlistsResults);
+    localStorage.setItem("savedPlaylists", JSON.stringify(playlistsResults));
+  }
   return (
     <div className="black-bg">
       <Container>
@@ -69,40 +66,40 @@ async function search() {
       </Container>
       <Container style={{ marginTop: "10px" }}>
         <h2 className="section">Tracks</h2>
-        <Row className="mx-2 row row-cols-6">
+        <Row className="mx-2 row">
           {tracks.length > 0 ? (
             tracks.map((track, i) => (
-              <Link to={`/tracks/${track.id}`} className="album-link">
-              <Card
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  height: "70px",
-                  paddingLeft: "0px",
-                  margin: "5px",
-                }} className="grey-bg"
-                key={i}
-              >
-                <Card.Img
-                  style={{ width: "70px", height: "70px" }}
-                  src={track.album.images[0]?.url}
-                />
-                <Card.Body
-                  style={{ width: "calc(100% - 70px)", height: "70px" }}
+              <Link to={`/tracks/${track.id}`} className="album-link col-lg-3 col-sm-6">
+                <Card
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    height: "70px",
+                    paddingLeft: "0px",
+                    margin: "5px",
+                  }} className="grey-bg"
+                  key={i}
                 >
-                  <Card.Title
-                    style={{
-                      fontSize: "14px",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "clip"
-                    }}
+                  <Card.Img
+                    style={{ width: "70px", height: "70px" }}
+                    src={track.album.images[0]?.url}
+                  />
+                  <Card.Body
+                    style={{ width: "calc(100% - 70px)", height: "70px" }}
                   >
-                    {track.name}{" "}
-                  </Card.Title>
-                         {/* link to go to album details page */}
-                </Card.Body>
-              </Card>
+                    <Card.Title
+                      style={{
+                        fontSize: "14px",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "clip"
+                      }}
+                    >
+                      {track.name}{" "}
+                    </Card.Title>
+                    {/* link to go to album details page */}
+                  </Card.Body>
+                </Card>
               </Link>
             ))
           ) : (
@@ -112,10 +109,10 @@ async function search() {
       </Container>
       <Container style={{ marginTop: "10px" }}>
         <h2 className="section">Albums</h2>
-        <Row className="mx-2 row row-cols-6">
+        <Row className="mx-2 row">
           {albumsSearch.map((album, i) => {
             return (
-              <Link to={`/albums/${album.id}`} className="album-link">
+              <Link to={`/albums/${album.id}`} className="album-link col-lg-2 col-md-3 col-sm-4">
                 <Card
                   style={{
                     margin: "5px",
@@ -124,30 +121,41 @@ async function search() {
                 >
                   <Card.Img src={album.images[0].url} />
                   <Card.Body>
-                    <Card.Title>{album.name} </Card.Title>
+                    <Card.Title style={{
+                      fontSize: "14px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "clip"
+                    }}>{album.name}</Card.Title>
                   </Card.Body>
                 </Card>
-                </Link>
+              </Link>
             );
           })}
         </Row>
       </Container>
       <Container style={{ marginTop: "10px" }}>
         <h2 className="section">Playlists</h2>
-        <Row className="mx-2 row row-cols-6">
+        <Row className="mx-2 row">
           {playlists.map((playlist, i) => {
             return (
-              <Link to={`/playlists/${playlist.id}`} className="album-link">
-              <Card
-                style={{
-                  margin: "5px",
-                }}
-              >
-                <Card.Img src={playlist.images[0].url} />
-                <Card.Body>
-                  <Card.Title>{playlist.name} </Card.Title>
-                </Card.Body>
-              </Card>
+              <Link to={`/playlists/${playlist.id}`} className="album-link col-lg-2 col-md-3 col-sm-4">
+                <Card
+                  style={{
+                    margin: "5px",
+                  }}
+                >
+                  <Card.Img src={playlist.images[0].url} className="card-img-top rounded-circle playlist-img" />
+                  <Card.Body>
+                    <Card.Title
+                      style={{
+                        fontSize: "14px",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "clip"
+                      }}>{playlist.name}  </Card.Title>
+                  </Card.Body>
+                </Card>
               </Link>
             );
           })}

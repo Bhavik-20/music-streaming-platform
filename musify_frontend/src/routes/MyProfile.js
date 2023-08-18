@@ -127,15 +127,15 @@ const MyProfileComponent = () => {
 												e.preventDefault();
 												navigate(`/tracks/${track.id}`);
 											}}>
-											<div className="follower-icon rounded-circle d-flex justify-content-center align-items-center">
+											<div className="follower-icon rounded-circle d-flex justify-content-center align-items-center card">
 												<img
-													className="track-img"
+													className="track-img card-img"
 													src={track.album.images[0].url}
 													alt=""
 												/>
 											</div>
 											<div className="w-100 d-flex justify-content-center align-items-center">
-											<p className="d-none d-sm-block">{(track.name.length > 13) ? track.name.substring(0, 11) + "..." : track.name}</p>
+												<p className="d-none d-sm-block">{(track.name.length > 13) ? track.name.substring(0, 11) + "..." : track.name}</p>
 											</div>
 										</div>
 									))}
@@ -160,10 +160,10 @@ const MyProfileComponent = () => {
 													navigate(`/playlists/${album.id}`);
 												}
 											}}>
-											<div className="rounded-circle d-flex justify-content-center align-items-center">
+											<div className="rounded-circle d-flex justify-content-center align-items-center card">
 												{album.type === "album" ? (
 													<img
-														className="track-img"
+														className="track-img card-img"
 														src={album.images[0].url}
 														alt=""
 													/>) : (
