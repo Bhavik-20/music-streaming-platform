@@ -18,6 +18,21 @@ export const getTokenFromUrl = () => {
 
 export const loginUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true&scope=user-read-private%20user-modify-playback-state%20user-read-playback-state%20streaming`;
 
+export const fetchArtistAlbumsFromName = async (artistName) => {
+  let artist = {};
+  try {
+    const data = await spotifyApi.searchArtists(artistName);
+    // console.log("artist search",data);
+     artist = data.artists.items[0];
+    //  console.log("artist one",artist);
+     const albums = await spotifyApi.getArtistAlbums(artist.id);
+    //  console.log("album search", albums.items);
+     return albums.items;
+  } catch (error) {
+    console.error("Error fetching albums:", error);
+  }
+}
+
 export const initializeSpotifyApi = (token) => {
 	if (token) {
 		spotifyApi.setAccessToken(token);
