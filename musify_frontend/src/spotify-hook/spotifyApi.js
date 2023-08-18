@@ -1,10 +1,11 @@
 // src/SpotifyAPI.js
 import SpotifyWebApi from "spotify-web-api-js";
+import client from "../shared/spotify-client";
 
-const spotifyApi = new SpotifyWebApi();
+// const spotifyApi = new SpotifyWebApi();
 const redirectUri = "http://localhost:3000";
 const clientId = "c4cdfc316afc45aebeffea58959ac714";
-
+const spotifyApi = client;
 export const getTokenFromUrl = () => {
 	return window.location.hash
 		.substring(1)
