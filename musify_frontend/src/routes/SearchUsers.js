@@ -21,6 +21,8 @@ const SearchUsers = () => {
 			const { payload } = await dispatch(
 				getUsersThunk({ search: searchText, token: cookies.token })
 			);
+			sessionStorage.setItem("searchText", searchText);
+  			sessionStorage.setItem("searchResults", JSON.stringify(payload));
 			setResults(payload);
 		} catch (error) {
 			console.log("loadUsers Error: ", error);
@@ -28,6 +30,17 @@ const SearchUsers = () => {
 	};
 
 	useEffect(() => {
+		const savedSearchTerm = sessionStorage.getItem("searchText");
+		const savedResults = JSON.parse(sessionStorage.getItem("searchResults"));
+
+		if (savedSearchTerm && savedResults) {
+			setSearchText(savedSearchTerm);
+			setResults(savedResults);
+		}
+	}, []);
+
+	useEffect(() => {
+		
 		loadUsers();
 	}, [results, searchText]);
 

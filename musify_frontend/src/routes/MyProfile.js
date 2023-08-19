@@ -8,9 +8,10 @@ import {
 import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../components/shared/Button";
-import { fetchItems, fetchTracks } from "../spotify-hook/spotifyApi";
 import Nav from "../nav-bar/Nav";
 import Musify from "../nav-bar/Musify";
+import { fetchItems, fetchTracks, fetchArtistAlbumsFromName, fetchArtistTracksFromName, fetchArtistFromName } from "./../spotify-hook/spotifyApi";
+
 
 const MyProfileComponent = () => {
 	const [cookies, setCookie] = useCookies(["token"]);
@@ -28,6 +29,11 @@ const MyProfileComponent = () => {
 	const [nameInitials, setNameInitials] = useState("");
 	const [likedTracks, setLikedTracks] = useState([]);
 	const [likedAlbums, setLikedAlbums] = useState([]);
+
+	const [albums, setAlbums] = useState([]);
+	const [topTracks, setTopTracks] = useState([]);
+	const [artistFollowers, setArtistFollowers] = useState(0);
+	const [artistPopularity, setArtistPopularity] = useState(0);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -55,6 +61,29 @@ const MyProfileComponent = () => {
 			const liked_albums = await fetchItems(payload.likedAlbums);
 			setLikedAlbums(liked_albums);
 			console.log(liked_albums);
+
+			console.log("fetchAlbums: ", payload.firstName + " " + payload.lastName);
+            const artist_albums = await fetchArtistAlbumsFromName(payload.firstName + " " + payload.lastName); 
+            const top_Albums = artist_albums.slice(0, 6); 
+            setAlbums(top_Albums);
+
+			//artist_tracks is an array containing track objects, can map through and get track.name, track.album.images[0], and track.popularity
+			//track.duration_ms provides duration in ms. Refer to album-details and track-details page for helper function on converting duration to minutes and seconds
+			const artist_tracks = await fetchArtistTracksFromName(payload.firstName + " " + payload.lastName); 
+            const topTracks = artist_tracks.slice(0, 10); 
+			setTopTracks(topTracks);
+
+			//followers and popularity are set as state vars but other artist info can be fetched using artistObject.desiredField
+			const artistObject = await fetchArtistFromName(payload.firstName + " " + payload.lastName); 
+
+			//Integer of followers count
+			setArtistFollowers(artistObject.followers.total);
+
+			//Integer of artist's popularity score
+			setArtistPopularity(artistObject.popularity);
+            console.log("artist albums:", albums);
+			console.log("artist tracks:", topTracks);
+			console.log("artist", artistObject);
 		} catch (error) {
 			console.log("loadProfile Error: ", error);
 		}
@@ -74,20 +103,6 @@ const MyProfileComponent = () => {
 				<div className="col-10">
 					<div className="w-100 h-100 d-flex flex-column align-items-center">
 						<div className="p-5 w-100 d-flex justify-content-center row nav-bar border-b border-solid">
-							{/* <button
-								className="col-1 back-btn"
-								onClick={() => navigate("/home")}>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="20"
-									height="auto"
-									viewBox="0 0 320 512">
-									<path
-										fill="currentColor"
-										d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
-									/>
-								</svg>
-							</button> */}
 							<div className="col-2">
 								<div className="profile-icon rounded-circle d-flex justify-content-center align-items-center">
 									<span className="bg-transparent"> {nameInitials}</span>
