@@ -55,7 +55,7 @@ const SignupComponent = () => {
 	return (
 		<div className="container-fluid bg-black mt-3">
 			<div className="row">
-				<div className="col-2 mt-5">
+				<div className="col-2 mt-5 pt-5">
 					<Nav />
 				</div>
 				<div className="col-10">
