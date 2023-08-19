@@ -12,7 +12,7 @@ import {
 	getUserDataFollowersThunk,
 } from "../../../services/profile-thunks";
 import Nav from "../../../nav-bar/Nav";
-import { fetchItems, fetchTracks, fetchArtistAlbumsFromName } from "../../../spotify-hook/spotifyApi";
+import { fetchItems, fetchTracks, fetchArtistAlbumsFromName, fetchArtistTracksFromName, fetchArtistFromName } from "../../../spotify-hook/spotifyApi";
 
 const ListenerProfileComponent = () => {
 	const [cookies, setCookie] = useCookies(["token"]);
@@ -96,15 +96,23 @@ const ListenerProfileComponent = () => {
             const top_Albums = artist_albums.slice(0, 5); 
             setAlbums(top_Albums);
 
-			const artist_tracks = await fetchArtistAlbumsFromName(payload.firstName + " " + payload.lastName); 
+			//artist_tracks is an array containing track objects, can map through and get track.name, track.album.images[0], and track.popularity
+			//track.duration_ms provides duration in ms. Refer to album-details and track-details page for helper function on converting duration to minutes and seconds
+			const artist_tracks = await fetchArtistTracksFromName(payload.firstName + " " + payload.lastName); 
             const topTracks = artist_tracks.slice(0, 5); 
 			setTopTracks(topTracks);
 
-			const artistObject = await fetchArtistAlbumsFromName(payload.firstName + " " + payload.lastName); 
-			setArtistFollowers(artistObject.followers.total);
-			setArtistPopularity(artistObject.popularity);
+			//followers and popularity are set as state vars but other artist info can be fetched using artistObject.desiredField
+			const artistObject = await fetchArtistFromName(payload.firstName + " " + payload.lastName); 
 
+			//Integer of followers count
+			setArtistFollowers(artistObject.followers.total);
+
+			//Integer of artist's popularity score
+			setArtistPopularity(artistObject.popularity);
             console.log("artist albums:", albums);
+			console.log("artist tracks:", topTracks);
+			console.log("artist", artistObject);
 		} catch (error) {
 			console.log("loadProfile Error: ", error);
 		}
