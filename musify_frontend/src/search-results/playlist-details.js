@@ -87,7 +87,7 @@ const PlaylistDetails = () => {
 								}}
 								onClick={(e) => {
 									e.preventDefault();
-									navigate("/search");
+									navigate(-1);
 								}}
 							/>
 						</div>

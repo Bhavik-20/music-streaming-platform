@@ -8,6 +8,9 @@ import {
 import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+	FaChevronLeft
+} from "react-icons/fa";
+import {
 	getUserDataFollowingThunk,
 	getUserDataFollowersThunk,
 } from "../../../services/profile-thunks";
@@ -144,14 +147,27 @@ const ListenerProfileComponent = () => {
 				</div>
 				<div className="col-10">
 					<div className="w-100 h-100 d-flex flex-column align-items-center">
-						<div className="p-5 w-100 d-flex justify-content-center row nav-bar border-b border-solid">
+						<div className="p-5 w-100 d-flex justify-content-center align-items-center row nav-bar border-b border-solid">
+						<div className="col-1">
+							<FaChevronLeft
+								className="section"
+								style={{
+									height: "40px",
+									margin: "15px",
+								}}
+								onClick={(e) => {
+									e.preventDefault();
+									navigate(-1);
+								}}
+							/>
+							</div>
 							<div className="col-2">
 								<div className="profile-icon rounded-circle d-flex justify-content-center align-items-center">
 									<span className="bg-transparent"> {nameInitials}</span>
 								</div>
 							</div>
 							<div className="col-1"> </div>
-							<div className="col-9">
+							<div className="col-8">
 								<div className="profile-info text-white d-flex align-items-end">
 									<div>
 									<p className="text-sm"> 

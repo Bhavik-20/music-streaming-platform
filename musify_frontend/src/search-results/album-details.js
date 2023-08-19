@@ -97,7 +97,7 @@ const AlbumDetails = () => {
 								}}
 								onClick={(e) => {
 									e.preventDefault();
-									navigate("/search");
+									navigate(-1);
 								}}
 							/>
 						</div>
