@@ -29,6 +29,9 @@ const ListenerProfileComponent = () => {
 	const [likedTracks, setLikedTracks] = useState([]);
 	const [likedAlbums, setLikedAlbums] = useState([]);
 	const [albums, setAlbums] = useState([]);
+	const [topTracks, setTopTracks] = useState([]);
+	const [artistFollowers, setArtistFollowers] = useState(0);
+	const [artistPopularity, setArtistPopularity] = useState(0);
 
 	const [followButtonText, setFollowButtonText] = useState("");
 	const { pid } = useParams();
@@ -82,7 +85,6 @@ const ListenerProfileComponent = () => {
 				setFollowButtonText("Follow");
 			}
 
-			
 			const liked_tracks = await fetchTracks(payload.likedSongs);
 			setLikedTracks(liked_tracks);
 
@@ -91,16 +93,23 @@ const ListenerProfileComponent = () => {
 
 			console.log("fetchAlbums: ", payload.firstName + " " + payload.lastName);
             const artist_albums = await fetchArtistAlbumsFromName(payload.firstName + " " + payload.lastName); 
-            const top5Albums = artist_albums.slice(0, 5); 
-            setAlbums(top5Albums); 
+            const top_Albums = artist_albums.slice(0, 5); 
+            setAlbums(top_Albums);
+
+			const artist_tracks = await fetchArtistAlbumsFromName(payload.firstName + " " + payload.lastName); 
+            const topTracks = artist_tracks.slice(0, 5); 
+			setTopTracks(topTracks);
+
+			const artistObject = await fetchArtistAlbumsFromName(payload.firstName + " " + payload.lastName); 
+			setArtistFollowers(artistObject.followers.total);
+			setArtistPopularity(artistObject.popularity);
+
             console.log("artist albums:", albums);
 		} catch (error) {
 			console.log("loadProfile Error: ", error);
 		}
 	};
 
-
-   
 
 	useEffect(() => {
 		loadProfile();
@@ -115,20 +124,6 @@ const ListenerProfileComponent = () => {
 				<div className="col-10">
 					<div className="w-100 h-100 d-flex flex-column align-items-center">
 						<div className="p-5 w-100 d-flex justify-content-center row nav-bar border-b border-solid">
-							{/* <button
-								className="col-1 back-btn"
-								onClick={() => navigate("/home")}>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="20"
-									height="auto"
-									viewBox="0 0 320 512">
-									<path
-										fill="currentColor"
-										d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
-									/>
-								</svg>
-							</button> */}
 							<div className="col-2">
 								<div className="profile-icon rounded-circle d-flex justify-content-center align-items-center">
 									<span className="bg-transparent"> {nameInitials}</span>
