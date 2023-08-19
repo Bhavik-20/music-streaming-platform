@@ -122,7 +122,7 @@ const MyProfileComponent = () => {
 								<div className="row">
 									{likedTracks.tracks.map((track) => (
 										<div
-											className="col-lg-2 col-3 border-solid cur mb-5"
+											className="col-lg-2 col-3 border-solid cur mt-2"
 											onClick={(e) => {
 												e.preventDefault();
 												navigate(`/tracks/${track.id}`);
@@ -151,7 +151,7 @@ const MyProfileComponent = () => {
 								<div className="row">
 									{likedAlbums.map((album) => (
 										<div
-											className="col-lg-2 col-3 border-solid cur mb-2"
+											className="col-lg-2 col-3 border-solid cur mt-2"
 											onClick={(e) => {
 												e.preventDefault();
 												if (album.type === "album") {

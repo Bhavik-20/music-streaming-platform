@@ -84,7 +84,7 @@ const ApiComponent = () => {
 										e.preventDefault();
 										logout();
 									}}>
-									<i className="bi bi-box-arrow-right me-2"></i>Log Out
+									<span className="cur"><i className="bi bi-box-arrow-right me-2"></i>Log Out</span>
 								</button>
 							</div>
 						) : (
@@ -137,7 +137,7 @@ const ApiComponent = () => {
 					<div id="recently-played">
 						<h2 className="green-color">Liked Tracks</h2>
 						{likedTracks.length === 0 ? (
-							<h4 className="green-color">
+							<h4 className="text-white">
 								You have not liked any Tracks yet!
 							</h4>
 						) : (

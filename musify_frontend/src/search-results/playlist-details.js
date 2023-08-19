@@ -14,6 +14,7 @@ import {
 	getLikedAlbumsPlaylistThunk,
 } from "../services/albums-playlist-thunk";
 import Nav from "../nav-bar/Nav";
+import Musify from "../nav-bar/Musify";
 
 const PlaylistDetails = () => {
 	const { likedAlbums } = useSelector((state) => state.albumsPlaylist);
@@ -71,7 +72,8 @@ const PlaylistDetails = () => {
 	return (
 		<div className="container-fluid bg-black mt-3">
 			<div className="row">
-				<div className="col-2 mt-5">
+				<div className="col-2">
+					<Musify />
 					<Nav />
 				</div>
 				<div className="col-10">

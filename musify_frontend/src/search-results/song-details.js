@@ -11,6 +11,7 @@ import { FaHeart, FaRegHeart, FaChevronLeft } from "react-icons/fa";
 import { likeSongThunk, getLikedSongsThunk } from "../services/song-thunk";
 import { useCookies } from "react-cookie";
 import Nav from "../nav-bar/Nav";
+import Musify from "../nav-bar/Musify";
 
 const TrackDetails = () => {
 	const { likedSongs } = useSelector((state) => state.songs);
@@ -26,13 +27,13 @@ const TrackDetails = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const msToMinSec = (durationMs) => {
-		const minutes = Math.floor(durationMs / 60000);
-		const seconds = ((durationMs % 60000) / 1000).toFixed(0);
-		return `Duration: ${minutes} minutes ${
-			seconds < 10 ? "0" : ""
-		}${seconds} seconds`;
-	};
+	const msToMinSec = (milliseconds) => {
+		const totalSeconds = Math.floor(milliseconds / 1000);
+		const minutes = Math.floor(totalSeconds / 60);
+		const seconds = totalSeconds % 60;
+		const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+		return formattedTime;
+	  }
 
 	const likeSong = async () => {
 		const currentUserId = currentUserCookies.currentUserId;
@@ -72,7 +73,8 @@ const TrackDetails = () => {
 	return (
 		<div className="container-fluid bg-black mt-3">
 			<div className="row">
-				<div className="col-2 mt-5">
+				<div className="col-2">
+					<Musify />
 					<Nav />
 				</div>
 				<div className="col-10">
@@ -107,7 +109,7 @@ const TrackDetails = () => {
 													))}
 												</div>
 												<div className="col">
-													{msToMinSec(track.duration_ms)}
+													{"Duration: " + msToMinSec(track.duration_ms) + " mins"}
 												</div>
 												<div className="col">
 													<button
@@ -130,10 +132,11 @@ const TrackDetails = () => {
 									<div className="album-details">
 										<h3>More by {track.artists[0].name}</h3>
 										<Container style={{ marginTop: "10px" }}>
-											<Row className="mx-2 row row-cols-6">
+											<Row className="mx-2 row">
 												{albums.slice(0, 10).map((album, i) => {
 													return (
 														<Link
+															className="col-lg-2 col-md-3 col-sm-4 col-6"
 															to={`/albums/${album.id}`}
 															style={{
 																textDecoration: "none",
@@ -146,7 +149,13 @@ const TrackDetails = () => {
 																className="card">
 																<Card.Img src={album.images[0].url} />
 																<Card.Body>
-																	<Card.Title>{album.name} </Card.Title>
+																	<Card.Title
+																	style={{
+																		fontSize: "14px",
+																		whiteSpace: "nowrap",
+																		overflow: "hidden",
+																		textOverflow: "clip"
+																	}} >{album.name} </Card.Title>
 																</Card.Body>
 															</Card>
 														</Link>

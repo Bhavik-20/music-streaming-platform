@@ -21,6 +21,7 @@ import { searchAlbumsByGenre } from "../spotify-hook/spotifyApi";
 import { Row, Container, Card } from "react-bootstrap";
 import { fetchArtistAlbums } from "../spotify-hook/spotifyApi";
 import Nav from "../nav-bar/Nav";
+import Musify from "../nav-bar/Musify";
 
 const AlbumDetails = () => {
 	const { likedAlbums } = useSelector((state) => state.albumsPlaylist);
@@ -81,7 +82,8 @@ const AlbumDetails = () => {
 	return (
 		<div className="container-fluid bg-black mt-3">
 			<div className="row">
-				<div className="col-2 mt-5">
+				<div className="col-2">
+					<Musify />
 					<Nav />
 				</div>
 				<div className="col-10">
@@ -186,7 +188,7 @@ const AlbumDetails = () => {
 									<div className="album-details">
 										<h3>More by {album.artists[0].name}</h3>
 										<Container style={{ marginTop: "10px" }}>
-											<Row className="mx-2 row row-cols-6">
+											<Row className="mx-2 row">
 												{artistAlbums.slice(0, 5).map((album, i) => {
 													return (
 														<Link
@@ -194,7 +196,8 @@ const AlbumDetails = () => {
 															style={{
 																textDecoration: "none",
 																color: "inherit",
-															}}>
+															}}
+															className="col-lg-2 col-md-3 col-sm-4 col-6">
 															<Card
 																style={{
 																	margin: "5px",
@@ -202,7 +205,13 @@ const AlbumDetails = () => {
 																className="card">
 																<Card.Img src={album.images[0].url} />
 																<Card.Body>
-																	<Card.Title>{album.name} </Card.Title>
+																	<Card.Title
+																	style={{
+																		fontSize: "14px",
+																		whiteSpace: "nowrap",
+																		overflow: "hidden",
+																		textOverflow: "clip"
+																	}}>{album.name} </Card.Title>
 																</Card.Body>
 															</Card>
 														</Link>

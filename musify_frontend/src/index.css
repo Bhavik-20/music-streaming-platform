@@ -157,7 +157,7 @@ a:-webkit-any-link {
 }
 
 .admin-stamp {
-  color: gray;
+  color: white;
   border: none;
   font-size: 1.5vw;
   padding: 5px 10px;
@@ -165,7 +165,7 @@ a:-webkit-any-link {
 }
 
 .logout {
-  color: gray;
+  color: white;
   border: none;
   background-color: transparent;
 

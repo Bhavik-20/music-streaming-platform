@@ -12,6 +12,7 @@ import {
 	getUserDataFollowersThunk,
 } from "../../../services/profile-thunks";
 import Nav from "../../../nav-bar/Nav";
+import Musify from "../../../nav-bar/Musify";
 import { fetchItems, fetchTracks, fetchArtistAlbumsFromName, fetchArtistTracksFromName, fetchArtistFromName } from "../../../spotify-hook/spotifyApi";
 
 const ListenerProfileComponent = () => {
@@ -65,14 +66,11 @@ const ListenerProfileComponent = () => {
 	};
 
 	const msToMinSec = (milliseconds) => {
-		// Calculate the total seconds
 		const totalSeconds = Math.floor(milliseconds / 1000);
 	  
-		// Calculate the minutes and seconds
 		const minutes = Math.floor(totalSeconds / 60);
 		const seconds = totalSeconds % 60;
 	  
-		// Format the result as "minutes:seconds"
 		const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 	  
 		return formattedTime;
@@ -140,7 +138,8 @@ const ListenerProfileComponent = () => {
 	return (
 		<div className="container-fluid bg-black mt-3">
 			<div className="row">
-				<div className="col-2 mt-5">
+				<div className="col-2">
+					<Musify />
 					<Nav />
 				</div>
 				<div className="col-10">
@@ -217,7 +216,7 @@ const ListenerProfileComponent = () => {
 										<div className="row">
 											{likedTracks.tracks.map((track) => (
 												<div
-													className="col-lg-2 col-3 border-solid cur mb-5"
+													className="col-lg-2 col-3 border-solid cur mt-2"
 													onClick={(e) => {
 														e.preventDefault();
 														navigate(`/tracks/${track.id}`);
@@ -250,7 +249,7 @@ const ListenerProfileComponent = () => {
 										<div className="row">
 											{likedAlbums.map((album) => (
 												<div
-													className="col-lg-2 col-3 border-solid cur mb-2"
+													className="col-lg-2 col-3 border-solid cur mt-2"
 													onClick={(e) => {
 														e.preventDefault();
 														if (album.type === "album") {
@@ -396,7 +395,7 @@ const ListenerProfileComponent = () => {
 										<div className="row">
 											{albums.map((album) => (
 												<div
-													className="col-lg-2 col-3 border-solid cur mb-2"
+													className="col-lg-2 col-3 border-solid cur mt-2"
 													onClick={(e) => {
 														e.preventDefault();
 														if (album.type === "album") {
