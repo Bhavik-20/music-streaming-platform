@@ -1,10 +1,11 @@
 // src/SpotifyAPI.js
 import SpotifyWebApi from "spotify-web-api-js";
+import client from "./spotifyClient";
 
-const spotifyApi = new SpotifyWebApi();
+// const spotifyApi = new SpotifyWebApi();
 const redirectUri = "http://localhost:3000";
 const clientId = "c4cdfc316afc45aebeffea58959ac714";
-
+const spotifyApi = client;
 export const getTokenFromUrl = () => {
 	return window.location.hash
 		.substring(1)
@@ -18,24 +19,12 @@ export const getTokenFromUrl = () => {
 
 export const loginUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true&scope=user-read-private%20user-modify-playback-state%20user-read-playback-state%20streaming`;
 
+export const initializeSpotifyApi = (token) => {
+	if (token) {
+		spotifyApi.setAccessToken(token);
+	}
+};
 
-//fetch an artist's albums by retriving the artist from their name
-export const fetchArtistAlbumsFromName = async (artistName) => {
-  let artist = {};
-  try {
-    const data = await spotifyApi.searchArtists(artistName);
-    // console.log("artist search",data);
-     artist = data.artists.items[0];
-    //  console.log("artist one",artist);
-     const albums = await spotifyApi.getArtistAlbums(artist.id);
-      console.log("album search", albums.items);
-     return albums.items;
-  } catch (error) {
-    console.error("Error fetching albums:", error);
-  }
-}
-
-//fetches artist's TOP tracks
 export const fetchArtistTracksFromName = async (artistName) => {
 	let artist = {};
 	try {
@@ -51,8 +40,21 @@ export const fetchArtistTracksFromName = async (artistName) => {
 	}
   }
 
+export const fetchArtistAlbumsFromName = async (artistName) => {
+  let artist = {};
+  try {
+    const data = await spotifyApi.searchArtists(artistName);
+    // console.log("artist search",data);
+     artist = data.artists.items[0];
+    //  console.log("artist one",artist);
+     const albums = await spotifyApi.getArtistAlbums(artist.id);
+      console.log("album search", albums.items);
+     return albums.items;
+  } catch (error) {
+    console.error("Error fetching albums:", error);
+  }
+}
 
-//fetches artist object
 export const fetchArtistFromName = async (artistName) => {
 	let artist = {};
 	try {
@@ -65,12 +67,6 @@ export const fetchArtistFromName = async (artistName) => {
 	  console.error("Error fetching artist:", error);
 	}
   }
-
-export const initializeSpotifyApi = (token) => {
-	if (token) {
-		spotifyApi.setAccessToken(token);
-	}
-};
 
 export const searchTopTrack = async (searchQuery) => {
 	try {

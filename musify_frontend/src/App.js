@@ -27,6 +27,13 @@ import myProfileReducer from './reducers/my-profile-reducer';
 import songReducer from './reducers/song-reducer';
 import albumsPlaylistReducer from './reducers/albums-playlist-reducer';
 import HomeScreen from './routes/home-screen/HomeScreen';
+import client from './spotify-hook/spotifyClient';
+
+const LoadingStates = {
+  loading: "loading",
+  finished: "finished",
+  error: "error",
+};
 
 function App() {
   const store = configureStore(
@@ -37,28 +44,46 @@ function App() {
   const CLIENT_SECRET = '5f290d251a5648e5bea5050a200f5114'
   const [accessToken, setAccessToken] = useState("");
   const [cookie] = useCookies(["token"]);
-
-  const spotifyApiSetup = async () => {
-    var authParameters = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
-    };
-
-    await fetch('https://accounts.spotify.com/api/token', authParameters)
-      .then(result => result.json())
-      .then(data => {
-        console.log("-x-x-x-x-x-x-x-x-x-x-x-x");
-        setAccessToken(data.access_token);
-        initializeSpotifyApi(data.access_token); 
-      });
-  }
+  const [loadingState, setLoadingState] = useState(LoadingStates.loading);
 
   useEffect(() => {
-    spotifyApiSetup();    
-  }, []);  
+    fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${btoa(
+          `${CLIENT_ID}:${
+            CLIENT_SECRET
+          }`
+        )}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: "grant_type=client_credentials",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.access_token) {
+          console.log("finished");
+          setLoadingState(LoadingStates.finished);
+          client.setAccessToken(data.access_token);
+        } else setLoadingState(LoadingStates.error);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoadingState(LoadingStates.error);
+      });
+  }, []);
+
+  if (loadingState === LoadingStates.loading) {
+    console.log("loading");
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        loading      </div>
+    );
+  }
+    
+
+  if (loadingState === LoadingStates.error)
+    return <div>Something went wrong</div>;
      
   return (
     <Provider store={store}>
