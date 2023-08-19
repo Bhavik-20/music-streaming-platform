@@ -365,7 +365,7 @@ const ListenerProfileComponent = () => {
 								<div> 
 								<ul className="list-group">
 									{topTracks.map((track, index) => (
-									<li className="list-group-item" 
+									<li className="list-group-item cur" 
 									onClick={(e) => {
 										e.preventDefault();
 										navigate(`/tracks/${track.id}`);
