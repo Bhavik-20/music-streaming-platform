@@ -93,9 +93,9 @@ const ApiComponent = () => {
 					</div>
 				</div>
 			</div>
-			{/* <div className="row">
+			<div className="row">
 			<Featured/>
-			</div> */}
+			</div>
 
 			{userProfile.length !== 0 ? (
 				<div>
