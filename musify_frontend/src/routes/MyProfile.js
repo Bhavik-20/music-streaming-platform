@@ -89,6 +89,17 @@ const MyProfileComponent = () => {
 		}
 	};
 
+	const msToMinSec = (milliseconds) => {
+		const totalSeconds = Math.floor(milliseconds / 1000);
+	  
+		const minutes = Math.floor(totalSeconds / 60);
+		const seconds = totalSeconds % 60;
+	  
+		const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+	  
+		return formattedTime;
+	  };
+
 	useEffect(() => {
 		loadProfile();
 	}, []);
@@ -112,22 +123,43 @@ const MyProfileComponent = () => {
 							<div className="col-9">
 								<div className="profile-info text-white d-flex align-items-end">
 									<div>
-										<p className="text-sm"> Listener</p>
+									<p className="text-sm"> 
+										{userProfile.role === "listener" ?
+											"Listener" : userProfile.role === "artist-verified" ? (
+											<>
+												<i className="verified col-1 bi bi-patch-check-fill" /> Verified Artist
+											</>
+											) : "Artist"}
+										</p>
 
 										<h1 className="green-color bg-transparent listener-title">
 											{userProfile.firstName} {userProfile.lastName} - @
 											{userProfile.username}
 										</h1>
 
-										<p className="text-sm">
-											<a href="#followers" className="text-white">{userProfile.followCount} Followers</a> .{" "}
-											<a href="#following" className="text-white">{userProfile.followingCount} Following</a>{" "}
-										</p>
+										{userProfile.role === "listener" ? 
+										(<p className="text-sm">
+											{" "}
+											<a href="#followers" className="text-white">
+												{userProfile.followCount} Followers
+											</a>{" "}
+											.{" "}
+											<a href="#following" className="text-white">
+												{userProfile.followingCount} Following
+											</a>{" "}
+										</p>) : userProfile.role === "artist-verified" ?
+										 <p> {userProfile.followingCount} Following . {artistFollowers} Followers . {artistPopularity} Popularity </p> 
+										: <p> {userProfile.followCount} Followers </p> }
 										{/* change follow to unfollow if following */}
 									</div>
 								</div>
 							</div>
 						</div>
+
+						{userProfile.role === "artist" || userProfile.role === "artist-pending" ?
+						<div className="col-sm-10 col-10 text-white mb-3 mx-auto">
+							<p> You have not posted any content yet !</p>
+						</div> : ""} 
 
 						{likedTracks.length === 0 ? (
 							""
@@ -198,6 +230,81 @@ const MyProfileComponent = () => {
 								</div>
 							</div>
 						)}
+
+						{userProfile.role === "artist-verified"? 
+						<>
+						<div className="col-sm-10 col-10 p-5 border rounded border-solid text-white mb-5">
+								<h1 className="text-white"> Popular Tracks </h1>
+								<div> 
+								<ul className="list-group">
+									{topTracks.map((track, index) => (
+									<li className="list-group-item cur" 
+									onClick={(e) => {
+										e.preventDefault();
+										navigate(`/tracks/${track.id}`);
+									}}
+									key={index}>
+										<div className="d-flex justify-content-between align-items-center row">
+											<div className="col-2 card">
+												<img src={track.album.images[0].url} className="track-img card-img"/>
+											</div>
+										<div className="col-8">
+											<h5 className="mb-1">{track.name}</h5>
+											<p className="mb-1 d-none d-lg-block">{track.artists.map((artist, index) => (
+												index === track.artists.length - 1 ? artist.name : artist.name + ", "
+											))}</p>
+											<small className="d-none d-md-block">{track.album.name}</small>
+										</div>
+										<span className="badge badge-primary badge-pill col-1">#{track.popularity}</span>
+										<span className="badge badge-primary badge-pill col-1">{msToMinSec(track.duration_ms)}</span>
+										</div>
+									</li>
+									))}
+								</ul>
+								</div>
+							</div>
+
+							<div className="col-sm-10 col-10 p-5 border rounded border-solid text-white mb-3 mx-auto">
+										<h2 className="col-10">Top Albums</h2>
+										<div className="row">
+											{albums.map((album) => (
+												<div
+													className="col-lg-2 col-3 border-solid cur mt-2"
+													onClick={(e) => {
+														e.preventDefault();
+														if (album.type === "album") {
+															navigate(`/albums/${album.id}`);
+														} else {
+															navigate(`/playlists/${album.id}`);
+														}
+													}}>
+													<div className="rounded-circle d-flex justify-content-center align-items-center card">
+														{album.type === "album" ? (
+															<img
+																className="track-img card-img"
+																src={album.images[0].url}
+																alt=""
+															/>
+														) : (
+															<img
+																className="playlist-img"
+																src={album.images[0].url}
+																alt=""
+															/>
+														)}
+													</div>
+													<div className="w-100 d-flex justify-content-center align-items-center">
+														<p className="d-none d-sm-block">
+															{album.name.length > 13
+																? album.name.substring(0, 13) + "..."
+																: album.name}
+														</p>
+													</div>
+												</div>
+											))}
+										</div>
+									</div>
+						</> : ""}
 
 						{userProfile.followCount == 0 ? (
 							""

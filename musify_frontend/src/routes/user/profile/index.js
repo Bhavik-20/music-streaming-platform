@@ -195,7 +195,7 @@ const ListenerProfileComponent = () => {
 												{userProfile.followingCount} Following
 											</a>{" "}
 										</p>) : userProfile.role === "artist-verified" ?
-										 <p> {artistFollowers} followers . {artistPopularity} popularity </p> 
+										 <p> {artistFollowers} Followers . {artistPopularity} Popularity </p> 
 										: <p> {userProfile.followCount} Followers </p> }
 									</div>
 								</div>
