@@ -202,20 +202,20 @@ const ListenerProfileComponent = () => {
 							</div>
 						</div>
 
-						{userProfile._id !== undefined ? (
-							<div className="col-sm-10 col-10 justify-content-left">
-								<Button
-									text={followButtonText}
-									className="bg-transparent text-white border rounded px-4 py-2 mb-3"
-									onClick={(e) => {
-										e.preventDefault();
+						<div className="col-sm-10 col-10 justify-content-left">
+							<Button
+								text={followButtonText}
+								className="bg-transparent text-white border rounded px-4 py-2 mb-3"
+								onClick={(e) => {
+									e.preventDefault();
+									if(currentUserCookies.currentUserId !== undefined) {
 										followUser();
-									}}
-								/>
-							</div>
-						) : (
-							<div></div>
-						)}
+									} else {
+										navigate("/login");
+									}
+								}}
+							/>
+						</div>
 
 						{userProfile.role === "artist" || userProfile.role === "artist-pending" ?
 						<div className="col-sm-10 col-10 text-white mb-3 mx-auto">
