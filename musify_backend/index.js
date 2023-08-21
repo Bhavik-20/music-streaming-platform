@@ -1,3 +1,4 @@
+
 // ------------------ MongoDB Database ------------------
 
 const mongoose = require('mongoose'); 
@@ -15,19 +16,58 @@ mongoose.connect("mongodb+srv://"+ process.env.MONGO_USER + ":" + process.env.MO
     console.log("Error connecting to MongoDB database " + err);
 });
 
+// ------------------ Setup Passport for Authentication ------------------
+
+const passport = require('passport');
+const JwtStrategy = require('passport-jwt').Strategy, ExtractJwt = require('passport-jwt').ExtractJwt;
+const UserModel = require('./models/User');
+
+let opts = {};
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = process.env.JWT_SECRET;
+passport.use(
+    new JwtStrategy(opts, function (jwt_payload, done) {
+        UserModel.findOne({_id: jwt_payload.identifier}, function (err, user) {
+            // done(error, doesTheUserExist)
+            if (err) {
+                return done(err, false);
+            }
+            if (user) {
+                return done(null, user);
+            } else {
+                return done(null, false);
+                // or you could create a new account
+            }
+        });
+    })
+);
+
 // ------------------ Node Server ------------------
 
 const express = require('express');
 const app = express();
-const port = 8000;
 
-// Default server entry point
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+const cors = require('cors');
+
+app.use(express.json());
+app.use(cors());
+
+const port = 8000;
+const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profile');
+const adminRoutes = require('./routes/admin');
+const userInfoRoutes = require('./routes/user-info');
+const songRoutes = require('./routes/songs');
+const albumRoutes = require('./routes/albums');
+
+app.use("/auth", authRoutes);
+app.use("/profile", profileRoutes);
+app.use("/admin", adminRoutes);
+app.use("/user-info", userInfoRoutes);
+app.use("/songs", songRoutes);
+app.use("/albumsPlaylist", albumRoutes);
 
 // Start server and listen on port 8000
 app.listen(port, () => {
     console.log(`Node Server is listening at http://localhost:${port}`);
 });
-
