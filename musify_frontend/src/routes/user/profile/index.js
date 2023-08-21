@@ -223,7 +223,7 @@ const ListenerProfileComponent = () => {
 						</div> : ""} 
 
 						{userProfile.role !== "artist-verified" ? (
-							<div>
+							<div className="w-100">
 								{likedTracks.length === 0 ? (
 									""
 								) : (
