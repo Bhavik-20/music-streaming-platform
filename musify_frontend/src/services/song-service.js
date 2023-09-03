@@ -1,5 +1,6 @@
 import axios from 'axios';
-const SONG_API = 'http://localhost:8000/songs';
+const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL;
+const SONG_API = `${SERVER_API_URL}/songs`;
 
 export const likeSong = async (currentUserId, songId) => {
     const body = {currentUserId, songId};

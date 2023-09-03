@@ -1,5 +1,6 @@
 import axios from 'axios';
-const ADMIN_API = 'http://localhost:8000/admin';
+const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL;
+const ADMIN_API = `${SERVER_API_URL}/admin`;
 
 export const getUsersList = async () => {
     const response = await axios.get(`${ADMIN_API}/users`);

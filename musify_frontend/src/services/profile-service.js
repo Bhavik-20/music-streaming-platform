@@ -1,5 +1,6 @@
 import axios from 'axios';
-const PROFILE_API = 'http://localhost:8000/profile';
+const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL;
+const PROFILE_API = `${SERVER_API_URL}/profile`;
 
 export const deleteProfile = async (user_id) => {
     const body = {user_id};

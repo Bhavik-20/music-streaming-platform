@@ -50,7 +50,18 @@ const app = express();
 const cors = require('cors');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: process.env.FRONTEND_URL,
+}));
+
+if (process.env.NODE_ENV !== "development") {
+  sessionOptions.proxy = true;
+  sessionOptions.cookie = {
+    sameSite: "none",
+    secure: true,
+  };
+}
 
 const port = 8000;
 const authRoutes = require('./routes/auth');
