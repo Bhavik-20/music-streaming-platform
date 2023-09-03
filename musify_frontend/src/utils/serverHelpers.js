@@ -1,5 +1,4 @@
-import { backendUrl } from "./config";
-
+const backendUrl = process.env.REACT_APP_SERVER_API_URL;
 export const makeUnauthenticatedPOSTRequest = async (route, body) => {
     const response = await fetch(backendUrl + route, {
         method: "POST",
