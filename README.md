@@ -1,6 +1,10 @@
 # music-streaming-platform-frontend
 ## Project Summary
 This project was designed by Bhavik Bhatt, Anusha Arora, Muskaan Nandu, and Shreyas Terdalkar for a graduate Web Development course. The web app serves as a discography search website for Spotify content. Users can use the website anonymously or logged in as either artists/listeners. Users can search content using the Spotify API and search user-related information via a local Mongo database.
+### Published site
+[https://musify-client.netlify.app/home]
+### Backend Repository
+Check out the backend repository here: [https://github.com/Bhavik-20/music-streaming-platform-backend]
 ## Key Frontend Features
 ### Spotify API
 The web app interacts with Spotify's API to allow users to search Spotify content including songs, playlists, and albums. Prior to being able to search for information, the user is authenticated via a token fetched from the Spotify API.
